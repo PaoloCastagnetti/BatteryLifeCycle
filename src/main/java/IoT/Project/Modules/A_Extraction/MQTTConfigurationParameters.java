@@ -8,7 +8,6 @@ public class MQTTConfigurationParameters {
     public static final String MQTT_PASSWORD="gzfwajdvhoyjtytm";
     public static final String MQTT_BASIC_TOPIC= String.format("/iot/user/%s", MQTT_USERNAME);
     //Editable
-    public static final String VEHICLE_TOPIC="vehicle";
-    public static final String VEHICLE_TELEMETRY_TOPIC="telemetry";
-    public static final String VEHICLE_INFO_TOPIC="info";
+    public static final String SENSOR_TOPIC="sensor";
+    public static final String QUANTITY_VALUE_TOPIC="quantity";
 }
