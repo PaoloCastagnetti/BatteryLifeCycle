@@ -42,7 +42,7 @@ public class MineralQuantitySensorDescriptor {
 
     //Methods
 
-    //This method simulates the loading of the extracted materials
+    //This method simulates the quantity of the extracted materials
     public void measureQuantityValue(){
         QUANTITY_START_VALUE += this.random.nextInt(1, QUANTITY_VALUE_BOUND);
         this.value = QUANTITY_START_VALUE;
