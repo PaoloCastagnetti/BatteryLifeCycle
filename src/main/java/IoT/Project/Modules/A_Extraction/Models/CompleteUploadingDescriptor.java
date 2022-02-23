@@ -1,7 +1,11 @@
 package IoT.Project.Modules.A_Extraction.Models;
 
 import java.util.Random;
-
+/**
+ * @author Paolo Castagnetti, 267731@studenti.unimore.it
+ * @project IoT-BatteryLifeCycle
+ * @created 06/02/2022 - 12:00
+ */
 public class CompleteUploadingDescriptor {
 
     //Attributes
