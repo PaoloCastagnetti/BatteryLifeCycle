@@ -11,7 +11,6 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
  * @created 23/02/2022 - 10:33
  */
 public class MineralQuantityProcessEmulator {
-    private static final int MESSAGE_COUNT = 1000;
     public static void main(String[] args) {
 
         System.out.println("MineralQuantityEmulator started ...");
@@ -42,20 +41,16 @@ public class MineralQuantityProcessEmulator {
             //Create Sensor Reference
             MineralQuantitySensorDescriptor MQSDescriptor = new MineralQuantitySensorDescriptor();
 
-
-            //Publish Vehicle Information
-            //publishDeviceInfo(mqttClient, MQSDescriptor);
-
-            //Start to publish MESSAGE_COUNT messages
-            for(int i = 0; i < MESSAGE_COUNT; i++) {
-
-                //Measure new values
+            //Start to publish telemetry messages
+            System.out.println("Publishing to:");
+            while(true){
                 MQSDescriptor.measureQuantityValue();
-
-                publishTelemetryData(mqttClient, MQSDescriptor);
-
-                //Sleep for 1 Second
-                Thread.sleep(3000);
+                publishTelemetryData(mqttClient,MQSDescriptor);
+                if(MQSDescriptor.getValue()==100){
+                    System.out.println("The extraction has reached its maximum volume!");
+                    break;
+                }
+                Thread.sleep(1500);
             }
 
             //Disconnect from the broker and close the connection
@@ -67,10 +62,9 @@ public class MineralQuantityProcessEmulator {
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
-    public static void publishTelemetryData(IMqttClient mqttClient, MineralQuantitySensorDescriptor telemetryData) {
+    public static void publishTelemetryData(IMqttClient mqttClient, MineralQuantitySensorDescriptor MQS_TD) {
         try{
             Gson gson = new Gson();
 
@@ -81,24 +75,23 @@ public class MineralQuantityProcessEmulator {
                     MQTTConfigurationParameters.QUANTITY_VALUE_TOPIC,
                     MQTTConfigurationParameters.EXTRACTED_TOPIC);
 
-            String payloadString = gson.toJson(telemetryData);
-
-            System.out.println("Publishing to Topic: " + topic + " Data: " + payloadString);
+            String payloadString = gson.toJson(MQS_TD);
+            System.out.println("Topic: " + topic + " Data: " + payloadString);
 
             if (mqttClient.isConnected() && payloadString != null && topic != null) {
 
                 MqttMessage msg = new MqttMessage(payloadString.getBytes());
                 msg.setQos(0);
-                msg.setRetained(false);
+                msg.setRetained(true);
                 mqttClient.publish(topic,msg);
                 System.out.println("Data Correctly Published !");
             }
             else{
-                System.err.println("Error: Topic or Msg = Null or MQTT Client is not Connected !");
+                System.err.println("Error: Topic/Msg == Null OR MQTT Client is not Connected !");
             }
 
         }catch (Exception e){
-            System.err.println("Error Publishing Telemetry Information ! Error: " + e.getLocalizedMessage());
+            System.err.println("Error Publishing Information ! Error: " + e.getLocalizedMessage());
         }
 
     }
