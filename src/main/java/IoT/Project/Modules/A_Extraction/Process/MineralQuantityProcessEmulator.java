@@ -51,7 +51,7 @@ public class MineralQuantityProcessEmulator {
                     System.out.println("The extraction has reached its maximum volume!");
                     break;
                 }
-                Thread.sleep(1500);
+                Thread.sleep(1000);
             }
 
             //Disconnect from the broker and close the connection
