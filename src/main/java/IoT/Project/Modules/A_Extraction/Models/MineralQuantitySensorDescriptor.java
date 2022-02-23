@@ -11,7 +11,9 @@ public class MineralQuantitySensorDescriptor {
     //Attributes
     private int value;
     private String unit = "%";
+    private String usid = null;
     private long timestamp;
+
 
     private static int QUANTITY_START_VALUE = 0;
     private static final int QUANTITY_VALUE_BOUND = 10;
@@ -37,6 +39,12 @@ public class MineralQuantitySensorDescriptor {
     }
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+    public String getUsid() {
+        return usid;
+    }
+    public void setUsid(String usid) {
+        this.usid = usid;
     }
 
     //Constructor

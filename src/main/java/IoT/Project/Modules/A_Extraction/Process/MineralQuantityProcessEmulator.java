@@ -17,13 +17,13 @@ public class MineralQuantityProcessEmulator {
 
         try{
 
-            String SensorId = String.format("sensor-%s", MQTTConfigurationParameters.MQTT_USERNAME);
+            String sensorId = String.format("sensor-%s", MQTTConfigurationParameters.MQTT_NUMBER);
 
             MqttClientPersistence persistence = new MemoryPersistence();
 
             IMqttClient mqttClient = new MqttClient(
                     String.format("tcp://%s:%d", MQTTConfigurationParameters.BROKER_ADDRESS, MQTTConfigurationParameters.BROKER_PORT),
-                    SensorId,
+                    sensorId,
                     persistence);
 
             MqttConnectOptions options = new MqttConnectOptions();
@@ -40,12 +40,13 @@ public class MineralQuantityProcessEmulator {
 
             //Create Sensor Reference
             MineralQuantitySensorDescriptor MQSDescriptor = new MineralQuantitySensorDescriptor();
+            MQSDescriptor.setUsid(sensorId);
 
             //Start to publish telemetry messages
             System.out.println("Publishing to:");
             while(true){
                 MQSDescriptor.measureQuantityValue();
-                publishTelemetryData(mqttClient,MQSDescriptor);
+                publishTelemetryData(mqttClient, sensorId, MQSDescriptor);
                 if(MQSDescriptor.getValue()==100){
                     System.out.println("The extraction has reached its maximum volume!");
                     break;
@@ -64,14 +65,15 @@ public class MineralQuantityProcessEmulator {
         }
     }
 
-    public static void publishTelemetryData(IMqttClient mqttClient, MineralQuantitySensorDescriptor MQS_TD) {
+    public static void publishTelemetryData(IMqttClient mqttClient, String sensorId, MineralQuantitySensorDescriptor MQS_TD) {
         try{
             Gson gson = new Gson();
 
-            //Topic Structure: /iot/user/<user_id>/sensor/quantity/extracted
-            String topic = String.format("%s/%s/%s/%s",
+            //Topic Structure: /iot/user/<user_id>/sensor/<sensor_id>/quantity/extracted
+            String topic = String.format("%s/%s/%s/%s/%s",
                     MQTTConfigurationParameters.MQTT_BASIC_TOPIC,
                     MQTTConfigurationParameters.SENSOR_TOPIC,
+                    sensorId,
                     MQTTConfigurationParameters.QUANTITY_VALUE_TOPIC,
                     MQTTConfigurationParameters.EXTRACTED_TOPIC);
 
