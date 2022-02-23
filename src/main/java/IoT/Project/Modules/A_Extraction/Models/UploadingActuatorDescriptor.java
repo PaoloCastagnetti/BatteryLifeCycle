@@ -6,7 +6,7 @@ import java.util.Random;
  * @project IoT-BatteryLifeCycle
  * @created 06/02/2022 - 12:00
  */
-public class CompleteUploadingDescriptor {
+public class UploadingActuatorDescriptor {
 
     //Attributes
     private boolean ready_to_load = false;
@@ -51,7 +51,7 @@ public class CompleteUploadingDescriptor {
     }
 
     //Constructor
-    public CompleteUploadingDescriptor(Random random) {
+    public UploadingActuatorDescriptor(Random random) {
         this.random = random;
     }
 

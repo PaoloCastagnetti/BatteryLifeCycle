@@ -81,10 +81,9 @@ public class MineralQuantityProcessEmulator {
             System.out.println("Topic: " + topic + " Data: " + payloadString);
 
             if (mqttClient.isConnected() && payloadString != null && topic != null) {
-
                 MqttMessage msg = new MqttMessage(payloadString.getBytes());
                 msg.setQos(0);
-                msg.setRetained(true);
+                msg.setRetained(false);
                 mqttClient.publish(topic,msg);
                 System.out.println("Data Correctly Published !");
             }
