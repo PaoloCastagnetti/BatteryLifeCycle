@@ -1,28 +1,28 @@
 package IoT.Project.Modules.B_Transport.Models;
 
 /**
- * @author Marco Savarese
+ * @author Marco Savarese - 271055@studenti.unimore.it
  * @project IoT-BatteryLifeCycle
  * @created 24/02/2022 - 12:48
  */
 public class VehicleDesctiptor {
     private String ID;
-    private String Brand;
-    private String Model;
-    private String DriverId;
+    private String brand;
+    private String model;
+    private String driverId;
 
     //Constructors
     public VehicleDesctiptor() {
-        ID = null;
-        Brand = null;
-        Model = null;
-        DriverId = null;
+        this.ID = null;
+        this.brand = null;
+        this.model = null;
+        this.driverId = null;
     }
     public VehicleDesctiptor(String ID, String brand, String model, String driverId) {
         this.ID = ID;
-        Brand = brand;
-        Model = model;
-        DriverId = driverId;
+        this.brand = brand;
+        this.model = model;
+        this.driverId = driverId;
     }
 
     //Getters and Setters
@@ -34,24 +34,24 @@ public class VehicleDesctiptor {
     }
 
     public String getBrand() {
-        return Brand;
+        return brand;
     }
     public void setBrand(String brand) {
-        Brand = brand;
+        this.brand = brand;
     }
 
     public String getModel() {
-        return Model;
+        return model;
     }
     public void setModel(String model) {
-        Model = model;
+        this.model = model;
     }
 
     public String getDriverId() {
-        return DriverId;
+        return driverId;
     }
     public void setDriverId(String driverId) {
-        DriverId = driverId;
+        this.driverId = driverId;
     }
 
     //toString
@@ -59,9 +59,9 @@ public class VehicleDesctiptor {
     public String toString(){
        final StringBuffer VehicleInfo = new StringBuffer("Vehicle:{");
        VehicleInfo.append("ID: '").append(ID).append('\'');
-       VehicleInfo.append(", Brand: '").append(Brand).append('\'');
-       VehicleInfo.append(", Model: '").append(Model).append('\'');
-       VehicleInfo.append(", DriverID: '").append(DriverId).append('\'');
+       VehicleInfo.append(", Brand: '").append(brand).append('\'');
+       VehicleInfo.append(", Model: '").append(model).append('\'');
+       VehicleInfo.append(", DriverID: '").append(driverId).append('\'');
        VehicleInfo.append('}');
        return VehicleInfo.toString();
     }
