@@ -1,3 +1,5 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+IoT/Project/Modules/A_Extraction/MQTTConfigurationParameters.java
+IoT/Project/Modules/B_Transport/MQTTConfigurationParameters.java
