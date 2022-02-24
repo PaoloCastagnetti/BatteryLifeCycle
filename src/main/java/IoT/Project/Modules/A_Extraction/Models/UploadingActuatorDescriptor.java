@@ -51,8 +51,8 @@ public class UploadingActuatorDescriptor {
     }
 
     //Constructor
-    public UploadingActuatorDescriptor(Random random) {
-        this.random = random;
+    public UploadingActuatorDescriptor() {
+        this.random = new Random();
     }
 
     //Methods
