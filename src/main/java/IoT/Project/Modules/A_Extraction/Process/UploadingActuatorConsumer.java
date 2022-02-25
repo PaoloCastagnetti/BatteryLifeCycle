@@ -1,20 +1,15 @@
 package IoT.Project.Modules.A_Extraction.Process;
 
+import IoT.Project.Modules.A_Extraction.CoAP_Communications.ValidatingFirstStage;
 import IoT.Project.Modules.A_Extraction.MQTTConfigurationParameters;
 import IoT.Project.Modules.A_Extraction.Models.MineralQuantitySensorDescriptor;
 import IoT.Project.Modules.A_Extraction.Models.UploadingActuatorDescriptor;
 import com.google.gson.Gson;
-import org.eclipse.californium.core.CoapClient;
-import org.eclipse.californium.core.CoapResponse;
-import org.eclipse.californium.core.Utils;
-import org.eclipse.californium.core.coap.CoAP;
-import org.eclipse.californium.core.coap.Request;
-import org.eclipse.californium.elements.exception.ConnectorException;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
-
-import java.io.IOException;
 import java.util.UUID;
+import static IoT.Project.Modules.A_Extraction.CoAP_Communications.ValidatingFirstStage.createResource;
+
 /**
  * @author Paolo Castagnetti, 267731@studenti.unimore.it
  * @project IoT-BatteryLifeCycle
@@ -23,7 +18,7 @@ import java.util.UUID;
 public class UploadingActuatorConsumer {
     static UploadingActuatorDescriptor UAD = new UploadingActuatorDescriptor();
     static Gson gson = new Gson();
-    private static final String COAP_ENDPOINT = "coap://127.0.0.1:5683/mineral";
+
 
     static void StartLoading() throws InterruptedException {
         System.out.println("Starting to load minerals into the camions");
@@ -42,23 +37,7 @@ public class UploadingActuatorConsumer {
 
     static void SendMaterials(){
         System.out.println("Sending Materials!");
-        /*CoapClient coapClient = new CoapClient(COAP_ENDPOINT);
-
-        //Request Class is a generic CoAP message: in this case we want a GET.
-        //"Message ID", "Token" and other header's fields can be set
-        Request request = new Request(CoAP.Code.POST);
-
-        //Set Request as Confirmable
-        request.setConfirmable(true);
-
-        System.out.println(String.format("Request Pretty Print: \n%s", Utils.prettyPrint(request)));
-
-        try {
-            CoapResponse coapResp = coapClient.advanced(request);
-            System.out.println(String.format("Response Pretty Print: \n%s", Utils.prettyPrint(coapResp)));
-        } catch (ConnectorException | IOException e) {
-            e.printStackTrace();
-        }*/
+        createResource();
     }
 
     public static void main(String [ ] args) {
