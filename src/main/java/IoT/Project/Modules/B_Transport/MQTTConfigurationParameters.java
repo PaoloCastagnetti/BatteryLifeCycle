@@ -16,5 +16,6 @@ public class MQTTConfigurationParameters {
     public static final String MQTT_NUMBER="271055";
     public static final String SENSOR_TOPIC="sensor";
     public static final String VEHICLE_TOPIC="vehicle";
-    public static final String LOCATION_TOPIC="GPSlocation";
+    public static final String VEHICLE_INFO_TOPIC="info";
+    public static final String VEHICLE_TELEMETRY_TOPIC="telemetry";
 }
