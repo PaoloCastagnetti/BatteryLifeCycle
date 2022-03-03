@@ -1,6 +1,5 @@
 package IoT.Project.Modules.A_Extraction.Process;
 
-import IoT.Project.Modules.A_Extraction.CoAP_Communications.ValidatingFirstStage;
 import IoT.Project.Modules.A_Extraction.MQTTConfigurationParameters;
 import IoT.Project.Modules.A_Extraction.Models.MineralQuantitySensorDescriptor;
 import IoT.Project.Modules.A_Extraction.Models.UploadingActuatorDescriptor;
@@ -8,7 +7,7 @@ import com.google.gson.Gson;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import java.util.UUID;
-import static IoT.Project.Modules.A_Extraction.CoAP_Communications.ValidatingFirstStage.createResource;
+import static IoT.Project.Modules.A_Extraction.CoAP_Communications.ValidatingFirstStage.sendResource;
 
 /**
  * @author Paolo Castagnetti, 267731@studenti.unimore.it
@@ -28,16 +27,12 @@ public class UploadingActuatorConsumer {
             System.out.println("Loading: "+ loading);
             if(UAD.getValue()==100){
                 UAD.setReady_to_go(true);
-                SendMaterials();
+                System.out.println("Sending Materials!");
+                sendResource(UAD);
                 break;
             }
             Thread.sleep(1000);
         }
-    }
-
-    static void SendMaterials(){
-        System.out.println("Sending Materials!");
-        createResource();
     }
 
     public static void main(String [ ] args) {
@@ -82,6 +77,7 @@ public class UploadingActuatorConsumer {
                     MineralQuantitySensorDescriptor MQS = gson.fromJson(msg, MineralQuantitySensorDescriptor.class);
                     if(MQS.getValue()==100){
                         UAD.setReady_to_load(true);
+                        UAD.setE_timestamp(MQS.getTimestamp());
                         StartLoading();
                     }
                 }

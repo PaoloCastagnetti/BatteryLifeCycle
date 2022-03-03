@@ -14,7 +14,6 @@ public class MineralQuantitySensorDescriptor {
     private String usid = null;
     private long timestamp;
 
-
     private static int QUANTITY_START_VALUE = 0;
     private static final int QUANTITY_VALUE_BOUND = 10;
 

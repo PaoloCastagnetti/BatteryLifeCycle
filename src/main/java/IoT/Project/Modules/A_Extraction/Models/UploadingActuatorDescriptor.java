@@ -14,6 +14,7 @@ public class UploadingActuatorDescriptor {
     private final String unit = "%";
     private boolean ready_to_go = false;
     private long timestamp;
+    private long e_timestamp;
 
     private static int QUANTITY_START_VALUE = 0;
     private static final int QUANTITY_VALUE_BOUND = 10;
@@ -48,6 +49,12 @@ public class UploadingActuatorDescriptor {
     }
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+    public long getE_timestamp() {
+        return e_timestamp;
+    }
+    public void setE_timestamp(long e_timestamp) {
+        this.e_timestamp = e_timestamp;
     }
 
     //Constructor
