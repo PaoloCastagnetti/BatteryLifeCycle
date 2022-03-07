@@ -9,11 +9,11 @@ import java.util.Random;
 public class UploadingActuatorDescriptor {
 
     //Attributes
-    private boolean ready_to_load = false;
     private int value;
     private final String unit = "%";
-    private boolean ready_to_go = false;
-    private long timestamp;
+    private boolean rtl = false; //ready to load
+    private boolean rtg = false; //ready to go
+    private long l_timestamp;
     private long e_timestamp;
 
     private static int QUANTITY_START_VALUE = 0;
@@ -23,11 +23,11 @@ public class UploadingActuatorDescriptor {
     private transient Random random;
 
     //Getter & Setter
-    public boolean isReady_to_load() {
-        return ready_to_load;
+    public boolean isRtl() {
+        return rtl;
     }
-    public void setReady_to_load(boolean ready_to_load) {
-        this.ready_to_load = ready_to_load;
+    public void setRtl(boolean rtl) {
+        this.rtl = rtl;
     }
     public int getValue() {
         return value;
@@ -38,17 +38,17 @@ public class UploadingActuatorDescriptor {
     public String getUnit() {
         return unit;
     }
-    public boolean isReady_to_go() {
-        return ready_to_go;
+    public boolean isRtg() {
+        return rtg;
     }
-    public void setReady_to_go(boolean ready_to_go) {
-        this.ready_to_go = ready_to_go;
+    public void setRtg(boolean rtg) {
+        this.rtg = rtg;
     }
-    public long getTimestamp() {
-        return timestamp;
+    public long getL_timestamp() {
+        return l_timestamp;
     }
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public void setL_timestamp(long l_timestamp) {
+        this.l_timestamp = l_timestamp;
     }
     public long getE_timestamp() {
         return e_timestamp;
@@ -72,6 +72,6 @@ public class UploadingActuatorDescriptor {
             int tmp = this.value - 100;
             this.value-=tmp;
         }
-        this.timestamp = System.currentTimeMillis();
+        this.l_timestamp = System.currentTimeMillis();
     }
 }

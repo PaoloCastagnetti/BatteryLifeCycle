@@ -10,7 +10,7 @@ public class MineralQuantitySensorDescriptor {
 
     //Attributes
     private int value;
-    private String unit = "%";
+    private final String UNIT = "%";
     private String usid = null;
     private long timestamp;
 
@@ -27,11 +27,8 @@ public class MineralQuantitySensorDescriptor {
     public void setValue(int value) {
         this.value = value;
     }
-    public String getUnit() {
-        return unit;
-    }
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public String getUNIT() {
+        return UNIT;
     }
     public long getTimestamp() {
         return timestamp;

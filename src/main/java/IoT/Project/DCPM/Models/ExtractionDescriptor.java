@@ -1,10 +1,12 @@
 package IoT.Project.DCPM.Models;
 
 public class ExtractionDescriptor {
+    private static final int MINERAL_QUANTITY = 150;
+    private static final String UNIT = "Kg";
 
     private long timestamp_end_extraction;
     private long timestamp_end_loading;
-    private float mineral_quantity_loaded;
+
 
     public long getTimestamp_end_extraction() {
         return timestamp_end_extraction;
@@ -18,19 +20,12 @@ public class ExtractionDescriptor {
     public void setTimestamp_end_loading(long timestamp_end_loading) {
         this.timestamp_end_loading = timestamp_end_loading;
     }
-    public float getMineral_quantity_loaded() {
-        return mineral_quantity_loaded;
-    }
-    public void setMineral_quantity_loaded(float mineral_quantity_loaded) {
-        this.mineral_quantity_loaded = mineral_quantity_loaded;
-    }
 
     @Override
     public String toString() {
         return "ExtractionDescriptor{" +
                 "timestamp_end_extraction=" + timestamp_end_extraction +
                 ", timestamp_end_loading=" + timestamp_end_loading +
-                ", mineral_quantity_loaded=" + mineral_quantity_loaded +
                 '}';
     }
 }

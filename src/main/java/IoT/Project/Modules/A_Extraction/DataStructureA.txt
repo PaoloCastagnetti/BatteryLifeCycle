@@ -1,0 +1,21 @@
+MineralQuantitySensorDescriptor definisce i campi del sensore per l'estrazione dei minerali:
+    private int value;
+    private String UNIT = "%";
+    private String usid = null;
+    private long timestamp;
+value è definito per la percentuale di estrazione.
+usid è dfinito per l'identificatore univoco del dispositivo.
+timestamp viene settato per registrare successivamente il momento di fine estrazione che coinciderà con il momento di inizio carico.
+
+UploadingActuatorDescriptor definisce i campi dell'attuatore (anche sensore) che legge il carico dei minerali sul camion e manda successivamente il segnale al DCPM.
+    private boolean ready_to_load = false;
+    private int value;
+    private final String unit = "%";
+    private boolean ready_to_go = false;
+    private long timestamp;
+    private long e_timestamp;
+ready_to_load è settato a true nel momento in cui la percentuale d'estrazione raggiunge il 100%.
+ready_to_go è settato a true nel momento in cui la percentuale di caricamento raggiunge il 100%.
+value è definito per la percentuale di caricamento.
+timestamp è il valore del tempo in cui finirà il processo di carico.
+e_timestamp è il valore passato in precedenza per la fine dell'estrazione.

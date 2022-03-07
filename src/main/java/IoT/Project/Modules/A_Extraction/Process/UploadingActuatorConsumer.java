@@ -26,7 +26,7 @@ public class UploadingActuatorConsumer {
             String loading = gson.toJson(UAD);
             System.out.println("Loading: "+ loading);
             if(UAD.getValue()==100){
-                UAD.setReady_to_go(true);
+                UAD.setRtg(true);
                 System.out.println("Sending Materials!");
                 sendResource(UAD);
                 break;
@@ -76,7 +76,7 @@ public class UploadingActuatorConsumer {
                     System.out.println("Message Received ("+topic+") Message Received: " + msg);
                     MineralQuantitySensorDescriptor MQS = gson.fromJson(msg, MineralQuantitySensorDescriptor.class);
                     if(MQS.getValue()==100){
-                        UAD.setReady_to_load(true);
+                        UAD.setRtl(true);
                         UAD.setE_timestamp(MQS.getTimestamp());
                         StartLoading();
                     }
