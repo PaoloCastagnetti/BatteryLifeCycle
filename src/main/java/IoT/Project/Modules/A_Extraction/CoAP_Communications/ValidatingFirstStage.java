@@ -10,7 +10,11 @@ import org.eclipse.californium.core.coap.Request;
 import org.eclipse.californium.elements.exception.ConnectorException;
 
 import java.io.IOException;
-
+/**
+ * @author Paolo Castagnetti, 267731@studenti.unimore.it
+ * @project IoT-BatteryLifeCycle
+ * @created 03/03/2022 - 10:09
+ */
 public class ValidatingFirstStage {
     private static final String COAP_ENDPOINT = "coap://127.0.0.1:5683/Extraction";
     private static Gson gson = new Gson();

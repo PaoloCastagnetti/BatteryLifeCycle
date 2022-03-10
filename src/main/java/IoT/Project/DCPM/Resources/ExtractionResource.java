@@ -7,7 +7,11 @@ import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
-
+/**
+ * @author Paolo Castagnetti, 267731@studenti.unimore.it
+ * @project IoT-BatteryLifeCycle
+ * @created 10/03/2022 - 10:09
+ */
 public class ExtractionResource extends CoapResource {
 
     private static final String OBJECT_TITLE = "ExtractionStage";
