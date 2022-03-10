@@ -4,7 +4,6 @@ import IoT.Project.DCPM.Models.ExtractionDescriptor;
 import IoT.Project.Modules.A_Extraction.Models.UploadingActuatorDescriptor;
 import com.google.gson.Gson;
 import org.eclipse.californium.core.CoapResource;
-import org.eclipse.californium.core.Utils;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
