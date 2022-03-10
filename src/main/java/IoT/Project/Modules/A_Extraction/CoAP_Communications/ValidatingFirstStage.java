@@ -1,7 +1,6 @@
 package IoT.Project.Modules.A_Extraction.CoAP_Communications;
 
 import IoT.Project.Modules.A_Extraction.Models.UploadingActuatorDescriptor;
-import IoT.Project.Modules.A_Extraction.Process.UploadingActuatorConsumer;
 import com.google.gson.Gson;
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResponse;

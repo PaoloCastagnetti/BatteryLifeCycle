@@ -6,8 +6,14 @@ public class ExtractionDescriptor {
 
     private long timestamp_end_extraction;
     private long timestamp_end_loading;
+    private String ExtractionLocation;
 
-
+    public String getLocation() {
+        return ExtractionLocation;
+    }
+    public void setLocation(String location) {
+        ExtractionLocation = location;
+    }
     public long getTimestamp_end_extraction() {
         return timestamp_end_extraction;
     }
@@ -28,4 +34,5 @@ public class ExtractionDescriptor {
                 ", timestamp_end_loading=" + timestamp_end_loading +
                 '}';
     }
+
 }

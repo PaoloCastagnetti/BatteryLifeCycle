@@ -18,11 +18,16 @@ public class UploadingActuatorDescriptor {
 
     private static int QUANTITY_START_VALUE = 0;
     private static final int QUANTITY_VALUE_BOUND = 10;
+    private final String LOCATION = "Mantova";
 
     //Utils
     private transient Random random;
 
     //Getter & Setter
+
+    public String getLocation() {
+        return LOCATION;
+    }
     public boolean isRtl() {
         return rtl;
     }

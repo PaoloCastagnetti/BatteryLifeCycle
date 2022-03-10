@@ -40,6 +40,7 @@ public class ExtractionResource extends CoapResource {
         try{
             this.ED.setTimestamp_end_extraction(0);
             this.ED.setTimestamp_end_loading(0);
+            this.ED.setLocation("Knowhere");
             exchange.respond(CoAP.ResponseCode.CHANGED);
             changed();
         }catch (Exception e){
@@ -56,6 +57,7 @@ public class ExtractionResource extends CoapResource {
             if(UAD != null && UAD.getL_timestamp() > 0 && UAD.getE_timestamp() > 0 && UAD.getValue()==100) {
                 this.ED.setTimestamp_end_extraction(UAD.getE_timestamp());
                 this.ED.setTimestamp_end_loading(UAD.getL_timestamp());
+                this.ED.setLocation(UAD.getLocation());
                 exchange.respond(CoAP.ResponseCode.CHANGED);
                 changed();
             }
