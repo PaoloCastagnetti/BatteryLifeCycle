@@ -21,7 +21,7 @@ public class ValidatingFirstStage {
 
     public static void sendResource(UploadingActuatorDescriptor UAD){
         CoapClient coapClient = new CoapClient(COAP_ENDPOINT);
-
+        UAD.simulateOriginOfMaterial();
         //Request Class is a generic CoAP message: in this case we want a GET.
         //"Message ID", "Token" and other header's fields can be set
         Request request = new Request(CoAP.Code.PUT);
