@@ -6,6 +6,7 @@ package IoT.Project.DCPM.Models;
  */
 public class ExtractionDescriptor {
 
+    //Attributes
     private long timestamp_end_extraction;
     private long timestamp_end_loading;
     private String extraction_location;
@@ -14,6 +15,23 @@ public class ExtractionDescriptor {
 
     private static final String UNIT = "Kg";
 
+    //Constructor
+    public ExtractionDescriptor(){
+        this.timestamp_end_extraction=0;
+        this.timestamp_end_loading=0;
+        this.extraction_location="";
+        this.load_code="";
+        this.mineral_quantity=0;
+    }
+    public ExtractionDescriptor(ExtractionDescriptor ED){
+        this.timestamp_end_extraction=ED.timestamp_end_extraction;
+        this.timestamp_end_loading=ED.timestamp_end_loading;
+        this.extraction_location=ED.extraction_location;
+        this.load_code= ED.load_code;
+        this.mineral_quantity=ED.mineral_quantity;
+    }
+
+    //Getter & Setter
     public String getExtraction_location() {
         return extraction_location;
     }
@@ -48,6 +66,7 @@ public class ExtractionDescriptor {
         this.timestamp_end_loading = timestamp_end_loading;
     }
 
+    //Methods
     @Override
     public String toString() {
         return "ExtractionDescriptor{" +
