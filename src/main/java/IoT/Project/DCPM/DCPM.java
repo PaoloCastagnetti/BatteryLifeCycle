@@ -1,9 +1,6 @@
 package IoT.Project.DCPM;
 
-import IoT.Project.DCPM.Resources.AssemblyResource;
-import IoT.Project.DCPM.Resources.ExtractionResource;
-import IoT.Project.DCPM.Resources.ProcessingResource;
-import IoT.Project.DCPM.Resources.TransportResource;
+import IoT.Project.DCPM.Resources.*;
 import org.eclipse.californium.core.CoapServer;
 
 /**
@@ -19,6 +16,7 @@ public class DCPM extends CoapServer {
         this.add(new TransportResource("Transport"));
         this.add(new ProcessingResource("Processing"));
         this.add(new AssemblyResource("Assembly"));
+        this.add(new BatteryResource("Battery"));
     }
     public static void main(String[] args) {
 
