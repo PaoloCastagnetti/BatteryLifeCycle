@@ -7,7 +7,11 @@ import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
-
+/**
+ * @author Paolo Castagnetti, 267731@studenti.unimore.it
+ * @project IoT-BatteryLifeCycle
+ * @created 10/03/2022 - 10:09
+ */
 public class ExtractionResource extends CoapResource {
 
     private static final String OBJECT_TITLE = "ExtractionStage";
@@ -40,6 +44,9 @@ public class ExtractionResource extends CoapResource {
         try{
             this.ED.setTimestamp_end_extraction(0);
             this.ED.setTimestamp_end_loading(0);
+            this.ED.setLocation("");
+            this.ED.setLoad_code("0.0");
+            this.ED.setMineral_quantity(0);
             exchange.respond(CoAP.ResponseCode.CHANGED);
             changed();
         }catch (Exception e){
@@ -56,6 +63,9 @@ public class ExtractionResource extends CoapResource {
             if(UAD != null && UAD.getL_timestamp() > 0 && UAD.getE_timestamp() > 0 && UAD.getValue()==100) {
                 this.ED.setTimestamp_end_extraction(UAD.getE_timestamp());
                 this.ED.setTimestamp_end_loading(UAD.getL_timestamp());
+                this.ED.setLocation(UAD.getLocation());
+                this.ED.setLoad_code(UAD.getLoad_code());
+                this.ED.setMineral_quantity(UAD.getMineral_quantity());
                 exchange.respond(CoAP.ResponseCode.CHANGED);
                 changed();
             }
