@@ -36,8 +36,9 @@ public class VehicleDataConsumer {
 
             //Connection
             client.connect(options);
-
+            System.out.println("Connected!");
             //Subscription to the topic that gives the vehicle's information
+            //Topic: /iot/user/<userid>/vehicle/+/info
             String vehicleInfoTopic = String.format("%s/%s/+/%s",
                     MQTTConfigurationParameters.MQTT_BASIC_TOPIC,
                     MQTTConfigurationParameters.VEHICLE_TOPIC,
@@ -52,9 +53,10 @@ public class VehicleDataConsumer {
             });
 
             //Subscription to the topic that gives telemetry data
-            String vehicleTelemetryTopic = String.format("%s/%s/+/%s",
+            String vehicleTelemetryTopic = String.format("%s/%s/+/%s/%s",
                     MQTTConfigurationParameters.MQTT_BASIC_TOPIC,
                     MQTTConfigurationParameters.VEHICLE_TOPIC,
+                    MQTTConfigurationParameters.SENSOR_TOPIC,
                     MQTTConfigurationParameters.VEHICLE_TELEMETRY_TOPIC
             );
             client.subscribe(vehicleTelemetryTopic, new IMqttMessageListener() {
