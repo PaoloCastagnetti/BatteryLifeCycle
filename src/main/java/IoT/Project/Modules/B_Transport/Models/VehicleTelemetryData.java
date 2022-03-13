@@ -10,20 +10,17 @@ import java.util.Random;
 public class VehicleTelemetryData {
     private GPSTrackerDescriptor gpsTrackerDescriptor;
     private double batterylevel = 100.0;
-    private int speed;
     private double enginetemp;
     private long timestamp;
 
     private transient Random random;
 
-
     //Constructor
     public VehicleTelemetryData(){
     }
-    public VehicleTelemetryData(GPSTrackerDescriptor gpsTrackerDescriptor, double batterylevel, int speed, double enginetemp, long timestamp) {
+    public VehicleTelemetryData(GPSTrackerDescriptor gpsTrackerDescriptor, double batterylevel, double enginetemp, long timestamp) {
         this.gpsTrackerDescriptor = gpsTrackerDescriptor;
         this.batterylevel = batterylevel;
-        this.speed = speed;
         this.enginetemp = enginetemp;
         this.timestamp = timestamp;
     }
@@ -39,7 +36,6 @@ public class VehicleTelemetryData {
         this.gpsTrackerDescriptor = new GPSTrackerDescriptor(randomlatitude, randomlongitude, 1232.0);
         this.enginetemp = 80 + this.random.nextDouble() * 10.0;
         this.batterylevel = this.batterylevel - (this.random.nextDouble() * 10.0);
-        this.speed = 10 + this.random.nextInt() * 90;
         this.timestamp = System.currentTimeMillis();
     }
 
@@ -55,12 +51,6 @@ public class VehicleTelemetryData {
     }
     public void setBatterylevel(double batterylevel) {
         this.batterylevel = batterylevel;
-    }
-    public int getSpeed() {
-        return speed;
-    }
-    public void setSpeed(int speed) {
-        this.speed = speed;
     }
     public double getEnginetemp() {
         return enginetemp;
