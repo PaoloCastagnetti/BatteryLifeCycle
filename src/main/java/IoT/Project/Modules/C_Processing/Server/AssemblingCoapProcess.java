@@ -1,9 +1,7 @@
 package IoT.Project.Modules.C_Processing.Server;
 
 import IoT.Project.Modules.C_Processing.Resource.AssemblingResource;
-import IoT.Project.Modules.C_Processing.Resource.TransformingResource;
 import IoT.Project.Modules.C_Processing.Sensors.AssemblingSensor;
-import IoT.Project.Modules.C_Processing.Sensors.TransformingSensor;
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.CoapServer;
 import org.slf4j.Logger;
@@ -16,7 +14,7 @@ public class AssemblingCoapProcess extends CoapServer {
 
     public AssemblingCoapProcess(){
         super();
-        String deviceId = String.format("modules:processing:%s", UUID.randomUUID().toString());
+        String deviceId = String.format("modules:assembling:%s", UUID.randomUUID().toString());
         this.add(createAssemblingResource(deviceId));
     }
 
