@@ -1,6 +1,8 @@
 package IoT.Project.DCPM;
 
+import IoT.Project.DCPM.Models.ExtractionDescriptor;
 import IoT.Project.DCPM.Resources.*;
+import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.CoapServer;
 
 /**
@@ -11,13 +13,14 @@ import org.eclipse.californium.core.CoapServer;
 public class DCPM extends CoapServer {
     public DCPM(){
         super();
-
         this.add(new ExtractionResource("Extraction"));
         this.add(new TransportResource("Transport"));
         this.add(new ProcessingResource("Processing"));
         this.add(new AssemblyResource("Assembly"));
         this.add(new BatteryResource("Battery"));
     }
+
+
     public static void main(String[] args) {
 
         DCPM coapServer = new DCPM();
@@ -27,4 +30,5 @@ public class DCPM extends CoapServer {
             System.out.printf("Resource %s -> URI: %s (Observable: %b)%n", resource.getName(), resource.getURI(), resource.isObservable());
         });
     }
+
 }
