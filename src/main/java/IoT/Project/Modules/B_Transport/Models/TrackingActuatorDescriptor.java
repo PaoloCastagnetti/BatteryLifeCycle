@@ -1,8 +1,12 @@
 package IoT.Project.Modules.B_Transport.Models;
 
-
-
 import java.util.Random;
+
+/**
+ * @author Marco Savarese - 271055@studenti.unimore.it
+ * @project IoT-BatteryLifeCycle
+ * @created 17/03/2022 - 14:57
+ */
 
 public class TrackingActuatorDescriptor {
     private String DID;

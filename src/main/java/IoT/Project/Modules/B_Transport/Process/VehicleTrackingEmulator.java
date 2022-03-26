@@ -20,7 +20,7 @@ import java.io.IOException;
 /**
  * @author Marco Savarese - 271055@studenti.unimore.it
  * @project IoT-BatteryLifeCycle
- * @created 08/03/2022 11:13
+ * @created 08/03/2022 11:04
  */
 public class VehicleTrackingEmulator {
     static Gson gson = new Gson();

@@ -1,6 +1,5 @@
 package IoT.Project.Modules.B_Transport.CoAP_Communication;
 
-import IoT.Project.DCPM.Models.ExtractionDescriptor;
 import IoT.Project.Modules.B_Transport.Models.TrackingActuatorDescriptor;
 import com.google.gson.Gson;
 import org.eclipse.californium.core.CoapClient;
@@ -11,6 +10,12 @@ import org.eclipse.californium.core.coap.Request;
 import org.eclipse.californium.elements.exception.ConnectorException;
 
 import java.io.IOException;
+
+/**
+ * @author Marco Savarese - 271055@studenti.unimore.it
+ * @project IoT-BatteryLifeCycle
+ * @created 20/03/2022 - 11:58
+ */
 
 public class ValidatingSecondStage {
 
