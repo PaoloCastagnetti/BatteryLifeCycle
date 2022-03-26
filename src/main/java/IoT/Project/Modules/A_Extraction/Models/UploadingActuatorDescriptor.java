@@ -97,7 +97,7 @@ public class UploadingActuatorDescriptor {
         this.setMineral_quantity(this.random.nextInt(10000, 40000));
     }
 
-    //This method simulates the quantity of the extracted materials loaded on the camions
+    //This method simulates the quantity of the extracted materials loaded on the trucks
     public void measureLoadingMaterial(){
         QUANTITY_START_VALUE += this.random.nextInt(1, QUANTITY_VALUE_BOUND);
         this.value = QUANTITY_START_VALUE;

@@ -3,7 +3,7 @@ package IoT.Project.Modules.B_Transport.Models;
 /**
  * @author Marco Savarese - 271055@studenti.unimore.it
  * @project IoT-BatteryLifeCycle
- * @created 24/02/2022 - 17:03
+ * @created 25/02/2022 - 12:24
  */
 
 public class GPSTrackerDescriptor {

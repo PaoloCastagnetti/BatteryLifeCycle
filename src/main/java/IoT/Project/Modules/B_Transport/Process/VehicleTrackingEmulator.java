@@ -1,25 +1,47 @@
 package IoT.Project.Modules.B_Transport.Process;
 
+import IoT.Project.DCPM.Models.ExtractionDescriptor;
+import IoT.Project.Modules.B_Transport.CoAP_Communication.ValidatingSecondStage;
 import IoT.Project.Modules.B_Transport.MQTTConfigurationParameters;
 import IoT.Project.Modules.B_Transport.Models.VehicleDesctiptor;
 import IoT.Project.Modules.B_Transport.Models.VehicleTelemetryData;
 import com.google.gson.Gson;
+import org.eclipse.californium.core.CoapClient;
+import org.eclipse.californium.core.CoapResponse;
+import org.eclipse.californium.core.Utils;
+import org.eclipse.californium.core.coap.CoAP;
+import org.eclipse.californium.core.coap.Request;
+import org.eclipse.californium.elements.exception.ConnectorException;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
+import java.io.IOException;
 
 /**
  * @author Marco Savarese - 271055@studenti.unimore.it
  * @project IoT-BatteryLifeCycle
- * @created 08/03/2022 11:13
+ * @created 08/03/2022 11:04
  */
 public class VehicleTrackingEmulator {
-    private static final int MESSAGE_LIMIT = 100;
-
+    static Gson gson = new Gson();
+    static ExtractionDescriptor STC;
     public static void main(String[] args) {
-
+        //GET
+        CoapClient coapClientGet = new CoapClient(ValidatingSecondStage.COAP_PREVIOUS_ENDPOINT);
+        Request req = new Request(CoAP.Code.GET);
+        req.setConfirmable(true);
+        try{
+            CoapResponse resp = coapClientGet.advanced(req);
+            byte[] payload = resp.getPayload();
+            String peppe = new String(payload);
+            STC = gson.fromJson(peppe, ExtractionDescriptor.class);
+            System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(resp));
+        }catch(ConnectorException | IOException e){
+            e.printStackTrace();
+        }
         IMqttClient mqttClient;
         try {
-            String ID = String.format("Vehicle-%s", MQTTConfigurationParameters.MQTT_USERNAME);
+            String ID = String.format("Truck-%s", STC.getLoad_code());
 
             MqttClientPersistence persistence = new MemoryPersistence();
 
@@ -52,15 +74,17 @@ public class VehicleTrackingEmulator {
             vehicleDesctiptor.setModel("E-Transit");
 
             //TelemetryData
-            VehicleTelemetryData vehicleTelemetryData = new VehicleTelemetryData();
+            VehicleTelemetryData vehicleTelemetryData = new VehicleTelemetryData(ID);
             publishVehicleData(mqttClient, vehicleDesctiptor);
-
-            for (int i = 0; i < MESSAGE_LIMIT; ++i) {
-                vehicleTelemetryData.updateMeasurments();
-
+            String SC = STC.getExtraction_location();
+            while(true){
+                vehicleTelemetryData.updateMeasurments(SC);
                 publishTelemetryData(mqttClient, vehicleDesctiptor.getID(), vehicleTelemetryData);
-
-                Thread.sleep(3000);
+                if(vehicleTelemetryData.getBatteryLevel() == 0){
+                    System.out.println("Destination reached");
+                    break;
+                }
+                Thread.sleep(1000);
             }
 
             mqttClient.disconnect();
@@ -77,7 +101,7 @@ public class VehicleTrackingEmulator {
      */
     public static void publishVehicleData(IMqttClient mqttClient, VehicleDesctiptor vehicleDescriptor){
         try{
-            Gson gson = new Gson();
+            Gson gsonData = new Gson();
 
             if(mqttClient.isConnected()){
 
@@ -88,7 +112,7 @@ public class VehicleTrackingEmulator {
                         MQTTConfigurationParameters.VEHICLE_INFO_TOPIC
                 );
 
-                String payload = gson.toJson(vehicleDescriptor);
+                String payload = gsonData.toJson(vehicleDescriptor);
                 //String payload = "";
 
                 MqttMessage msg = new MqttMessage(payload.getBytes());
@@ -113,7 +137,7 @@ public class VehicleTrackingEmulator {
      */
     public static void publishTelemetryData(IMqttClient mqttClient, String vehicleID, VehicleTelemetryData telemetryData){
         try{
-            Gson gson = new Gson();
+            Gson gsonTel = new Gson();
 
             String topic = String.format("%s/%s/%s/%s/%s",
                     MQTTConfigurationParameters.MQTT_BASIC_TOPIC,
@@ -123,13 +147,15 @@ public class VehicleTrackingEmulator {
                     MQTTConfigurationParameters.VEHICLE_TELEMETRY_TOPIC
             );
 
-            String payload = gson.toJson(telemetryData);
+            String payload = gsonTel.toJson(telemetryData);
             if(mqttClient.isConnected() && payload != null && topic != null){
                 MqttMessage msg = new MqttMessage(payload.getBytes());
                 msg.setQos(0);
                 msg.setRetained(false);
                 mqttClient.publish(topic, msg);
                 System.out.println("Telemetry Data Correctly Published! Topic" + topic + "Payload: " + payload);
+
+
             }
         }catch (Exception e){
             System.err.println("Error Publishing Telemetry Data: " + e.getLocalizedMessage());
