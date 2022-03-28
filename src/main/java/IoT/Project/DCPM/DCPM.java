@@ -13,11 +13,26 @@ import org.eclipse.californium.core.CoapServer;
 public class DCPM extends CoapServer {
     public DCPM(){
         super();
-        this.add(new ExtractionResource("Extraction"));
-        this.add(new TransportResource("Transport"));
-        this.add(new ProcessingResource("Processing"));
-        this.add(new AssemblyResource("Assembly"));
-        this.add(new BatteryResource("Battery"));
+        ExtractionResource ET = new ExtractionResource("Extraction");
+        ET.setObservable(true);
+        ET.getAttributes().setObservable();
+        this.add(ET);
+        TransportResource TR = new TransportResource("Transport");
+        TR.setObservable(true);
+        TR.getAttributes().setObservable();
+        this.add(TR);
+        ProcessingResource PR = new ProcessingResource("Processing");
+        TR.setObservable(true);
+        TR.getAttributes().setObservable();
+        this.add(PR);
+        AssemblyResource AR = new AssemblyResource("Assembly");
+        TR.setObservable(true);
+        TR.getAttributes().setObservable();
+        this.add(AR);
+        BatteryResource BR = new BatteryResource("Battery");
+        TR.setObservable(true);
+        TR.getAttributes().setObservable();
+        this.add(BR);
     }
 
 
