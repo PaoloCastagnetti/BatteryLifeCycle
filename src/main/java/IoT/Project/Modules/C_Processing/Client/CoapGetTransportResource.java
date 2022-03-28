@@ -3,6 +3,7 @@ package IoT.Project.Modules.C_Processing.Client;
 import IoT.Project.DCPM.Models.TransportDescriptor;
 import com.google.gson.Gson;
 import org.eclipse.californium.core.CoapClient;
+import org.eclipse.californium.core.CoapHandler;
 import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.Utils;
 import org.eclipse.californium.core.coap.CoAP;
@@ -48,4 +49,37 @@ public class CoapGetTransportResource {
         }
         return elements;
     }
+
+    //Questa funzione va utilizzata per una risorsa coap observable
+    public static String[] getTransportObs(){
+        String elements[]=new String[2];
+        CoapClient coapClient = new CoapClient(COAP_ENDPOINT_GET);
+        Request req = new Request(CoAP.Code.GET);
+        req.setConfirmable(true);
+
+        System.out.printf("Request Pretty Print: \n%s%n", Utils.prettyPrint(req));
+        coapClient.observe(new CoapHandler() {
+            @Override
+            public void onLoad(CoapResponse response) {
+                byte[] payload = response.getPayload();
+                String final_payload = new String(payload);
+                transportDescriptor= gson.fromJson(final_payload, TransportDescriptor.class);
+                //pos 0 -> vehicle id & pos 1->ending location
+                elements[0]=transportDescriptor.getVID();
+                elements[1]=transportDescriptor.getENL();
+                System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(response));
+            }
+            @Override
+            public void onError() {
+                System.err.println("Error on loading resource");
+            }
+        });
+        try{
+            Thread.sleep(10000);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return elements;
+    }
+
 }
