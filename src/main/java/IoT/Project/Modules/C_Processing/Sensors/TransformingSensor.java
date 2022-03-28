@@ -1,6 +1,7 @@
 package IoT.Project.Modules.C_Processing.Sensors;
 
 
+import IoT.Project.Modules.A_Extraction.Models.Cities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,45 +11,48 @@ import java.util.UUID;
 
 public class TransformingSensor {
 
-    private static Logger logger = LoggerFactory.getLogger(TransformingSensor.class);
-
     private int value;
     private long i_Timestamp;
     private long f_Timestamp;
-    private String unit="%";
+    private String unit = "%";
     private String deviceId;
-    private final static int VALUE_BOND=10;
-    private Boolean isOn;
+    private final static int VALUE_BOND = 10;
+    private String location;
+    private String code;
+    private Cities city;
+    private Random random;
 
-    public TransformingSensor(){
+    public TransformingSensor() {
         super();
         init();
     }
 
-    private void init(){
+    private void init() {
 
-        try{
-            this.i_Timestamp=System.currentTimeMillis();
-            this.deviceId=UUID.randomUUID().toString();
-            this.value=10;
-            this.isOn=true;
-            update();
+        try {
+            this.i_Timestamp = 0;
+            this.deviceId = UUID.randomUUID().toString();
+            this.value = 0;
+            update_transform();
 
-        }catch (Exception e){
-            logger.error("Error initializing the IoT Resource ! Msg: {}", e.getLocalizedMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
 
-    private void update(){
+    public void update_transform() throws InterruptedException {
 
-        logger.info("Starting periodic Update Task with on {}",deviceId);
-        while(value<100){
-            value+=VALUE_BOND;
+        System.out.println(String.format("Starting periodic Update Task with on {%s}", deviceId));
+        i_Timestamp = System.currentTimeMillis();
+        while (value < 100) {
+            Thread.sleep(1500);
+            value += VALUE_BOND;
         }
-        f_Timestamp=System.currentTimeMillis();
-        this.value=0;
-        logger.info("{} has reached 100% assembling",deviceId);
+        f_Timestamp = System.currentTimeMillis();
+        this.value = 100;
+        setLocation(city.getCITY(random.nextInt(5)));
+        System.out.println(String.format("The %s is full assembled!", deviceId));
     }
 
     @Override
@@ -59,7 +63,8 @@ public class TransformingSensor {
                 ", f_Timestamp=" + f_Timestamp +
                 ", unit='" + unit + '\'' +
                 ", deviceId='" + deviceId + '\'' +
-                ", isOn=" + isOn +
+                ", location='" + location + '\'' +
+                ", code='" + code + '\'' +
                 '}';
     }
 
@@ -103,11 +108,21 @@ public class TransformingSensor {
         this.deviceId = deviceId;
     }
 
-    public Boolean getOn() {
-        return isOn;
+    public String getLocation() {
+        return location;
     }
 
-    public void setOn(Boolean on) {
-        isOn = on;
+    public void setLocation(String location) {
+        this.location = location;
     }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+
 }

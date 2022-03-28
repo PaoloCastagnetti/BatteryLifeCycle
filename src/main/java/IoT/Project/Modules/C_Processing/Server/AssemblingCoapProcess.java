@@ -1,51 +1,59 @@
 package IoT.Project.Modules.C_Processing.Server;
 
+import IoT.Project.Modules.C_Processing.Client.CoapGetTransformResource;
+import IoT.Project.Modules.C_Processing.Client.CoapGetTransportResource;
 import IoT.Project.Modules.C_Processing.Resource.AssemblingResource;
 import IoT.Project.Modules.C_Processing.Sensors.AssemblingSensor;
-import org.eclipse.californium.core.CoapResource;
+import IoT.Project.Modules.C_Processing.Sensors.TransformingSensor;
 import org.eclipse.californium.core.CoapServer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.UUID;
 
 public class AssemblingCoapProcess extends CoapServer {
-    private final static Logger logger = LoggerFactory.getLogger(AssemblingCoapProcess.class);
 
     public AssemblingCoapProcess(){
         super();
-        String deviceId = String.format("modules:assembling:%s", UUID.randomUUID().toString());
-        this.add(createAssemblingResource(deviceId));
-    }
-
-    public CoapResource createAssemblingResource(String deviceId){
-        CoapResource transformingRootResource = new CoapResource("Assembler");
-
-        //sensors
-        AssemblingSensor assemblingSensor=new AssemblingSensor();
-        //resource
-        AssemblingResource assemblingResource=new AssemblingResource("assemble",assemblingSensor,deviceId);
-
-        transformingRootResource.add(assemblingResource);
-        return transformingRootResource;
-
+      this.add(new AssemblingResource("Assemble"));
     }
 
     public static void main(String[] args) {
 
         AssemblingCoapProcess server =new AssemblingCoapProcess();
         server.start();
-        logger.info("Coap Server Started ! Available resources: ");
+        System.out.println("Coap serer started!, Available resouces: ");
 
         server.getRoot().getChildren().stream().forEach(resource -> {
-            logger.info("Resource {} -> URI: {} (Observable: {})", resource.getName(), resource.getURI(), resource.isObservable());
+            System.out.println(String.format("Resource %s, Uri %s , Observable: %b",resource.getName(), resource.getURI(), resource.isObservable()));
             if(!resource.getURI().equals("/.well-known")){
                 resource.getChildren().stream().forEach(childResource -> {
-                    logger.info("\t Resource {} -> URI: {} (Observable: {})", childResource.getName(), childResource.getURI(), childResource.isObservable());
+                    System.out.println(String.format("Resource %s, Uri %s , Observable: %b", childResource.getName(), childResource.getURI(), childResource.isObservable()));
                 });
             }
         });
 
+
+        //devo fare la get sulla tranform, mi serve inizio,fine, luogo ,id
+        TransformingSensor transformingSensor=new TransformingSensor();
+        CoapGetTransformResource.getTransformComponent(transformingSensor);
+
+        //abbiamo bisogno di tutte le altre info
+        AssemblingSensor assemblingSensor=new AssemblingSensor();
+        assemblingSensor.setCode(transformingSensor.getCode());
+        assemblingSensor.setDeviceId(transformingSensor.getDeviceId());
+        assemblingSensor.setI_timestamp_transforming(transformingSensor.getI_Timestamp());
+        assemblingSensor.setF_Timestamp_assembling(transformingSensor.getF_Timestamp());
+
+        //fase di assemblaggio setta solo i valori di inizio e fine timestamp
+       //simulo assemblaggio
+        assemblingSensor.update_assemble();
+
+        //ora devo fare ina post al data collector dell'assembling sensor
+
+
+
     }
 
+
+
+
 }
+

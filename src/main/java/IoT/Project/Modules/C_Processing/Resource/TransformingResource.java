@@ -1,6 +1,9 @@
 package IoT.Project.Modules.C_Processing.Resource;
 
+import IoT.Project.DCPM.Models.ExtractionDescriptor;
+import IoT.Project.DCPM.Models.TransportDescriptor;
 import IoT.Project.Modules.C_Processing.Sensors.TransformingSensor;
+import com.google.gson.Gson;
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapHandler;
 import org.eclipse.californium.core.CoapResource;
@@ -12,27 +15,23 @@ import org.slf4j.LoggerFactory;
 
 public class TransformingResource extends CoapResource {
 
-    private final static Logger logger = LoggerFactory.getLogger(TransformingResource.class);
-    private String deviceId;
     private TransformingSensor transformingSensor;
     private static final String OBJECT_TITLE = "TransformingSensor";
-    private Boolean isOn=true;
+    static Gson gson;
 
-    public TransformingResource(String name,TransformingSensor transformingSensor,String deviceId){
+    public TransformingResource(String name){
         super(name);
-        if(transformingSensor!= null && deviceId !=null){
-            this.deviceId=deviceId;
-            this.transformingSensor=transformingSensor;
-            getAttributes().setTitle(OBJECT_TITLE);
-            getAttributes().setObservable();
-            getAttributes().addAttribute("rt",transformingSensor.getDeviceId());
-        }
-        else {
-            logger.error("Error -> NULL Raw Reference !");
-
-        }
+        init();
     }
 
+    private void init(){
+        getAttributes().setTitle(OBJECT_TITLE);
+        //getAttributes().setObservable();
+        this.gson = new Gson();
+        this.transformingSensor = new TransformingSensor();
+    }
+
+    //GET DA GUARDARE
     @Override
     public void handleGET(CoapExchange exchange) {
         exchange.accept();
@@ -54,42 +53,14 @@ public class TransformingResource extends CoapResource {
     }
 
     @Override
-    public void handlePOST(CoapExchange exchange){
-        exchange.accept();
-
-        try{
-            //Empty request
-            if(exchange.getRequestPayload() == null){
-
-                //Update internal status
-                this.isOn = !isOn;
-                this.transformingSensor.setOn(isOn);
-
-                exchange.respond(CoAP.ResponseCode.CHANGED);
-            }
-            else
-                exchange.respond(CoAP.ResponseCode.BAD_REQUEST);
-
-        }catch (Exception e){
-
-            exchange.respond(CoAP.ResponseCode.INTERNAL_SERVER_ERROR);
-        }
-
-    }
-
-    @Override
     public void handlePUT(CoapExchange exchange){
         try{
 
             //If the request body is available
             if(exchange.getRequestPayload() != null){
-
-                boolean submittedValue = Boolean.parseBoolean(new String(exchange.getRequestPayload()));
-
-                //Update internal status
-                this.isOn = submittedValue;
-                this.transformingSensor.setOn(this.isOn);
-
+                byte[] payload = exchange.getRequestPayload();
+                String final_payload = new String(payload);
+                transformingSensor= gson.fromJson(final_payload, TransformingSensor.class);
                 exchange.respond(CoAP.ResponseCode.CHANGED);
             }
             else
