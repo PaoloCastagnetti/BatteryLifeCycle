@@ -19,27 +19,17 @@ public class TransformingSensor {
     private final static int VALUE_BOND = 10;
     private String location;
     private String code;
-    private Cities city;
-    private Random random;
+    private transient Cities city;
+    private transient Random random;
 
     public TransformingSensor() {
-        super();
-        init();
+        this.i_Timestamp = 0;
+        this.deviceId = UUID.randomUUID().toString();
+        this.value = 0;
+        this.random=new Random();
+        this.city=new Cities();
     }
 
-    private void init() {
-
-        try {
-            this.i_Timestamp = 0;
-            this.deviceId = UUID.randomUUID().toString();
-            this.value = 0;
-            update_transform();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public void update_transform() throws InterruptedException {
 
@@ -48,11 +38,13 @@ public class TransformingSensor {
         while (value < 100) {
             Thread.sleep(1500);
             value += VALUE_BOND;
+            //fai vedere timestamp e percentuale e qualcos'altro
+            System.out.println("working on it");
         }
         f_Timestamp = System.currentTimeMillis();
         this.value = 100;
         setLocation(city.getCITY(random.nextInt(5)));
-        System.out.println(String.format("The %s is full assembled!", deviceId));
+        System.out.println(String.format("The %s is full transformed!", deviceId));
     }
 
     @Override

@@ -17,28 +17,18 @@ public class AssemblingSensor {
     private final static int VALUE_BOND = 10;
     private String location;
     private String code;
-    private Cities city;
-    private Random random;
+    private transient Cities city;
+    private transient Random random;
 
 
     public AssemblingSensor(){
-        super();
-        init();
+        this.i_Timestamp_assembling =0;
+        this.deviceId= UUID.randomUUID().toString();
+        this.value=10;
+        this.random=new Random();
+        this.city=new Cities();
     }
 
-    private void init(){
-
-        try{
-            this.i_Timestamp_assembling =0;
-            this.deviceId= UUID.randomUUID().toString();
-            this.value=10;
-            update_assemble();
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
 
     public void update_assemble() {
         System.out.println(String.format("Starting periodic Update Task with on {%s}", deviceId));

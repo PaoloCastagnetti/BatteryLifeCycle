@@ -16,11 +16,12 @@ public class CoapGetTransformResource {
     static TransformingSensor transformingSensor;
     static Gson gson;
 
-    public static TransformingSensor getTransformComponent(TransformingSensor sensor){
+    public static TransformingSensor getTransformComponent(){
         //Initialize coapClient
         CoapClient coapClient = new CoapClient(COAP_ENDPOINT_GET);
         long elements[]=new long[2];
         String string[]=new String[2];
+        TransformingSensor sensor=new TransformingSensor();
         
 
 
@@ -39,11 +40,7 @@ public class CoapGetTransformResource {
             CoapResponse resp = coapClient.advanced(req);
             byte[] payload = resp.getPayload();
             String final_payload = new String(payload);
-            transformingSensor= gson.fromJson(final_payload, TransformingSensor.class);
-            sensor.setI_Timestamp(sensor.getI_Timestamp());
-            sensor.setF_Timestamp(sensor.getF_Timestamp());
-            sensor.setCode(sensor.getCode());
-            sensor.setLocation(sensor.getLocation());
+            sensor= gson.fromJson(final_payload, TransformingSensor.class);
 
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(resp));
         }catch(ConnectorException | IOException e){

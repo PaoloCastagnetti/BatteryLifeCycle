@@ -11,16 +11,18 @@ public class Transformingprocess {
         String elements[]=new String[2];
         elements=CoapGetTransportResource.getTransport();
 
-        while(elements[0]==null && elements[1]==null){
-            try {
-                Thread.sleep(10000);
-                elements=CoapGetTransportResource.getTransport();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+//        while(elements[0]==null && elements[1]==null){
+//            try {
+//                Thread.sleep(10000);
+//                elements=CoapGetTransportResource.getTransport();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
         TransformingSensor transformingSensor=new TransformingSensor();
         try {
+
             transformingSensor.update_transform();
         }catch(Exception e){
             e.printStackTrace();

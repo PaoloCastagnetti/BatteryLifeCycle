@@ -1,4 +1,7 @@
 package IoT.Project.DCPM.Models;
+
+import java.awt.*;
+
 /**
  * @author Francesco Lasalvia, 271719@studenti.unimore.it
  * @project IoT-BatteryLifeCycle
@@ -10,42 +13,42 @@ public class ProcessingDescriptor {
     private long timestamp_end_processing;
     private long timestamp_start_assembling_within_processing;
     private long timestamp_end_assembling_within_processing;
-    private int processing_state;
+    private String code;
+    private String location;
+
 
     //Constructor
     public ProcessingDescriptor(){
         this.timestamp_start_processing=0;
         this.timestamp_end_processing=0;
-        this.processing_state=0;
         this.timestamp_start_assembling_within_processing=0;
         this.timestamp_end_assembling_within_processing=0;
+        this.code="";
+        this.location="";
     }
-    public ProcessingDescriptor(ProcessingDescriptor PD){
-        this.timestamp_start_processing=PD.timestamp_start_processing;
-        this.timestamp_end_processing=PD.timestamp_end_processing;
-        this.processing_state=PD.processing_state;
-        this.timestamp_start_assembling_within_processing=PD.timestamp_start_assembling_within_processing;
-        this.timestamp_end_assembling_within_processing=PD.timestamp_end_assembling_within_processing;
+    public ProcessingDescriptor(ProcessingDescriptor PD) {
+        this.timestamp_start_processing = PD.timestamp_start_processing;
+        this.timestamp_end_processing = PD.timestamp_end_processing;
+        this.timestamp_start_assembling_within_processing = PD.timestamp_start_assembling_within_processing;
+        this.timestamp_end_assembling_within_processing = PD.timestamp_end_assembling_within_processing;
+        this.code = PD.code;
+        this.location = PD.location;
     }
 
-    //getter and setter
     public long getTimestamp_start_processing() {
         return timestamp_start_processing;
     }
+
     public void setTimestamp_start_processing(long timestamp_start_processing) {
         this.timestamp_start_processing = timestamp_start_processing;
     }
+
     public long getTimestamp_end_processing() {
         return timestamp_end_processing;
     }
+
     public void setTimestamp_end_processing(long timestamp_end_processing) {
         this.timestamp_end_processing = timestamp_end_processing;
-    }
-    public int getProcessing_state() {
-        return processing_state;
-    }
-    public void setProcessing_state(int processing_state) {
-        this.processing_state = processing_state;
     }
 
     public long getTimestamp_start_assembling_within_processing() {
@@ -64,7 +67,21 @@ public class ProcessingDescriptor {
         this.timestamp_end_assembling_within_processing = timestamp_end_assembling_within_processing;
     }
 
-    //Tostring
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     @Override
     public String toString() {
@@ -73,7 +90,8 @@ public class ProcessingDescriptor {
                 ", timestamp_end_processing=" + timestamp_end_processing +
                 ", timestamp_start_assembling_within_processing=" + timestamp_start_assembling_within_processing +
                 ", timestamp_end_assembling_within_processing=" + timestamp_end_assembling_within_processing +
-                ", processing_state=" + processing_state +
+                ", code='" + code + '\'' +
+                ", location='" + location + '\'' +
                 '}';
     }
 }

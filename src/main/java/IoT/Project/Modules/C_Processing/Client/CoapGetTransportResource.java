@@ -54,11 +54,13 @@ public class CoapGetTransportResource {
     public static String[] getTransportObs(){
         String elements[]=new String[2];
         CoapClient coapClient = new CoapClient(COAP_ENDPOINT_GET);
-        Request req = new Request(CoAP.Code.GET);
+        Request req = new Request(CoAP.Code.GET).setURI(COAP_ENDPOINT_GET);
         req.setConfirmable(true);
+        req.setObserve();
 
         System.out.printf("Request Pretty Print: \n%s%n", Utils.prettyPrint(req));
-        coapClient.observe(new CoapHandler() {
+        coapClient.observe(req,new CoapHandler() {
+
             @Override
             public void onLoad(CoapResponse response) {
                 byte[] payload = response.getPayload();
@@ -74,11 +76,7 @@ public class CoapGetTransportResource {
                 System.err.println("Error on loading resource");
             }
         });
-        try{
-            Thread.sleep(10000);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+
         return elements;
     }
 

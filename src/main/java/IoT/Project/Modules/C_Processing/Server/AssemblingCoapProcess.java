@@ -1,7 +1,7 @@
 package IoT.Project.Modules.C_Processing.Server;
 
 import IoT.Project.Modules.C_Processing.Client.CoapGetTransformResource;
-import IoT.Project.Modules.C_Processing.Client.CoapGetTransportResource;
+import IoT.Project.Modules.C_Processing.Client.CoapPutAssembleStage;
 import IoT.Project.Modules.C_Processing.Resource.AssemblingResource;
 import IoT.Project.Modules.C_Processing.Sensors.AssemblingSensor;
 import IoT.Project.Modules.C_Processing.Sensors.TransformingSensor;
@@ -32,22 +32,21 @@ public class AssemblingCoapProcess extends CoapServer {
 
 
         //devo fare la get sulla tranform, mi serve inizio,fine, luogo ,id
-        TransformingSensor transformingSensor=new TransformingSensor();
-        CoapGetTransformResource.getTransformComponent(transformingSensor);
+        TransformingSensor transformingSensor=CoapGetTransformResource.getTransformComponent();
 
         //abbiamo bisogno di tutte le altre info
         AssemblingSensor assemblingSensor=new AssemblingSensor();
         assemblingSensor.setCode(transformingSensor.getCode());
-        assemblingSensor.setDeviceId(transformingSensor.getDeviceId());
         assemblingSensor.setI_timestamp_transforming(transformingSensor.getI_Timestamp());
-        assemblingSensor.setF_Timestamp_assembling(transformingSensor.getF_Timestamp());
+        assemblingSensor.setF_timestap_transforming(transformingSensor.getF_Timestamp());
+        assemblingSensor.setLocation(transformingSensor.getLocation());
 
         //fase di assemblaggio setta solo i valori di inizio e fine timestamp
        //simulo assemblaggio
         assemblingSensor.update_assemble();
 
-        //ora devo fare ina post al data collector dell'assembling sensor
-
+        //ora devo fare una put al data collector dell'assembling sensor
+        CoapPutAssembleStage.CoapPutAssemble(assemblingSensor);
 
 
     }
