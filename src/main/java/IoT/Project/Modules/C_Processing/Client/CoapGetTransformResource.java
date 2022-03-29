@@ -44,6 +44,7 @@ public class CoapGetTransformResource {
 
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(resp));
         }catch(ConnectorException | IOException e){
+            System.out.println("The information of transform stage are wrong!");
             e.printStackTrace();
         }
         return sensor;

@@ -25,13 +25,16 @@ public class Transformingprocess {
 
             transformingSensor.update_transform();
         }catch(Exception e){
+            System.out.println("Trasforming failed!!");
             e.printStackTrace();
         }
         transformingSensor.setCode(elements[0]);
         transformingSensor.setLocation(elements[1]);
 
         //adesso tocca alla put sull'inetermediate server
+        System.out.println("Sending information to Assembling SEnsor...");
         CoapPutTransform.CoapPutTransform(transformingSensor);
+        System.out.println("Assembling sensor got everithing!");
 
     }
 }

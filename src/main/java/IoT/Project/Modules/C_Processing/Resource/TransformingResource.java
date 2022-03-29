@@ -35,7 +35,6 @@ public class TransformingResource extends CoapResource {
     @Override
     public void handleGET(CoapExchange exchange) {
         exchange.accept();
-
         CoapClient client = new CoapClient("localhost:5683/sensor/transform");
         client.get(new CoapHandler() {
             @Override
@@ -55,18 +54,21 @@ public class TransformingResource extends CoapResource {
     @Override
     public void handlePUT(CoapExchange exchange){
         try{
-
+            System.out.println("Changing Transforming Resource");
             //If the request body is available
             if(exchange.getRequestPayload() != null){
                 byte[] payload = exchange.getRequestPayload();
                 String final_payload = new String(payload);
                 transformingSensor= gson.fromJson(final_payload, TransformingSensor.class);
                 exchange.respond(CoAP.ResponseCode.CHANGED);
+                System.out.println("Transforming resource changed succesfully, the current timestamp is: "+ String.format("%s",System.currentTimeMillis()));
             }
-            else
+            else {
+                System.out.println("Couldn't change transforming resource...");
                 exchange.respond(CoAP.ResponseCode.BAD_REQUEST);
-
+            }
         }catch (Exception e){
+            System.out.println("Error in coap exchange in transforming resource handlePut!!");
             exchange.respond(CoAP.ResponseCode.INTERNAL_SERVER_ERROR);
         }
 

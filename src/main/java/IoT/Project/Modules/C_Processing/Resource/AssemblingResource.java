@@ -53,16 +53,21 @@ public class AssemblingResource extends CoapResource {
         try{
 
             //If the request body is available
+            System.out.println("Changing Assembling Resource... ");
             if(exchange.getRequestPayload() != null){
                 byte[] payload = exchange.getRequestPayload();
                 String final_payload = new String(payload);
                 assemblingSensor= gson.fromJson(final_payload, AssemblingSensor.class);
                 exchange.respond(CoAP.ResponseCode.CHANGED);
+                System.out.println("Assembling resource changed successfully, current timestamp is:"+String.format("%s",System.currentTimeMillis()));
             }
-            else
+            else{
+                System.out.println("Couldn't change assembling resource...");
                 exchange.respond(CoAP.ResponseCode.BAD_REQUEST);
+            }
 
         }catch (Exception e){
+            System.out.println("Error in coap exchange in assembing resource handlePut!!");
             exchange.respond(CoAP.ResponseCode.INTERNAL_SERVER_ERROR);
         }
 

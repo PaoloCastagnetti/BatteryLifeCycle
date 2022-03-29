@@ -16,7 +16,7 @@ public class TransformingSensor {
     private long f_Timestamp;
     private String unit = "%";
     private String deviceId;
-    private final static int VALUE_BOND = 10;
+    private final static int VALUE_BOND = 20;
     private String location;
     private String code;
     private transient Cities city;
@@ -36,15 +36,17 @@ public class TransformingSensor {
         System.out.println(String.format("Starting periodic Update Task with on {%s}", deviceId));
         i_Timestamp = System.currentTimeMillis();
         while (value < 100) {
-            Thread.sleep(1500);
             value += VALUE_BOND;
-            //fai vedere timestamp e percentuale e qualcos'altro
-            System.out.println("working on it");
+            System.out.println("Working on it...");
+            Thread.sleep(3000);
+            System.out.println(String.format("Trasforming percentage increased to:  %i, the current timestamp is %l, continue...",value,System.currentTimeMillis()));
+            Thread.sleep(1500);
         }
         f_Timestamp = System.currentTimeMillis();
         this.value = 100;
         setLocation(city.getCITY(random.nextInt(5)));
-        System.out.println(String.format("The %s is full transformed!", deviceId));
+        System.out.println(String.format("The device number: %s is full transformed! The current timestamp is %s", deviceId,f_Timestamp));
+        System.out.println(String.format("Current location is %s",location));
     }
 
     @Override

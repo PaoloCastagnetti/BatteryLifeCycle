@@ -24,29 +24,34 @@ public class AssemblingSensor {
     public AssemblingSensor(){
         this.i_Timestamp_assembling =0;
         this.deviceId= UUID.randomUUID().toString();
-        this.value=10;
+        this.value=20;
         this.random=new Random();
         this.city=new Cities();
     }
 
 
     public void update_assemble() {
-        System.out.println(String.format("Starting periodic Update Task with on {%s}", deviceId));
+        System.out.println(String.format("Starting periodic Assemblation with on {%s}", deviceId));
         this.i_Timestamp_assembling =System.currentTimeMillis();
 
         while (value < 100) {
             try {
-                Thread.sleep(1500);
                 value += VALUE_BOND;
+                System.out.println("Working on it...");
+                Thread.sleep(3000);
+                System.out.println(String.format("Assemplation percentage increased to:  %i, the current timestamp is %l, continue...",value,System.currentTimeMillis()));
+                Thread.sleep(1500);
 
             } catch (InterruptedException e) {
+                System.out.println("Assemble failed!!");
                 e.printStackTrace();
             }
         }
         f_Timestamp_assembling = System.currentTimeMillis();
         this.value = 100;
         setLocation(city.getCITY(random.nextInt(5)));
-        System.out.println(String.format("The %s is full assembled!", deviceId));
+        System.out.println(String.format("The device number: %s is full assembled!,the current timestamp is %s", deviceId,f_Timestamp_assembling));
+        System.out.println(String.format("Current location is %s",location));
     }
 
     @Override

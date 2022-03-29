@@ -45,6 +45,7 @@ public class CoapGetTransportResource {
             elements[1]=transportDescriptor.getENL();
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(resp));
         }catch(ConnectorException | IOException e){
+            System.out.println("Transport information are wrong!");
             e.printStackTrace();
         }
         return elements;

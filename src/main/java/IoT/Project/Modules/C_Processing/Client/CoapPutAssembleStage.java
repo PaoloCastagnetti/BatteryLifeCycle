@@ -28,6 +28,7 @@ public class CoapPutAssembleStage {
             CoapResponse coapResp = coapClient.advanced(request);
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(coapResp));
         } catch (ConnectorException | IOException e) {
+            System.out.println("Assembling information are wrong, check!");
             e.printStackTrace();
         }
     }

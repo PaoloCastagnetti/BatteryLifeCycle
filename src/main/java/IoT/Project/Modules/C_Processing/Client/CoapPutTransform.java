@@ -32,6 +32,7 @@ public class CoapPutTransform {
             CoapResponse coapResp = coapClient.advanced(request);
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(coapResp));
         } catch (ConnectorException | IOException e) {
+            System.out.println("Trasformg information weren't correct, something's wrong!!");
             e.printStackTrace();
         }
     }

@@ -32,21 +32,30 @@ public class AssemblingCoapProcess extends CoapServer {
 
 
         //devo fare la get sulla tranform, mi serve inizio,fine, luogo ,id
+        System.out.println("Asking for information to: Transform component...");
         TransformingSensor transformingSensor=CoapGetTransformResource.getTransformComponent();
+        System.out.println("Received all data from Transform Component");
+
 
         //abbiamo bisogno di tutte le altre info
+        System.out.println("Passing the precious information to: Assembling sensor");
         AssemblingSensor assemblingSensor=new AssemblingSensor();
         assemblingSensor.setCode(transformingSensor.getCode());
         assemblingSensor.setI_timestamp_transforming(transformingSensor.getI_Timestamp());
         assemblingSensor.setF_timestap_transforming(transformingSensor.getF_Timestamp());
         assemblingSensor.setLocation(transformingSensor.getLocation());
+        System.out.println("Assembling sensor has all the information!");
 
         //fase di assemblaggio setta solo i valori di inizio e fine timestamp
        //simulo assemblaggio
+        System.out.println("Starting assembling...");
         assemblingSensor.update_assemble();
+        //il messaggio di fine sta nell'update
 
         //ora devo fare una put al data collector dell'assembling sensor
+        System.out.println("Sending all data to DCPM...");
         CoapPutAssembleStage.CoapPutAssemble(assemblingSensor);
+        System.out.println("Sending Assembling data succeeded!!");
 
 
     }
