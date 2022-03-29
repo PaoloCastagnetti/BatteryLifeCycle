@@ -1,10 +1,6 @@
 package IoT.Project.Modules.C_Processing.Sensors;
 
-
 import IoT.Project.Modules.A_Extraction.Models.Cities;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Random;
 import java.util.UUID;
 

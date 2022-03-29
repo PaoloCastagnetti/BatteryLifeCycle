@@ -1,7 +1,5 @@
 package IoT.Project.Modules.C_Processing.Resource;
 
-import IoT.Project.DCPM.Models.ExtractionDescriptor;
-import IoT.Project.DCPM.Models.TransportDescriptor;
 import IoT.Project.Modules.C_Processing.Sensors.TransformingSensor;
 import com.google.gson.Gson;
 import org.eclipse.californium.core.CoapClient;
@@ -10,8 +8,6 @@ import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.server.resources.CoapExchange;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class TransformingResource extends CoapResource {
 

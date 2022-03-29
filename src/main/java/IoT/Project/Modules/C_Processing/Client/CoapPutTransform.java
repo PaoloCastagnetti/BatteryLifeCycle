@@ -1,6 +1,5 @@
 package IoT.Project.Modules.C_Processing.Client;
 
-import IoT.Project.Modules.C_Processing.Sensors.AssemblingSensor;
 import IoT.Project.Modules.C_Processing.Sensors.TransformingSensor;
 import com.google.gson.Gson;
 import org.eclipse.californium.core.CoapClient;
@@ -9,8 +8,6 @@ import org.eclipse.californium.core.Utils;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.Request;
 import org.eclipse.californium.elements.exception.ConnectorException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 

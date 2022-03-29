@@ -1,7 +1,6 @@
 package IoT.Project.Modules.C_Processing.Resource;
 
 import IoT.Project.Modules.C_Processing.Sensors.AssemblingSensor;
-import IoT.Project.Modules.C_Processing.Sensors.TransformingSensor;
 import com.google.gson.Gson;
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapHandler;
