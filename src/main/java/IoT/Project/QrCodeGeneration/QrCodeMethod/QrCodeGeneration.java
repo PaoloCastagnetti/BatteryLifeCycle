@@ -1,4 +1,4 @@
-package IoT.Project.QrCodeGeneration;
+package IoT.Project.QrCodeGeneration.QrCodeMethod;
 
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.MatrixToImageWriter;

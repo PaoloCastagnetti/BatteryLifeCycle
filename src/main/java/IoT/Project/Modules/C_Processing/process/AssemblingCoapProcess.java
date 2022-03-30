@@ -1,4 +1,4 @@
-package IoT.Project.Modules.C_Processing.Server;
+package IoT.Project.Modules.C_Processing.process;
 
 import IoT.Project.Modules.C_Processing.Client.CoapGetTransformResource;
 import IoT.Project.Modules.C_Processing.Client.CoapPutAssembleStage;
