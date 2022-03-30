@@ -1,8 +1,6 @@
 package IoT.Project.DCPM;
 
-import IoT.Project.DCPM.Models.ExtractionDescriptor;
 import IoT.Project.DCPM.Resources.*;
-import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.CoapServer;
 
 /**
@@ -16,23 +14,24 @@ public class DCPM extends CoapServer {
         ExtractionResource ET = new ExtractionResource("Extraction");
         ET.setObservable(true);
         ET.getAttributes().setObservable();
-        this.add(ET);
+
         TransportResource TR = new TransportResource("Transport");
         TR.setObservable(true);
         TR.getAttributes().setObservable();
-        this.add(TR);
+
         ProcessingResource PR = new ProcessingResource("Processing");
-        TR.setObservable(true);
-        TR.getAttributes().setObservable();
-        this.add(PR);
+        PR.setObservable(true);
+        PR.getAttributes().setObservable();
+
         AssemblyResource AR = new AssemblyResource("Assembly");
-        TR.setObservable(true);
-        TR.getAttributes().setObservable();
+        AR.setObservable(true);
+        AR.getAttributes().setObservable();
+
+
+        this.add(ET);
+        this.add(TR);
+        this.add(PR);
         this.add(AR);
-        BatteryResource BR = new BatteryResource("Battery");
-        TR.setObservable(true);
-        TR.getAttributes().setObservable();
-        this.add(BR);
     }
 
 
@@ -41,8 +40,13 @@ public class DCPM extends CoapServer {
         DCPM coapServer = new DCPM();
         coapServer.start();
 
-        coapServer.getRoot().getChildren().forEach(resource -> {
-            System.out.printf("Resource %s -> URI: %s (Observable: %b)%n", resource.getName(), resource.getURI(), resource.isObservable());
+        coapServer.getRoot().getChildren().stream().forEach(resource -> {
+            System.out.printf("Resource %s -> URI: %s (Observable: %b)%n",resource.getName(), resource.getURI(), resource.isObservable());
+            if(!resource.getURI().equals("/.well-known")){
+                resource.getChildren().stream().forEach(childResource -> {
+                    System.out.printf("Resource %s -> URI: %s (Observable: %b)%n", childResource.getName(), childResource.getURI(), childResource.isObservable());
+                });
+            }
         });
     }
 
