@@ -9,6 +9,12 @@ import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 
+/**
+ * @author Francesco Lasalvia, 271719@studenti.unimore.it
+ * @project IoT-BatteryLifeCycle
+ * @created 03/03/2022 - 10:09
+ */
+
 public class AssemblingResource extends CoapResource {
 
     private AssemblingSensor assemblingSensor;

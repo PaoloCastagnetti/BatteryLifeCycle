@@ -7,6 +7,11 @@ import IoT.Project.Modules.C_Processing.Sensors.AssemblingSensor;
 import IoT.Project.Modules.C_Processing.Sensors.TransformingSensor;
 import org.eclipse.californium.core.CoapServer;
 
+/**
+ * @author Francesco Lasalvia, 271719@studenti.unimore.it
+ * @project IoT-BatteryLifeCycle
+ * @created 03/03/2022 - 10:09
+ */
 
 public class AssemblingCoapProcess extends CoapServer {
 

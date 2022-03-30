@@ -8,8 +8,13 @@ import org.eclipse.californium.core.Utils;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.Request;
 import org.eclipse.californium.elements.exception.ConnectorException;
-
 import java.io.IOException;
+
+/**
+ * @author Francesco Lasalvia, 271719@studenti.unimore.it
+ * @project IoT-BatteryLifeCycle
+ * @created 03/03/2022 - 10:09
+ */
 
 public class CoapGetExtraction {
     private static final String COAP_ENDPOINT_GET = "coap://127.0.0.1:5683/Extraction";
