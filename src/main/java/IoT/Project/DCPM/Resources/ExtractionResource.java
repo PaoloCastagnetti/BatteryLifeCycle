@@ -7,6 +7,10 @@ import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * @author Paolo Castagnetti, 267731@studenti.unimore.it
  * @project IoT-BatteryLifeCycle
@@ -14,13 +18,20 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
  */
 public class ExtractionResource extends CoapResource {
 
-    private static final String OBJECT_TITLE = "ExtractionStage";
+    private static final String OBJECT_TITLE = "Extraction";
     private Gson gson;
     private ExtractionDescriptor ED;
+    private static final long UPDATE_TIME_MS = 10000;
 
     public ExtractionResource(String name) {
         super(name);
         init();
+        setObservable(true);
+        setObserveType(CoAP.Type.CON);
+        getAttributes().setObservable();
+
+        Timer timer = new Timer();
+        timer.schedule(new ExtractionResource.UpdateTask(),0,UPDATE_TIME_MS);
     }
 
     private void init(){
@@ -29,8 +40,16 @@ public class ExtractionResource extends CoapResource {
         this.ED = new ExtractionDescriptor();
     }
 
+    private class UpdateTask extends TimerTask {
+        @Override
+        public void run() {
+            changed();
+        }
+    }
+
     @Override
     public void handleGET(CoapExchange exchange) {
+        exchange.setMaxAge(UPDATE_TIME_MS/1000);
         try{
             String responseBody = this.gson.toJson(this.ED);
             exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_JSON);

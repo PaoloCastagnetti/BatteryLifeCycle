@@ -12,21 +12,9 @@ public class DCPM extends CoapServer {
     public DCPM(){
         super();
         ExtractionResource ET = new ExtractionResource("Extraction");
-        ET.setObservable(true);
-        ET.getAttributes().setObservable();
-
         TransportResource TR = new TransportResource("Transport");
-        TR.setObservable(true);
-        TR.getAttributes().setObservable();
-
         ProcessingResource PR = new ProcessingResource("Processing");
-        PR.setObservable(true);
-        PR.getAttributes().setObservable();
-
         AssemblyResource AR = new AssemblyResource("Assembly");
-        AR.setObservable(true);
-        AR.getAttributes().setObservable();
-
 
         this.add(ET);
         this.add(TR);

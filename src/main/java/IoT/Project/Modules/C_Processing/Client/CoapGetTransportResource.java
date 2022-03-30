@@ -2,10 +2,7 @@ package IoT.Project.Modules.C_Processing.Client;
 
 import IoT.Project.DCPM.Models.TransportDescriptor;
 import com.google.gson.Gson;
-import org.eclipse.californium.core.CoapClient;
-import org.eclipse.californium.core.CoapHandler;
-import org.eclipse.californium.core.CoapResponse;
-import org.eclipse.californium.core.Utils;
+import org.eclipse.californium.core.*;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.Request;
 import org.eclipse.californium.elements.exception.ConnectorException;
@@ -16,10 +13,10 @@ public class CoapGetTransportResource {
 
     private static final String COAP_ENDPOINT_GET = "coap://127.0.0.1:5683/Transport";
     static TransportDescriptor transportDescriptor;
-    static Gson gson;
+    static Gson gson = new Gson();
 
     public static String[] getTransport(){
-        String elements[]=new String[2];
+        String[] elements =new String[2];
 
         //Initialize coapClient
         CoapClient coapClient = new CoapClient(COAP_ENDPOINT_GET);
@@ -53,31 +50,37 @@ public class CoapGetTransportResource {
 
     //Questa funzione va utilizzata per una risorsa coap observable
     public static String[] getTransportObs(){
-        String elements[]=new String[2];
+        String[] elements =new String[2];
+
         CoapClient coapClient = new CoapClient(COAP_ENDPOINT_GET);
-        Request req = new Request(CoAP.Code.GET).setURI(COAP_ENDPOINT_GET);
-        req.setConfirmable(true);
-        req.setObserve();
 
-        System.out.printf("Request Pretty Print: \n%s%n", Utils.prettyPrint(req));
-        coapClient.observe(req,new CoapHandler() {
+        Request request = Request.newGet().setURI(COAP_ENDPOINT_GET).setObserve();
+        request.setConfirmable(true);
 
-            @Override
+        System.out.printf("Request Pretty Print: \n%s%n", Utils.prettyPrint(request));
+
+        CoapObserveRelation relation = coapClient.observe(request, new CoapHandler() {
+
             public void onLoad(CoapResponse response) {
-                byte[] payload = response.getPayload();
-                String final_payload = new String(payload);
-                transportDescriptor= gson.fromJson(final_payload, TransportDescriptor.class);
+                String content = response.getResponseText();
+                transportDescriptor= gson.fromJson(content, TransportDescriptor.class);
                 //pos 0 -> vehicle id & pos 1->ending location
                 elements[0]=transportDescriptor.getVID();
                 elements[1]=transportDescriptor.getENL();
                 System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(response));
             }
-            @Override
+
             public void onError() {
-                System.err.println("Error on loading resource");
+                System.err.println("OBSERVING FAILED");
             }
         });
 
+        try {
+            Thread.sleep(60000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        relation.proactiveCancel();
         return elements;
     }
 

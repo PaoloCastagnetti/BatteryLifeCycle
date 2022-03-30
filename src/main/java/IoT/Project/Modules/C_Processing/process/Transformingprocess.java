@@ -8,33 +8,23 @@ public class Transformingprocess {
 
     public static void main(String[] args) {
         //fare get su Transport
-        String elements[]=new String[2];
-        elements=CoapGetTransportResource.getTransport();
+        String[] elements=CoapGetTransportResource.getTransportObs();
 
-//        while(elements[0]==null && elements[1]==null){
-//            try {
-//                Thread.sleep(10000);
-//                elements=CoapGetTransportResource.getTransport();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-
-        TransformingSensor transformingSensor=new TransformingSensor();
-        try {
-
-            transformingSensor.update_transform();
-        }catch(Exception e){
-            System.out.println("Trasforming failed!!");
-            e.printStackTrace();
-        }
-        transformingSensor.setCode(elements[0]);
-        transformingSensor.setLocation(elements[1]);
+        if (elements[0] != null && elements[1]!= null){
+            TransformingSensor transformingSensor=new TransformingSensor();
+            try {
+                transformingSensor.update_transform();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            transformingSensor.setCode(elements[0]);
+            transformingSensor.setLocation(elements[1]);
 
         //adesso tocca alla put sull'inetermediate server
         System.out.println("Sending information to Assembling SEnsor...");
         CoapPutTransform.CoapPutTransform(transformingSensor);
         System.out.println("Assembling sensor got everithing!");
 
+        }
     }
 }

@@ -1,8 +1,6 @@
 package IoT.Project.DCPM.Resources;
 
-import IoT.Project.DCPM.Models.ExtractionDescriptor;
 import IoT.Project.DCPM.Models.ProcessingDescriptor;
-import IoT.Project.Modules.A_Extraction.Models.UploadingActuatorDescriptor;
 import IoT.Project.Modules.C_Processing.Sensors.AssemblingSensor;
 import com.google.gson.Gson;
 import org.eclipse.californium.core.CoapResource;
@@ -10,19 +8,29 @@ import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * @author Francesco Lasalvia, 271719@studenti.unimore.it
  * @project IoT-BatteryLifeCycle
  * @created 03/03/2022 - 10:09
  */
 public class ProcessingResource extends CoapResource {
-    private static final String OBJECT_TITLE = "ProcessingStage";
+    private static final String OBJECT_TITLE = "Processing";
     private Gson gson;
     private ProcessingDescriptor PD;
+    private static final long UPDATE_TIME_MS = 10000;
 
     public ProcessingResource(String name) {
         super(name);
         init();
+        setObservable(true);
+        setObserveType(CoAP.Type.CON);
+        getAttributes().setObservable();
+
+        Timer timer = new Timer();
+        timer.schedule(new ProcessingResource.UpdateTask(),0,UPDATE_TIME_MS);
     }
 
     private void init(){
@@ -31,9 +39,17 @@ public class ProcessingResource extends CoapResource {
         this.PD = new ProcessingDescriptor();
     }
 
+    private class UpdateTask extends TimerTask {
+        @Override
+        public void run() {
+            changed();
+        }
+    }
+
     //GET DA VEDERE
     @Override
     public void handleGET(CoapExchange exchange) {
+        exchange.setMaxAge(UPDATE_TIME_MS/1000);
         try{
             String responseBody = this.gson.toJson(this.PD);
             exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_JSON);

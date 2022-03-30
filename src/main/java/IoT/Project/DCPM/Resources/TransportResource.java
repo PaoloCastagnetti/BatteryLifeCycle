@@ -7,7 +7,8 @@ import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 
-import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * @author Marco Savarese, 271055@studenti.unimore.it
@@ -16,13 +17,20 @@ import java.io.IOException;
  */
 
 public class TransportResource extends CoapResource {
-    private static final String OBJECT_TITLE = "TransportStage";
+    private static final String OBJECT_TITLE = "Transport";
     private Gson gson;
     private TransportDescriptor TD;
+    private static final long UPDATE_TIME_MS = 10000;
 
     public TransportResource(String name) {
         super(name);
         init();
+        setObservable(true);
+        setObserveType(CoAP.Type.CON);
+        getAttributes().setObservable();
+
+        Timer timer = new Timer();
+        timer.schedule(new UpdateTask(),0,UPDATE_TIME_MS);
     }
 
     private void init(){
@@ -31,9 +39,16 @@ public class TransportResource extends CoapResource {
         this.TD = new TransportDescriptor();
     }
 
+    private class UpdateTask extends TimerTask{
+        @Override
+        public void run() {
+            changed();
+        }
+    }
 
     @Override
     public void handleGET(CoapExchange exchange) {
+        exchange.setMaxAge(UPDATE_TIME_MS/1000);
         try{
             String responseBody = this.gson.toJson(this.TD);
             exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_JSON);

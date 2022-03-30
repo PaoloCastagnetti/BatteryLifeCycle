@@ -29,20 +29,20 @@ public class TransformingSensor {
 
     public void update_transform() throws InterruptedException {
 
-        System.out.println(String.format("Starting periodic Update Task with on {%s}", deviceId));
+        System.out.printf("Starting periodic Update Task with on {%s}%n", deviceId);
         i_Timestamp = System.currentTimeMillis();
         while (value < 100) {
             value += VALUE_BOND;
             System.out.println("Working on it...");
             Thread.sleep(3000);
-            System.out.println(String.format("Trasforming percentage increased to:  %i, the current timestamp is %l, continue...",value,System.currentTimeMillis()));
+            System.out.printf("Trasforming percentage increased to:  %d, the current timestamp is %d, continue...%n",value,System.currentTimeMillis());
             Thread.sleep(1500);
         }
         f_Timestamp = System.currentTimeMillis();
         this.value = 100;
         setLocation(city.getCITY(random.nextInt(5)));
-        System.out.println(String.format("The device number: %s is full transformed! The current timestamp is %s", deviceId,f_Timestamp));
-        System.out.println(String.format("Current location is %s",location));
+        System.out.printf("The device number: %s is full transformed! The current timestamp is %s%n", deviceId,f_Timestamp);
+        System.out.printf("Current location is %s%n",location);
     }
 
     @Override
