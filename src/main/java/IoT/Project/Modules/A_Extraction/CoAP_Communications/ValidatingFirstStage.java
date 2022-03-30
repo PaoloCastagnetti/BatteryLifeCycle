@@ -1,10 +1,8 @@
 package IoT.Project.Modules.A_Extraction.CoAP_Communications;
 
-import IoT.Project.DCPM.DCPM;
 import IoT.Project.Modules.A_Extraction.Models.UploadingActuatorDescriptor;
 import com.google.gson.Gson;
 import org.eclipse.californium.core.CoapClient;
-import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.Utils;
 import org.eclipse.californium.core.coap.CoAP;
@@ -25,7 +23,6 @@ public class ValidatingFirstStage {
 
         CoapClient coapClient = new CoapClient(COAP_ENDPOINT);
         UAD.simulateOriginOfMaterial();
-
 
         //PUT
         Request request = new Request(CoAP.Code.PUT);
