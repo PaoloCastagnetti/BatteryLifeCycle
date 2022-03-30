@@ -1,5 +1,6 @@
 package IoT.Project.QrCodeGeneration.QrCodeMethod;
 
+import IoT.Project.QrCodeGeneration.GetDCPM.CoapGetExtraction;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
@@ -19,11 +20,11 @@ public class QrCodeGeneration {
 
     public static void main(String[] args) {
         //text sono le info che vuoi mettere nel QRcode
-        String text="prova";
+        String A_Extraction= CoapGetExtraction.getExtractionGson();
         try{
             //generate QrCode
             System.out.println("Generazione QR_Code");
-            generateQrCode(text,"codice");
+            generateQrCode(A_Extraction,"codice");
             System.out.println("QR_Code Generato!!");
     } catch (Exception e) {
             e.printStackTrace();
