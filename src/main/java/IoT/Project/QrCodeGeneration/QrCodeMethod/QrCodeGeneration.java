@@ -4,9 +4,14 @@ import com.google.zxing.*;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-
 import java.io.File;
 import java.io.IOException;
+
+/**
+ * @author Francesco Lasalvia, 271719@studenti.unimore.it
+ * @project IoT-BatteryLifeCycle
+ * @created 03/03/2022 - 10:09
+ */
 
 public class QrCodeGeneration {
     //dove vuoi mettere tutti i qrcode

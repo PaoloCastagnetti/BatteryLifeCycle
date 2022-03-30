@@ -4,6 +4,11 @@ import IoT.Project.Modules.A_Extraction.Models.Cities;
 import java.util.Random;
 import java.util.UUID;
 
+/**
+ * @author Francesco Lasalvia, 271719@studenti.unimore.it
+ * @project IoT-BatteryLifeCycle
+ * @created 03/03/2022 - 10:09
+ */
 
 public class TransformingSensor {
 

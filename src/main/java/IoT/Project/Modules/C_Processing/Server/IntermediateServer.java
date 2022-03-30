@@ -3,6 +3,12 @@ package IoT.Project.Modules.C_Processing.Server;
 import IoT.Project.Modules.C_Processing.Resource.TransformingResource;
 import org.eclipse.californium.core.CoapServer;
 
+/**
+ * @author Francesco Lasalvia, 271719@studenti.unimore.it
+ * @project IoT-BatteryLifeCycle
+ * @created 03/03/2022 - 10:09
+ */
+
 public class IntermediateServer extends CoapServer {
 
     public IntermediateServer(){
