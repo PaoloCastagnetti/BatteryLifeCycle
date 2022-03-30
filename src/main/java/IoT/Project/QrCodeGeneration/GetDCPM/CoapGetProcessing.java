@@ -40,7 +40,7 @@ public class CoapGetProcessing {
             processingDescriptor= gson.fromJson(final_payload, ProcessingDescriptor.class);
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(resp));
         }catch(ConnectorException | IOException e){
-            System.out.println("Extraction information are wrong!");
+            System.out.println("Processing information are wrong!");
             e.printStackTrace();
         }
         return gson;

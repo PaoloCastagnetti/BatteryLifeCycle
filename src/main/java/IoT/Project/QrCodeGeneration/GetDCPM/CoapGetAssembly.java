@@ -39,7 +39,7 @@ public class CoapGetAssembly {
             assemblyDescriptor= gson.fromJson(final_payload, AssemblyDescriptor.class);
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(resp));
         }catch(ConnectorException | IOException e){
-            System.out.println("Extraction information are wrong!");
+            System.out.println("Assembly information are wrong!");
             e.printStackTrace();
         }
         return gson;
