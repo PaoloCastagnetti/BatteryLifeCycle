@@ -21,7 +21,8 @@ public class CoapGetProcessing {
     static ProcessingDescriptor processingDescriptor;
     static Gson gson;
 
-    public static Gson getExtractionGson(){
+    public static String getProcessingGson(){
+        String final_payload = null;
         //Initialize coapClient
         CoapClient coapClient = new CoapClient(COAP_ENDPOINT_GET);
 
@@ -39,13 +40,12 @@ public class CoapGetProcessing {
         try{
             CoapResponse resp = coapClient.advanced(req);
             byte[] payload = resp.getPayload();
-            String final_payload = new String(payload);
-            processingDescriptor= gson.fromJson(final_payload, ProcessingDescriptor.class);
-            System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(resp));
+            final_payload = new String(payload);
+
         }catch(ConnectorException | IOException e){
             System.out.println("Processing information are wrong!");
             e.printStackTrace();
         }
-        return gson;
+        return final_payload;
     }
 }

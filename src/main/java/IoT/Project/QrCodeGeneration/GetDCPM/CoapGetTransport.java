@@ -21,7 +21,8 @@ public class CoapGetTransport {
     static TransportDescriptor transportDescriptor;
     static Gson gson;
 
-    public static Gson getTransportGson(){
+    public static String getTransportGson(){
+        String final_payload = null;
         //Initialize coapClient
         CoapClient coapClient = new CoapClient(COAP_ENDPOINT_GET);
 
@@ -39,14 +40,13 @@ public class CoapGetTransport {
         try{
             CoapResponse resp = coapClient.advanced(req);
             byte[] payload = resp.getPayload();
-            String final_payload = new String(payload);
-            transportDescriptor= gson.fromJson(final_payload, TransportDescriptor.class);
-            System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(resp));
+            final_payload = new String(payload);
+
         }catch(ConnectorException | IOException e){
             System.out.println("Transport information are wrong!");
             e.printStackTrace();
         }
-        return gson;
+        return final_payload;
     }
 
 }
