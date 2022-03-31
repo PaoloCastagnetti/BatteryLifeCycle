@@ -64,12 +64,11 @@ public class TransportResource extends CoapResource {
             TrackingActuatorDescriptor TAD = this.gson.fromJson(receivedPayload, TrackingActuatorDescriptor.class);
 
             if(TAD != null && TAD.getBatterylevel() == 0){
-
-                this.TD.setTTSS(TAD.getStimestamp());
-                this.TD.setTTSE(TAD.getEtimestamp());
-                this.TD.setVID(TAD.getDID());
-                this.TD.setSTL(TAD.getStartLocation());
-                this.TD.setENL(TAD.getEndLocation());
+                this.TD.setTransportTimestampStart(TAD.getStimestamp());
+                this.TD.setTransportTimestampEnd(TAD.getEtimestamp());
+                this.TD.setVehicleID(TAD.getDID());
+                this.TD.setStartLocation(TAD.getStartLocation());
+                this.TD.setEndingLocation(TAD.getEndLocation());
                 exchange.respond(CoAP.ResponseCode.CHANGED);
                 changed();
             }else{

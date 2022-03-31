@@ -44,8 +44,8 @@ public class CoapGetTransportResource {
             String final_payload = new String(payload);
             transportDescriptor= gson.fromJson(final_payload, TransportDescriptor.class);
             //pos 0 -> vehicle id & pos 1->ending location
-            elements[0]=transportDescriptor.getVID();
-            elements[1]=transportDescriptor.getENL();
+            elements[0]=transportDescriptor.getVehicleID();
+            elements[1]=transportDescriptor.getEndingLocation();
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(resp));
         }catch(ConnectorException | IOException e){
             System.out.println("Transport information are wrong!");
@@ -71,8 +71,8 @@ public class CoapGetTransportResource {
                 String content = response.getResponseText();
                 transportDescriptor= gson.fromJson(content, TransportDescriptor.class);
                 //pos 0 -> vehicle id & pos 1->ending location
-                elements[0]=transportDescriptor.getVID();
-                elements[1]=transportDescriptor.getENL();
+                elements[0]=transportDescriptor.getVehicleID();
+                elements[1]=transportDescriptor.getEndingLocation();
                 System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(response));
             }
 
