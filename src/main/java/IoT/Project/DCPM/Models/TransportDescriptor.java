@@ -6,74 +6,73 @@ package IoT.Project.DCPM.Models;
  */
 public class TransportDescriptor{
     //Attributes
-    private long TTSS; //Transport Timestamp Start
-    private long TTSE; //Transport Timestamp End
-    private String VID; //Vehicle ID
-    private String STL; //Start Location
-    private String ENL; //Ending Location
+    private long transportTimestampStart; //Transport Timestamp Start
+    private long transportTimestampEnd; //Transport Timestamp End
+    private String vehicleID; //Vehicle ID
+    private String startLocation; //Start Location
+    private String endingLocation; //Ending Location
 
     //Constructor
     public TransportDescriptor(){
-        this.TTSS = 0;
-        this.TTSE = 0;
-        this.VID = "";
-        this.STL = "";
-        this.ENL = "";
+        this.transportTimestampStart = 0;
+        this.transportTimestampEnd = 0;
+        this.vehicleID = "";
+        this.startLocation = "";
+        this.endingLocation = "";
     }
     public TransportDescriptor(TransportDescriptor TD){
-        this.TTSS = TD.TTSS;
-        this.TTSE = TD.TTSE;
-        this.VID = TD.VID;
-        this.STL = TD.STL;
-        this.ENL = TD.ENL;
+        this.transportTimestampStart = TD.transportTimestampStart;
+        this.transportTimestampEnd = TD.transportTimestampEnd;
+        this.vehicleID = TD.vehicleID;
+        this.startLocation = TD.startLocation;
+        this.endingLocation = TD.endingLocation;
     }
 
     //Getters and Setters
-    public long getTTSS() {
-        return TTSS;
+    public long getTransportTimestampStart() {
+        return transportTimestampStart;
     }
-    public void setTTSS(long TTSS) {
-        this.TTSS = TTSS;
-    }
-
-    public long getTTSE() {
-        return TTSE;
-    }
-    public void setTTSE(long TTSE) {
-        this.TTSE = TTSE;
+    public void setTransportTimestampStart(long transportTimestampStart) {
+        this.transportTimestampStart = transportTimestampStart;
     }
 
-    public String getVID() {
-        return VID;
+    public long getTransportTimestampEnd() {
+        return transportTimestampEnd;
     }
-    public void setVID(String VID) {
-        this.VID = VID;
-    }
-
-    public String getSTL() {
-        return STL;
-    }
-    public void setSTL(String STL) {
-        this.STL = STL;
+    public void setTransportTimestampEnd(long transportTimestampEnd) {
+        this.transportTimestampEnd = transportTimestampEnd;
     }
 
-    public String getENL() {
-        return ENL;
+    public String getVehicleID() {
+        return vehicleID;
     }
-    public void setENL(String ENL) {
-        this.ENL = ENL;
+    public void setVehicleID(String vehicleID) {
+        this.vehicleID = vehicleID;
+    }
+
+    public String getStartLocation() {
+        return startLocation;
+    }
+    public void setStartLocation(String startLocation) {
+        this.startLocation = startLocation;
+    }
+
+    public String getEndingLocation() {
+        return endingLocation;
+    }
+    public void setEndingLocation(String endingLocation) {
+        this.endingLocation = endingLocation;
     }
 
     //toString
-
     @Override
     public String toString() {
         return "TransportDescriptor{" +
-                "TTSS=" + TTSS +
-                ", TTSE=" + TTSE +
-                ", VID='" + VID + '\'' +
-                ", STL='" + STL + '\'' +
-                ", ENL='" + ENL + '\'' +
+                "transportTimestampStart=" + transportTimestampStart +
+                ", transportTimestampEnd=" + transportTimestampEnd +
+                ", vehicleID='" + vehicleID + '\'' +
+                ", startLocation='" + startLocation + '\'' +
+                ", endingLocation='" + endingLocation + '\'' +
                 '}';
     }
 }

@@ -1,14 +1,13 @@
 package IoT.Project.Modules.B_Transport.Process;
 
 import IoT.Project.DCPM.Models.ExtractionDescriptor;
+import IoT.Project.DCPM.Models.TransportDescriptor;
 import IoT.Project.Modules.B_Transport.CoAP_Communication.ValidatingSecondStage;
 import IoT.Project.Modules.B_Transport.MQTTConfigurationParameters;
 import IoT.Project.Modules.B_Transport.Models.VehicleDesctiptor;
 import IoT.Project.Modules.B_Transport.Models.VehicleTelemetryData;
 import com.google.gson.Gson;
-import org.eclipse.californium.core.CoapClient;
-import org.eclipse.californium.core.CoapResponse;
-import org.eclipse.californium.core.Utils;
+import org.eclipse.californium.core.*;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.Request;
 import org.eclipse.californium.elements.exception.ConnectorException;
@@ -25,23 +24,47 @@ import java.io.IOException;
 public class VehicleTrackingEmulator {
     static Gson gson = new Gson();
     static ExtractionDescriptor STC;
-    public static void main(String[] args) {
-        //GET
-        CoapClient coapClientGet = new CoapClient(ValidatingSecondStage.COAP_PREVIOUS_ENDPOINT);
-        Request req = new Request(CoAP.Code.GET);
-        req.setConfirmable(true);
-        try{
-            CoapResponse resp = coapClientGet.advanced(req);
-            byte[] payload = resp.getPayload();
-            String peppe = new String(payload);
-            STC = gson.fromJson(peppe, ExtractionDescriptor.class);
-            System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(resp));
-        }catch(ConnectorException | IOException e){
+
+    public static String[] getExtractionObs() {
+        String[] elements = new String[2];
+
+        CoapClient coapClient = new CoapClient(ValidatingSecondStage.COAP_PREVIOUS_ENDPOINT);
+
+        Request request = Request.newGet().setURI(ValidatingSecondStage.COAP_PREVIOUS_ENDPOINT).setObserve();
+        request.setConfirmable(true);
+
+        System.out.printf("Request Pretty Print: \n%s%n", Utils.prettyPrint(request));
+
+        CoapObserveRelation relation = coapClient.observe(request, new CoapHandler() {
+
+            public void onLoad(CoapResponse response) {
+                String content = response.getResponseText();
+                STC = gson.fromJson(content, ExtractionDescriptor.class);
+                //pos 0 -> vehicle id & pos 1->ending location
+                elements[0] = STC.getExtraction_location();
+                elements[1] = STC.getLoad_code();
+                System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(response));
+            }
+
+            public void onError() {
+                System.err.println("OBSERVING FAILED");
+            }
+        });
+
+        try {
+            Thread.sleep(60000);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        relation.proactiveCancel();
+        return elements;
+    }
+
+    public static void main(String[] args) {
+        String[] extractionObs = getExtractionObs();
         IMqttClient mqttClient;
         try {
-            String ID = String.format("Truck-%s", STC.getLoad_code());
+            String ID = String.format("Truck-%s", extractionObs[1]);
 
             MqttClientPersistence persistence = new MemoryPersistence();
 
