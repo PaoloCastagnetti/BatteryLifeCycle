@@ -1,4 +1,4 @@
-package IoT.Project.QrCodeGeneration.GetDCPM;
+package IoT.Project.Modules.D_QrCodeGeneration.GetDCPM;
 
 import IoT.Project.DCPM.Models.ProcessingDescriptor;
 import com.google.gson.Gson;
