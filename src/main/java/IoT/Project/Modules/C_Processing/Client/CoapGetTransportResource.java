@@ -17,6 +17,7 @@ import java.io.IOException;
 public class CoapGetTransportResource {
 
     private static final String COAP_ENDPOINT_GET = "coap://127.0.0.1:5683/Transport";
+
     static TransportDescriptor transportDescriptor;
     static Gson gson = new Gson();
 

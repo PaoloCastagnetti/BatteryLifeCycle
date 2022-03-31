@@ -18,8 +18,6 @@ import java.io.IOException;
 
 public class CoapGetExtraction {
     private static final String COAP_ENDPOINT_GET = "coap://127.0.0.1:5683/Extraction";
-    static ExtractionDescriptor extractionDescriptor;
-    static Gson gson;
 
     public static String getExtractionGson(){
         String final_payload = null;

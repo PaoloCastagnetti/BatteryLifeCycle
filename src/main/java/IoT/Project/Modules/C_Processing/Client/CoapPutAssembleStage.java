@@ -17,6 +17,7 @@ import java.io.IOException;
 
 public class CoapPutAssembleStage {
     private static final String COAP_ENDPOINT_TRANSFORM = "coap://127.0.0.1:5684/Assemble";
+
     static Gson gson;
 
     public static void CoapPutAssemble(AssemblingSensor assemblingSensor){

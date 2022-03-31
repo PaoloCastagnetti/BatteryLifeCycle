@@ -16,9 +16,9 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
  */
 
 public class AssemblingResource extends CoapResource {
+    private static final String OBJECT_TITLE = "AssemblingSensor";
 
     private AssemblingSensor assemblingSensor;
-    private static final String OBJECT_TITLE = "AssemblingSensor";
     private Gson gson;
 
     public AssemblingResource(String name){

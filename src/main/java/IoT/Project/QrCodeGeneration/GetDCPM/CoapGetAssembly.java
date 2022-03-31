@@ -19,8 +19,6 @@ import java.io.IOException;
 
 public class CoapGetAssembly {
     private static final String COAP_ENDPOINT_GET = "coap://127.0.0.1:5683/Assembly";
-    static AssemblyDescriptor assemblyDescriptor;
-    static Gson gson;
 
     public static String getAssemlbyGson(){
         String final_payload = null;

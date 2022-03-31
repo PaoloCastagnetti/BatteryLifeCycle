@@ -10,9 +10,9 @@ import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 
 public class TransformingResource extends CoapResource {
+    private static final String OBJECT_TITLE = "TransformingSensor";
 
     private TransformingSensor transformingSensor;
-    private static final String OBJECT_TITLE = "TransformingSensor";
     static Gson gson;
 
     public TransformingResource(String name){

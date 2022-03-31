@@ -12,6 +12,7 @@ import java.util.UUID;
  */
 
 public class AssemblingSensor {
+    private final static int VALUE_BOND = 20;
 
     private int value;
     private long i_Timestamp_assembling;
@@ -20,7 +21,6 @@ public class AssemblingSensor {
     private long f_timestap_transforming;
     private String unit = "%";
     private String deviceId;
-    private final static int VALUE_BOND = 10;
     private String location;
     private String code;
     private transient Cities city;

@@ -18,8 +18,6 @@ import java.io.IOException;
 
 public class CoapGetProcessing {
     private static final String COAP_ENDPOINT_GET = "coap://127.0.0.1:5683/Processing";
-    static ProcessingDescriptor processingDescriptor;
-    static Gson gson;
 
     public static String getProcessingGson(){
         String final_payload = null;

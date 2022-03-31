@@ -11,13 +11,13 @@ import java.util.UUID;
  */
 
 public class TransformingSensor {
+    private final static int VALUE_BOND = 20;
 
     private int value;
     private long i_Timestamp;
     private long f_Timestamp;
     private String unit = "%";
     private String deviceId;
-    private final static int VALUE_BOND = 20;
     private String location;
     private String code;
     private transient Cities city;

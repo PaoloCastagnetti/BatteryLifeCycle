@@ -18,7 +18,7 @@ import java.io.IOException;
 
 public class CoapGetTransformResource {
     private static final String COAP_ENDPOINT_GET = "coap://127.0.0.1:5683/Transform";
-    static TransformingSensor transformingSensor;
+
     static Gson gson;
 
     public static TransformingSensor getTransformComponent(){
