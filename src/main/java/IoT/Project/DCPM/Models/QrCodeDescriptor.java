@@ -10,6 +10,7 @@ import java.io.File;
 
 public class QrCodeDescriptor {
     private File qrCode;
+    private String ID;
     private long timestamp;
 
     public QrCodeDescriptor() {
@@ -20,6 +21,13 @@ public class QrCodeDescriptor {
     }
     public void setQrCode(File qrCode) {
         this.qrCode = qrCode;
+    }
+
+    public String getID() {
+        return ID;
+    }
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public long getTimestamp() {

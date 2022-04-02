@@ -21,7 +21,7 @@ public class VehicleDataConsumer {
     private static TrackingActuatorDescriptor TAD = new TrackingActuatorDescriptor();
     static Gson gson = new Gson();
 
-    static void StartCOaPCommunication() throws InterruptedException {
+    static void StartCoAPCommunication() throws InterruptedException {
         System.out.println("Sending Location Data to Center");
         while (true){
             if(TAD.getBatterylevel() <= 0){
@@ -96,7 +96,7 @@ public class VehicleDataConsumer {
                         TAD.setDID(VTD.getID());
                         TAD.setStartLocation(VTD.getStartingLocation());
                         TAD.setEndLocation(VTD.getEndingLocation());
-                        StartCOaPCommunication();
+                        StartCoAPCommunication();
                     }
                 }
             });
