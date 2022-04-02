@@ -15,20 +15,22 @@ public class MountingBatteryonVehicleSensor {
 
     private static int QUANTITY_START_VALUE = 0;
     private static final int QUANTITY_VALUE_BOUND = 10;
-    private final String UNIT = "%";
+    private final java.lang.String UNIT = "%";
 
     //Attributes
 
     private File file;
+    private String sensorID;
     private int value;
     private long timestamp;
-    private Cars car;
+    private String car;
 
     private transient Random random = new Random(System.currentTimeMillis());
 
     //Constructors
 
     public MountingBatteryonVehicleSensor() {
+        this.value = 0;
     }
 
     //Getters and Setters
@@ -38,6 +40,13 @@ public class MountingBatteryonVehicleSensor {
     }
     public void setFile(File file) {
         this.file = file;
+    }
+
+    public java.lang.String getSensorID() {
+        return sensorID;
+    }
+    public void setSensorID(java.lang.String sensorID) {
+        this.sensorID = sensorID;
     }
 
     public int getValue() {
@@ -54,12 +63,13 @@ public class MountingBatteryonVehicleSensor {
         this.timestamp = timestamp;
     }
 
-    public Cars getCar() {
+    public String getCar() {
         return car;
     }
-    public void setCar(Cars car) {
+    public void setCar(String car) {
         this.car = car;
     }
+
 
     //Methods
 
@@ -67,7 +77,7 @@ public class MountingBatteryonVehicleSensor {
     public void increasingProgressValue(){
         QUANTITY_START_VALUE += this.random.nextInt(1, QUANTITY_VALUE_BOUND);
         this.value = QUANTITY_START_VALUE;
-        if (this.value>100){
+        if (this.value>90){
             setValue(100);
         }
         this.timestamp = System.currentTimeMillis();

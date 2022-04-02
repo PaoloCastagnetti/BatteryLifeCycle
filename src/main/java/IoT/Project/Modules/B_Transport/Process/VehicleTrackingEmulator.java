@@ -1,16 +1,13 @@
 package IoT.Project.Modules.B_Transport.Process;
 
 import IoT.Project.DCPM.Models.ExtractionDescriptor;
-import IoT.Project.DCPM.Models.TransportDescriptor;
 import IoT.Project.Modules.B_Transport.CoAP_Communication.ValidatingSecondStage;
 import IoT.Project.Modules.B_Transport.MQTTConfigurationParameters;
 import IoT.Project.Modules.B_Transport.Models.VehicleDesctiptor;
 import IoT.Project.Modules.B_Transport.Models.VehicleTelemetryData;
 import com.google.gson.Gson;
 import org.eclipse.californium.core.*;
-import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.Request;
-import org.eclipse.californium.elements.exception.ConnectorException;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
@@ -64,7 +61,7 @@ public class VehicleTrackingEmulator {
         String[] extractionObs = getExtractionObs();
         IMqttClient mqttClient;
         try {
-            String ID = String.format("Truck-%s", extractionObs[1]);
+            String ID = String.format("%s", extractionObs[1]);
 
             MqttClientPersistence persistence = new MemoryPersistence();
 
@@ -136,14 +133,13 @@ public class VehicleTrackingEmulator {
                 );
 
                 String payload = gsonData.toJson(vehicleDescriptor);
-                //String payload = "";
 
                 MqttMessage msg = new MqttMessage(payload.getBytes());
                 msg.setQos(0);
                 msg.setRetained(false);
                 mqttClient.publish(topic, msg);
 
-                System.out.println("Device Data Correctly Published! Topic" + topic + "Payload: " + payload);
+                System.out.println("Device Data Correctly Published!");
             }else{
                 System.err.println("Error: Topic or Msg = Null or MQTT Client is not Connected!");
             }

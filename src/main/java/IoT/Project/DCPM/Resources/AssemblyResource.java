@@ -11,10 +11,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * @author Francesco Lasalvia, 271719@studenti.unimore.it
+ * @author Marco Savarese, 271055@studenti.unimore.it
  * @project IoT-BatteryLifeCycle
- * @created 03/03/2022 - 10:09
+ * @created 31/03/2022 - 18:30
  */
+
 public class AssemblyResource extends CoapResource {
 
     private static final String OBJECT_TITLE = "Assembly";

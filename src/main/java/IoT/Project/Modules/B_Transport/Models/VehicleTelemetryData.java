@@ -15,10 +15,11 @@ public class VehicleTelemetryData {
     private double batteryLevel = 100.0;
     private double enginetemp;
     private long timestamp;
+    private String ID;
 
     private transient Random random;
     private transient Cities City;
-    private transient String ID;
+
 
     //Constructors
     public VehicleTelemetryData(String ID){

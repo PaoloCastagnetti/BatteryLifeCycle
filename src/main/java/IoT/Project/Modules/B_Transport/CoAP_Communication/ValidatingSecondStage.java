@@ -43,7 +43,7 @@ public class ValidatingSecondStage {
         Request req = new Request(CoAP.Code.GET);
         req.setConfirmable(true);
 
-        System.out.printf("Request Pretty Print: \n%s%n", Utils.prettyPrint(request));
+        System.out.printf("Request Pretty Print: \n%s%n", Utils.prettyPrint(req));
         try{
             CoapResponse resp = coapClient.advanced(req);
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(resp));
