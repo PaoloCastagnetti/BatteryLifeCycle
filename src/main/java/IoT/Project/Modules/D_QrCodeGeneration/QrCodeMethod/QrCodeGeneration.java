@@ -24,10 +24,11 @@ import java.io.IOException;
 public class QrCodeGeneration {
     //dove vuoi mettere tutti i qrcode
     //private static String path="C:\\Users\\Marco\\Desktop\\Roba\\Università\\Terzo Anno\\IoT\\BatteryLifeCycle\\src\\main\\java\\IoT\\Project\\Modules\\D_QrCodeGeneration\\QrCodeImage";
-    private static String path="C:\\Users\\lasal\\Desktop\\Unimore\\Iot\\Iot-code\\Prog-esame\\BatteryLifeCycle\\src\\main\\java\\IoT\\Project\\Modules\\D_QrCodeGeneration\\QrCodeImage";
-    private static QrCodeDescriptor qrCodeDescriptor=new QrCodeDescriptor();
+    //private static String path="C:\\Users\\lasal\\Desktop\\Unimore\\Iot\\Iot-code\\Prog-esame\\BatteryLifeCycle\\src\\main\\java\\IoT\\Project\\Modules\\D_QrCodeGeneration\\QrCodeImage";
+    private static String path="C:\\Users\\Paolo\\IdeaProjects\\BatteryLifeCycle\\src\\main\\java\\IoT\\Project\\Modules\\D_QrCodeGeneration\\QrCodeImage";
 
     public static void main(String[] args) {
+        QrCodeDescriptor qrCodeDescriptor=new QrCodeDescriptor();
         Gson gson = new Gson();
         //text sono le info che vuoi mettere nel QRcode
         String A_Extraction= CoapGetExtraction.getExtractionGson();
@@ -37,20 +38,24 @@ public class QrCodeGeneration {
         String C_Processing= CoapGetProcessing.getProcessingGson();
         String final_payload=String.format("Extraction:\n%s\nTransport\n%s\nProcessing:\n%s\n",A_Extraction,B_Transport,C_Processing);
         try{
-
             //generate QrCode
             System.out.println("Generazione QR_Code");
+
             QRCodeWriter writer=new QRCodeWriter();
-            BitMatrix bitMatrix=writer.encode(final_payload, BarcodeFormat.QR_CODE,150,150);
-            //file generation:  usa path/nome del qr code associato al codice univoco che prenderò da batteria!
+            BitMatrix bitMatrix=writer.encode(final_payload, BarcodeFormat.QR_CODE,300,300);
+
+            //file generation: usa path/nome del qr code associato al codice univoco che prenderò da batteria!
             File qrCode = new File(String.format("%s/QR_Code_%s.png",path,extractionDescriptor.getLoad_code()));
+            MatrixToImageWriter.writeToPath(bitMatrix,"PNG",qrCode.toPath());
+
             qrCodeDescriptor.setID(extractionDescriptor.getLoad_code());
             qrCodeDescriptor.setTimestamp(System.currentTimeMillis());
-            MatrixToImageWriter.writeToPath(bitMatrix,"PNG",qrCode.toPath());
-            qrCodeDescriptor.setQrCode(qrCode);
+            qrCodeDescriptor.setQrCode(bitMatrix);
+
             System.out.println("QR_Code Generato!!");
+
+            CoapPutQrCode.putQrCode(qrCodeDescriptor);
             System.out.println("QrCode inserito sul DCPM");
-            //CoapPutQrCode.putQrCode(qrCodeDescriptor);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,5 +1,7 @@
 package IoT.Project.Modules.E_Assembly.Models;
 
+import com.google.zxing.common.BitMatrix;
+
 import java.io.File;
 import java.util.Random;
 
@@ -19,7 +21,7 @@ public class MountingBatteryonVehicleSensor {
 
     //Attributes
 
-    private File file;
+    private BitMatrix file;
     private String sensorID;
     private int value;
     private long timestamp;
@@ -35,10 +37,11 @@ public class MountingBatteryonVehicleSensor {
 
     //Getters and Setters
 
-    public File getFile() {
+
+    public BitMatrix getFile() {
         return file;
     }
-    public void setFile(File file) {
+    public void setFile(BitMatrix file) {
         this.file = file;
     }
 

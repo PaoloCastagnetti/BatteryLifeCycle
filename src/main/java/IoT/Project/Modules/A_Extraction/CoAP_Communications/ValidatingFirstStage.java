@@ -25,26 +25,26 @@ public class ValidatingFirstStage {
         UAD.simulateOriginOfMaterial();
 
         //PUT
-        Request request = new Request(CoAP.Code.PUT);
-        request.setConfirmable(true);
+        Request putRequest = new Request(CoAP.Code.PUT);
+        putRequest.setConfirmable(true);
         String payload = gson.toJson(UAD);
-        request.setPayload(payload.getBytes());
+        putRequest.setPayload(payload.getBytes());
 
-        System.out.printf("Request Pretty Print: \n%s%n", Utils.prettyPrint(request));
+        System.out.printf("Request Pretty Print: \n%s%n", Utils.prettyPrint(putRequest));
         try {
-            CoapResponse coapResp = coapClient.advanced(request);
+            CoapResponse coapResp = coapClient.advanced(putRequest);
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(coapResp));
         } catch (ConnectorException | IOException e) {
             e.printStackTrace();
         }
 
         //GET
-        Request req = new Request(CoAP.Code.GET);
-        req.setConfirmable(true);
+        Request getRequest = new Request(CoAP.Code.GET);
+        getRequest.setConfirmable(true);
 
-        System.out.printf("Request Pretty Print: \n%s%n", Utils.prettyPrint(req));
+        System.out.printf("Request Pretty Print: \n%s%n", Utils.prettyPrint(getRequest));
         try{
-            CoapResponse resp = coapClient.advanced(req);
+            CoapResponse resp = coapClient.advanced(getRequest);
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(resp));
         }catch(ConnectorException | IOException e){
             e.printStackTrace();

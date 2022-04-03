@@ -1,5 +1,7 @@
 package IoT.Project.DCPM.Models;
 
+import com.google.zxing.common.BitMatrix;
+
 import java.io.File;
 
 /**
@@ -9,17 +11,17 @@ import java.io.File;
  */
 
 public class QrCodeDescriptor {
-    private File qrCode;
+    private BitMatrix qrCode;
     private String ID;
     private long timestamp;
 
     public QrCodeDescriptor() {
     }
 
-    public File getQrCode() {
+    public BitMatrix getQrCode() {
         return qrCode;
     }
-    public void setQrCode(File qrCode) {
+    public void setQrCode(BitMatrix qrCode) {
         this.qrCode = qrCode;
     }
 

@@ -59,4 +59,23 @@ public class QrCodeResource extends CoapResource{
         }
     }
 
+    @Override
+    public void handlePUT(CoapExchange exchange) {
+        try{
+            String receivedPayload = new String(exchange.getRequestPayload());
+            QrCodeDescriptor qrCodeDescriptor = gson.fromJson(receivedPayload, QrCodeDescriptor.class);
+            if(qrCodeDescriptor.getID() != null && qrCodeDescriptor.getQrCode() != null && qrCodeDescriptor.getTimestamp() !=0){
+                QRD.setQrCode(qrCodeDescriptor.getQrCode());
+                QRD.setID(qrCodeDescriptor.getID());
+                QRD.setTimestamp(qrCodeDescriptor.getTimestamp());
+                exchange.respond(CoAP.ResponseCode.CHANGED);
+                changed();
+            }
+            else{
+                exchange.respond(CoAP.ResponseCode.BAD_REQUEST);
+            }
+        }catch(Exception e){
+        exchange.respond(CoAP.ResponseCode.INTERNAL_SERVER_ERROR);
+    }
+    }
 }

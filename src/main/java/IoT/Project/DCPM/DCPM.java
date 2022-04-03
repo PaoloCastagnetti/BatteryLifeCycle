@@ -15,13 +15,11 @@ public class DCPM extends CoapServer {
         TransportResource TR = new TransportResource("Transport");
         ProcessingResource PR = new ProcessingResource("Processing");
         QrCodeResource QRR = new QrCodeResource("QrCode");
-        AssemblyResource AR = new AssemblyResource("Assembly");
 
         this.add(ET);
         this.add(TR);
         this.add(PR);
         this.add(QRR);
-        this.add(AR);
     }
 
 

@@ -99,6 +99,7 @@ public class MountingProcessEmulator {
                     mountingBatteryonVehicleSensor.increasingProgressValue();
                 }
                 Mounting(mqttClient, mountingBatteryonVehicleSensor);
+                Thread.sleep(1500);
             }
 
 

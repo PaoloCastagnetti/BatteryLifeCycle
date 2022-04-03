@@ -5,8 +5,7 @@ package IoT.Project.Modules.A_Extraction.Models;
  * @created 10/03/2022 - 11:29
  */
 public class Cities {
-    private final String[] CITIES = {"Mantova", "Modena", "Reggio Emilia", "Parma", "Milano"};
-
+    private final String[] CITIES = {"Mantova", "Modena", "Reggio-Emilia", "Parma", "Milano", "Genova", "Venezia", "Roma"};
     public String[] getCITIES() {
         return CITIES;
     }
