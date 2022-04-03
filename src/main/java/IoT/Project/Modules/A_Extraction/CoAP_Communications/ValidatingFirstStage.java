@@ -30,10 +30,13 @@ public class ValidatingFirstStage {
         String payload = gson.toJson(UAD);
         putRequest.setPayload(payload.getBytes());
 
-        System.out.printf("Request Pretty Print: \n%s%n", Utils.prettyPrint(putRequest));
+        System.out.println("PUT of the resource on the DCPM.\n");
+
+        System.out.printf("Request Pretty Print: \n%s%n\n", Utils.prettyPrint(putRequest));
         try {
             CoapResponse coapResp = coapClient.advanced(putRequest);
-            System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(coapResp));
+            System.out.println("Response DCPM: \n");
+            System.out.printf("Pretty Print: \n%s%n\n", Utils.prettyPrint(coapResp));
         } catch (ConnectorException | IOException e) {
             e.printStackTrace();
         }
@@ -41,11 +44,12 @@ public class ValidatingFirstStage {
         //GET
         Request getRequest = new Request(CoAP.Code.GET);
         getRequest.setConfirmable(true);
-
-        System.out.printf("Request Pretty Print: \n%s%n", Utils.prettyPrint(getRequest));
+        System.out.println("GET on the resource.\n");
+        System.out.printf("Request Pretty Print: \n%s%n\n", Utils.prettyPrint(getRequest));
         try{
             CoapResponse resp = coapClient.advanced(getRequest);
-            System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(resp));
+            System.out.println("Response DCPM: \n");
+            System.out.printf("Response Pretty Print: \n%s%n\n", Utils.prettyPrint(resp));
         }catch(ConnectorException | IOException e){
             e.printStackTrace();
         }

@@ -26,6 +26,7 @@ public class DCPM extends CoapServer {
     public static void main(String[] args) {
 
         DCPM coapServer = new DCPM();
+        System.out.println("Starting DCPM...\n");
         coapServer.start();
 
         coapServer.getRoot().getChildren().stream().forEach(resource -> {

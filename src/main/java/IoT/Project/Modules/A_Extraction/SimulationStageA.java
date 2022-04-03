@@ -8,6 +8,7 @@ import IoT.Project.Modules.A_Extraction.Process.UploadingActuatorConsumer;
 public class SimulationStageA {
     public static void main(String[] args){
         try {
+            System.out.println("STARTING SIMULATION STAGE A!");
             UploadingActuatorConsumer.main(args);
             Thread.sleep(2000);
             MineralQuantityProcessEmulator.main(args);

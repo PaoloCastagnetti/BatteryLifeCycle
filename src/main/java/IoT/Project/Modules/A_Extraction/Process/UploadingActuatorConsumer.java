@@ -20,13 +20,14 @@ public class UploadingActuatorConsumer {
 
 
     static void StartLoading() throws InterruptedException {
-        System.out.println("Starting to load minerals into the camions");
+        System.out.println("Starting to load minerals into the truck.");
         while(true){
             UAD.measureLoadingMaterial();
             String loading = gson.toJson(UAD);
             System.out.println("Loading: "+ loading);
             if(UAD.getValue()==100){
                 UAD.setRtg(true);
+                System.out.println("Ended loading on truck.\n");
                 System.out.println("Sending Materials!");
                 sendResource(UAD);
                 break;
@@ -68,18 +69,16 @@ public class UploadingActuatorConsumer {
                     MQTTConfigurationParameters.QUANTITY_VALUE_TOPIC,
                     MQTTConfigurationParameters.EXTRACTED_TOPIC);
 
-            client.subscribe(sensorTelemetryTopic, new IMqttMessageListener() {
-                @Override
-                public void messageArrived(String topic, MqttMessage message) throws Exception {
-                    byte[] payload = message.getPayload();
-                    String msg = new String(payload);
-                    System.out.println("Message Received ("+topic+") Message Received: " + msg);
-                    MineralQuantitySensorDescriptor MQS = gson.fromJson(msg, MineralQuantitySensorDescriptor.class);
-                    if(MQS.getValue()==100){
-                        UAD.setRtl(true);
-                        UAD.setE_timestamp(MQS.getTimestamp());
-                        StartLoading();
-                    }
+            client.subscribe(sensorTelemetryTopic, (topic, message) -> {
+                byte[] payload = message.getPayload();
+                String msg = new String(payload);
+                System.out.println("Message Received ("+topic+") Message Received: " + msg);
+                MineralQuantitySensorDescriptor MQS = gson.fromJson(msg, MineralQuantitySensorDescriptor.class);
+                if(MQS.getValue()==100){
+                    System.out.println("Extraction has reach its maximum volume.\n");
+                    UAD.setRtl(true);
+                    UAD.setE_timestamp(MQS.getTimestamp());
+                    StartLoading();
                 }
             });
         }catch (Exception e){
