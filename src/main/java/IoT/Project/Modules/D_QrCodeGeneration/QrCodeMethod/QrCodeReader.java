@@ -33,12 +33,12 @@ public class QrCodeReader {
         File file=new File(String.format("%s/QR_Code_%s.png",path,codeBattery));
 
         System.out.println("IL contenuto del QrCode e' il seguente: \n");
-        System.out.println(readQrCode(file,codeBattery));
+        System.out.println(readQrCode(file));
         System.out.println("\n");
         System.out.println("Done");
     }
 
-    private static String readQrCode(File qrcodefile,String codebattery) throws IOException, NotFoundException, ChecksumException, FormatException {
+    private static String readQrCode(File qrcodefile) throws IOException, NotFoundException, ChecksumException, FormatException {
         QRCodeReader qrCodeReader=new QRCodeReader();
         Result decode=qrCodeReader.decode(new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(ImageIO.read(qrcodefile)))));
         return decode.getText();
