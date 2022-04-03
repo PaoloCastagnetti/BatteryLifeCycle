@@ -1,7 +1,5 @@
-package IoT.Project.Modules.D_QrCodeGeneration.GetDCPM;
+package IoT.Project.Modules.D_QrCodeGeneration.CoAP_Communications;
 
-import IoT.Project.DCPM.Models.TransportDescriptor;
-import com.google.gson.Gson;
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.Utils;

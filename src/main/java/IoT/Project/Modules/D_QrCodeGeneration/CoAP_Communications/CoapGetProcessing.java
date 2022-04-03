@@ -1,7 +1,5 @@
-package IoT.Project.Modules.D_QrCodeGeneration.GetDCPM;
+package IoT.Project.Modules.D_QrCodeGeneration.CoAP_Communications;
 
-import IoT.Project.DCPM.Models.ExtractionDescriptor;
-import com.google.gson.Gson;
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.Utils;
@@ -16,10 +14,10 @@ import java.io.IOException;
  * @created 03/03/2022 - 10:09
  */
 
-public class CoapGetExtraction {
-    private static final String COAP_ENDPOINT_GET = "coap://127.0.0.1:5683/Extraction";
+public class CoapGetProcessing {
+    private static final String COAP_ENDPOINT_GET = "coap://127.0.0.1:5683/Processing";
 
-    public static String getExtractionGson(){
+    public static String getProcessingGson(){
         String final_payload = null;
         //Initialize coapClient
         CoapClient coapClient = new CoapClient(COAP_ENDPOINT_GET);
@@ -41,7 +39,7 @@ public class CoapGetExtraction {
             final_payload = new String(payload);
 
         }catch(ConnectorException | IOException e){
-            System.out.println("Extraction information are wrong!");
+            System.out.println("Processing information are wrong!");
             e.printStackTrace();
         }
         return final_payload;
