@@ -4,7 +4,7 @@ import IoT.Project.Modules.C_Processing.Client.CoapGetTransportResource;
 import IoT.Project.Modules.C_Processing.Client.CoapPutTransform;
 import IoT.Project.Modules.C_Processing.Sensors.TransformingSensor;
 
-public class Transformingprocess {
+public class TransformingProcess {
 
     public static void main(String[] args) {
         //fare get su Transport
