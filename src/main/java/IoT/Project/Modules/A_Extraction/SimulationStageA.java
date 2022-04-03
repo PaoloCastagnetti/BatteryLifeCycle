@@ -1,6 +1,5 @@
 package IoT.Project.Modules.A_Extraction;
 
-import IoT.Project.DCPM.DCPM;
 import IoT.Project.Modules.A_Extraction.Process.MineralQuantityProcessEmulator;
 import IoT.Project.Modules.A_Extraction.Process.UploadingActuatorConsumer;
 

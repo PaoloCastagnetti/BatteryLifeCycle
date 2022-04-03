@@ -1,7 +1,5 @@
 package IoT.Project.DCPM.Resources;
 
-
-import IoT.Project.DCPM.Models.ProcessingDescriptor;
 import IoT.Project.DCPM.Models.QrCodeDescriptor;
 import com.google.gson.Gson;
 import org.eclipse.californium.core.CoapResource;

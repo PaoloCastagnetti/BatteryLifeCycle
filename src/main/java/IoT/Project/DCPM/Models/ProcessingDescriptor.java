@@ -1,7 +1,5 @@
 package IoT.Project.DCPM.Models;
 
-import java.awt.*;
-
 /**
  * @author Francesco Lasalvia, 271719@studenti.unimore.it
  * @project IoT-BatteryLifeCycle

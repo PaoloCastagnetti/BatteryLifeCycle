@@ -2,8 +2,6 @@ package IoT.Project.DCPM.Models;
 
 import com.google.zxing.common.BitMatrix;
 
-import java.io.File;
-
 /**
  * @author Francesco Lasalvia, 271719@studenti.unimore.it
  * @project IoT-BatteryLifeCycle
