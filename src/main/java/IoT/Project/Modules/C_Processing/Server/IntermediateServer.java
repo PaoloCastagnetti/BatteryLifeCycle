@@ -21,7 +21,7 @@ public class IntermediateServer extends CoapServer {
 
         IntermediateServer server =new IntermediateServer();
         server.start();
-        System.out.println("Coap serer started!, Available resouces: ");
+        System.out.println("Coap server started!, Available resouces: ");
 
         server.getRoot().getChildren().stream().forEach(resource -> {
             System.out.println(String.format("Resource %d, Uri %c , Observable: %b",resource.getName(), resource.getURI(), resource.isObservable()));

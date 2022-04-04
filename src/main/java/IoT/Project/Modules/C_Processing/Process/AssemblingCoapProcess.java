@@ -1,4 +1,4 @@
-package IoT.Project.Modules.C_Processing.Process;
+package IoT.Project.Modules.C_Processing.process;
 
 import IoT.Project.Modules.C_Processing.Client.CoapGetTransformResource;
 import IoT.Project.Modules.C_Processing.Client.CoapPutAssembleStage;
@@ -37,9 +37,7 @@ public class AssemblingCoapProcess extends CoapServer {
 
 
         //devo fare la get sulla tranform, mi serve inizio,fine, luogo ,id
-        System.out.println("Asking for information to: Transform component...");
         TransformingSensor transformingSensor=CoapGetTransformResource.getTransformComponent();
-        System.out.println("Received all data from Transform Component");
 
 
         //abbiamo bisogno di tutte le altre info
@@ -53,16 +51,17 @@ public class AssemblingCoapProcess extends CoapServer {
 
         //fase di assemblaggio setta solo i valori di inizio e fine timestamp
        //simulo assemblaggio
-        System.out.println("Starting assembling...");
-        assemblingSensor.update_assemble();
+        try {
+            assemblingSensor.update_assemble();
+        } catch (InterruptedException e) {
+            System.out.println("Assembling update went wrong...");
+            e.printStackTrace();
+        }
         //il messaggio di fine sta nell'update
 
         //ora devo fare una put al data collector dell'assembling sensor
         System.out.println("Sending all data to DCPM...");
         CoapPutAssembleStage.CoapPutAssemble(assemblingSensor);
-        System.out.println("Sending Assembling data succeeded!!");
-
-
     }
 
 

@@ -20,6 +20,7 @@ public class CoAPGetQrCode {
         //Request Class is a generic CoAP message: in this case we want a GET.
         //"Message ID", "Token" and other header's fields can be set
         Request getRequest = new Request(CoAP.Code.GET);
+        System.out.println("Asking for QrCode information...\n");
 
         //Set Request as Confirmable
         getRequest.setConfirmable(true);
@@ -29,11 +30,13 @@ public class CoAPGetQrCode {
             CoapResponse resp = coapClient.advanced(getRequest);
             byte[] payload = resp.getPayload();
             final_payload = new String(payload);
+            System.out.println(String.format("Current Payload is:%s, current timestamp is: %d\n",final_payload,System.currentTimeMillis()));
 
         }catch(ConnectorException | IOException e){
-            System.out.println("Extraction information are wrong!");
+            System.out.println("Extraction information are wrong!\n");
             e.printStackTrace();
         }
+        System.out.println("Got everything needed on QrCode!"+String.format("Current timestamp is: %d\n",System.currentTimeMillis()));
         return final_payload;
     }
 }

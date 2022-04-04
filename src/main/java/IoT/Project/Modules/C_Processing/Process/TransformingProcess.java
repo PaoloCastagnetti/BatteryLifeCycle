@@ -1,4 +1,4 @@
-package IoT.Project.Modules.C_Processing.Process;
+package IoT.Project.Modules.C_Processing.process;
 
 import IoT.Project.Modules.C_Processing.Client.CoapGetTransportResource;
 import IoT.Project.Modules.C_Processing.Client.CoapPutTransform;
@@ -21,9 +21,8 @@ public class TransformingProcess {
             transformingSensor.setLocation(elements[1]);
 
         //adesso tocca alla put sull'inetermediate server
-        System.out.println("Sending information to Assembling SEnsor...");
-        CoapPutTransform.CoapPutTransform(transformingSensor);
-        System.out.println("Assembling sensor got everithing!");
+        System.out.println("Sending information to Assembling Sensor...");
+        CoapPutTransform.coapPutTransformCall(transformingSensor);
 
         }
     }

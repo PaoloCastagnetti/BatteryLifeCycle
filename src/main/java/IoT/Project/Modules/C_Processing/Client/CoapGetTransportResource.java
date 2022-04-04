@@ -29,6 +29,7 @@ public class CoapGetTransportResource {
 
         //Request Class is a generic CoAP message: in this case we want a GET.
         //"Message ID", "Token" and other header's fields can be set
+        System.out.println("Asking information to Transport resource..\n");
         Request req = new Request(CoAP.Code.GET);
 
         //Set Request as Confirmable
@@ -46,9 +47,11 @@ public class CoapGetTransportResource {
             //pos 0 -> vehicle id & pos 1->ending location
             elements[0]=transportDescriptor.getVehicleID();
             elements[1]=transportDescriptor.getEndingLocation();
+            System.out.println("Transport's information acquired succesfully:\n"+String.format("The current timestamp is:%d\n",System.currentTimeMillis()));
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(resp));
+            System.out.println("Ending Get on Transport Resource...\n");
         }catch(ConnectorException | IOException e){
-            System.out.println("Transport information are wrong!");
+            System.out.println("Transport information are wrong!\n");
             e.printStackTrace();
         }
         return elements;
@@ -59,6 +62,7 @@ public class CoapGetTransportResource {
         String[] elements =new String[2];
 
         CoapClient coapClient = new CoapClient(COAP_ENDPOINT_GET);
+        System.out.println("Asking information to Transport resource..\n");
 
         Request request = Request.newGet().setURI(COAP_ENDPOINT_GET).setObserve();
         request.setConfirmable(true);
@@ -73,7 +77,9 @@ public class CoapGetTransportResource {
                 //pos 0 -> vehicle id & pos 1->ending location
                 elements[0]=transportDescriptor.getVehicleID();
                 elements[1]=transportDescriptor.getEndingLocation();
+                System.out.println("Transport's information acquired succesfully:\n"+String.format("The current timestamp is:%d\n",System.currentTimeMillis()));
                 System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(response));
+                System.out.println("Ending Get on Transport Resource...\n");
             }
 
             public void onError() {

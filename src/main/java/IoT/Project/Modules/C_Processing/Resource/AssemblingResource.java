@@ -49,8 +49,6 @@ public class AssemblingResource extends CoapResource {
                 exchange.respond(CoAP.ResponseCode.BAD_GATEWAY);
             }
         });
-
-        // exchange has not been responded yet??
     }
 
     @Override

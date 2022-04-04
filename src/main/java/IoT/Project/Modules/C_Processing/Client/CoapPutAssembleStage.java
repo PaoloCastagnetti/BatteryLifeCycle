@@ -23,6 +23,7 @@ public class CoapPutAssembleStage {
     public static void CoapPutAssemble(AssemblingSensor assemblingSensor){
         CoapClient coapClient = new CoapClient(COAP_ENDPOINT_TRANSFORM);
         //PUT
+        System.out.println("Trying PUT on Assemble stage...\n");
         Request request = new Request(CoAP.Code.PUT);
         request.setConfirmable(true);
         String payload = gson.toJson(assemblingSensor);
@@ -32,8 +33,9 @@ public class CoapPutAssembleStage {
         try {
             CoapResponse coapResp = coapClient.advanced(request);
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(coapResp));
+            System.out.println(String.format("State of PUT on AssembleStage: completed successfully,current timestamp is: %d\n",System.currentTimeMillis()));
         } catch (ConnectorException | IOException e) {
-            System.out.println("Assembling information are wrong, check!");
+            System.out.println("Assembling information are wrong, check!\n");
             e.printStackTrace();
         }
     }

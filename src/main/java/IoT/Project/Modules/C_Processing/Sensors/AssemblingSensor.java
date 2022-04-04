@@ -36,28 +36,51 @@ public class AssemblingSensor {
     }
 
 
-    public void update_assemble() {
-        System.out.println(String.format("Starting periodic Assemblation with on {%s}", deviceId));
-        this.i_Timestamp_assembling =System.currentTimeMillis();
-
+    public void update_assemble() throws InterruptedException {
+        i_Timestamp_assembling = System.currentTimeMillis();
+        System.out.printf("Starting periodic Update Task with on {%s}, setting initial timestamp at:%d,begin trasformation...\n", deviceId,i_Timestamp_assembling);
+        System.out.println("Loading component on Conveyor  Line...\n");
+        Thread.sleep(3000);
         while (value < 100) {
-            try {
-                value += VALUE_BOND;
-                System.out.println("Working on it...");
-                Thread.sleep(3000);
-                System.out.println(String.format("Assemplation percentage increased to:  %i, the current timestamp is %l, continue...",value,System.currentTimeMillis()));
+            value += VALUE_BOND;
+            System.out.printf("Assembling percentage increased to:  %d, the current timestamp is %d, continue...\n",value,System.currentTimeMillis());
+            Thread.sleep(1500);
+            if(value==20){
+                System.out.println(String.format("System Begin:Casting Operation,operating state:1, current timestamp: %d, " +
+                        "current state of line: succesfully operating!\n",System.currentTimeMillis()));
                 Thread.sleep(1500);
-
-            } catch (InterruptedException e) {
-                System.out.println("Assemble failed!!");
-                e.printStackTrace();
+                System.out.println(String.format("System Begin: Installing Thermal Management System,operating state:1, current timestamp: %d, " +
+                        "current state of line: succesfully operating!\n",System.currentTimeMillis()));
             }
+            if(value==40){
+                System.out.println(String.format("System Begin: Fastening System, current timestamp: %d\n",System.currentTimeMillis()));
+                Thread.sleep(1500);
+                System.out.println(String.format("System Update: Fastening Installation Done...,operating state:1, " +
+                        "current timestamp: %d, current state of line: succesfully operating!\n",System.currentTimeMillis()));
+            }
+            if (value==60){
+                System.out.println(String.format("System Begin: Cable Installation...Current timestamp: %d\n",System.currentTimeMillis()));
+                Thread.sleep(1500);
+                System.out.println(String.format("System Begin: Pack Sealing...,operating state:1, " +
+                        "current timestamp: %d, current state of line: succesfully operating!\n",System.currentTimeMillis()));
+            }
+            if(value==80){
+                System.out.println(String.format("System Update: Inspection Operation, current timestamp: %d\n",System.currentTimeMillis()));
+                Thread.sleep(1500);
+                System.out.println(String.format("System Update: Testing Operation...,operating state:1, " +
+                        "current timestamp: %d, current state of line: succesfully operating!\n",System.currentTimeMillis()));
+            }
+
         }
         f_Timestamp_assembling = System.currentTimeMillis();
         this.value = 100;
         setLocation(city.getCITY(random.nextInt(5)));
-        System.out.println(String.format("The device number: %s is full assembled!,the current timestamp is %s", deviceId,f_Timestamp_assembling));
-        System.out.println(String.format("Current location is %s",location));
+        System.out.println(String.format("All Test are OK, Assemblation Percentage is:"+value+"%"));
+        System.out.println(String.format("""
+                "The device number: %s is full Assembled!
+                Setting final Timestamp to: %s
+                Current location is %s
+                """,deviceId,f_Timestamp_assembling,location));
     }
 
     @Override

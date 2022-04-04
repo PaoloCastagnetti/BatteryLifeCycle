@@ -44,7 +44,6 @@ public class TransformingResource extends CoapResource {
             }
         });
 
-        // exchange has not been responded yet??
     }
 
     @Override

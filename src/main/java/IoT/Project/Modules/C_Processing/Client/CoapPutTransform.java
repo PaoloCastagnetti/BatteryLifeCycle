@@ -22,9 +22,10 @@ public class CoapPutTransform {
     static Gson gson=new Gson();
 
 
-    public static void CoapPutTransform(TransformingSensor transformingSensor){
+    public static void coapPutTransformCall(TransformingSensor transformingSensor){
         CoapClient coapClient = new CoapClient(COAP_ENDPOINT_TRANSFORM);
         //PUT
+        System.out.println("Trying PUT on Transform stage..\n");
         Request request = new Request(CoAP.Code.PUT);
         request.setConfirmable(true);
         String payload = gson.toJson(transformingSensor);
@@ -34,8 +35,9 @@ public class CoapPutTransform {
         try {
             CoapResponse coapResp = coapClient.advanced(request);
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(coapResp));
+            System.out.println(String.format("State of PUT on TransformStage: completed successfully,current timestamp is: %d\n",System.currentTimeMillis()));
         } catch (ConnectorException | IOException e) {
-            System.out.println("Trasformg information weren't correct, something's wrong!!");
+            System.out.println("Trasformg information weren't correct, something's wrong!!\n");
             e.printStackTrace();
         }
     }

@@ -24,6 +24,7 @@ public class CoapGetProcessing {
 
         //Request Class is a generic CoAP message: in this case we want a GET.
         //"Message ID", "Token" and other header's fields can be set
+        System.out.println("Asking information to processing...\n");
         Request req = new Request(CoAP.Code.GET);
 
         //Set Request as Confirmable
@@ -37,11 +38,13 @@ public class CoapGetProcessing {
             CoapResponse resp = coapClient.advanced(req);
             byte[] payload = resp.getPayload();
             final_payload = new String(payload);
+            System.out.println(String.format("Current Payload is:%s, current timestamp is: %d\n",final_payload,System.currentTimeMillis()));
 
         }catch(ConnectorException | IOException e){
-            System.out.println("Processing information are wrong!");
+            System.out.println("Processing information are wrong!\n");
             e.printStackTrace();
         }
+        System.out.println("Got everything needed on Processing's information!\n"+String.format("Current timestamp is: %d\n",System.currentTimeMillis()));
         return final_payload;
     }
 }

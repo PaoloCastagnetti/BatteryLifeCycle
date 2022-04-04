@@ -25,6 +25,7 @@ public class CoapGetExtraction {
         //Request Class is a generic CoAP message: in this case we want a GET.
         //"Message ID", "Token" and other header's fields can be set
         Request req = new Request(CoAP.Code.GET);
+        System.out.println("Asking information on extraction...\n");
 
         //Set Request as Confirmable
         req.setConfirmable(true);
@@ -37,11 +38,13 @@ public class CoapGetExtraction {
             CoapResponse resp = coapClient.advanced(req);
             byte[] payload = resp.getPayload();
             final_payload = new String(payload);
+            System.out.println(String.format("Current Payload is:%s, current timestamp is: %d\n",final_payload,System.currentTimeMillis()));
 
         }catch(ConnectorException | IOException e){
-            System.out.println("Extraction information are wrong!");
+            System.out.println("Extraction information are wrong!\n");
             e.printStackTrace();
         }
+        System.out.println("Got all Extraction's informations!!"+String.format("Current timestamp is: %d",System.currentTimeMillis()));
         return final_payload;
     }
 }
