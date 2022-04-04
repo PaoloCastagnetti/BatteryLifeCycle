@@ -9,8 +9,9 @@ public class ProgressBar extends JFrame {
     public ProgressBar(int min, int max){
         this.setResizable(false);
         jb=new JProgressBar(min,max);
-        jb.setBounds(0,0,200,50);  //Posizionamento e grandezza della barra
-        setSize(300,120);  		//Grandezza finestra.
+        jb.setBounds(10,10,300,50);  //Posizionamento e grandezza della barra
+        setSize(300+50,60+50);  		//Grandezza finestra.
+        setLocation(800,100);
         jb.setValue(0);  //Imposta il valore di partenza
         jb.setStringPainted(true);
 
