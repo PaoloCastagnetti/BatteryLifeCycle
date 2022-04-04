@@ -1,6 +1,7 @@
 package IoT.Project.Modules.C_Processing.Sensors;
 
 import IoT.Project.Modules.A_Extraction.Models.Cities;
+import IoT.Project.Modules.D_QrCodeGeneration.QrCodeMethod.LoadingBar.ProgressBar;
 
 import java.util.Random;
 import java.util.UUID;
@@ -37,15 +38,18 @@ public class AssemblingSensor {
 
 
     public void update_assemble() throws InterruptedException {
+        ProgressBar progressBar= generateAssemblingProgressBar();
         i_Timestamp_assembling = System.currentTimeMillis();
         System.out.printf("Starting periodic Update Task with on {%s}, setting initial timestamp at:%d,begin trasformation...\n", deviceId,i_Timestamp_assembling);
         System.out.println("Loading component on Conveyor  Line...\n");
         Thread.sleep(3000);
         while (value < 100) {
             value += VALUE_BOND;
+            updateAssemblingProgressBar(progressBar,value);
             System.out.printf("Assembling percentage increased to:  %d, the current timestamp is %d, continue...\n",value,System.currentTimeMillis());
             Thread.sleep(1500);
             if(value==20){
+                updateAssemblingProgressBar(progressBar,value);
                 System.out.println(String.format("System Begin:Casting Operation,operating state:1, current timestamp: %d, " +
                         "current state of line: succesfully operating!\n",System.currentTimeMillis()));
                 Thread.sleep(1500);
@@ -53,18 +57,21 @@ public class AssemblingSensor {
                         "current state of line: succesfully operating!\n",System.currentTimeMillis()));
             }
             if(value==40){
+                updateAssemblingProgressBar(progressBar,value);
                 System.out.println(String.format("System Begin: Fastening System, current timestamp: %d\n",System.currentTimeMillis()));
                 Thread.sleep(1500);
                 System.out.println(String.format("System Update: Fastening Installation Done...,operating state:1, " +
                         "current timestamp: %d, current state of line: succesfully operating!\n",System.currentTimeMillis()));
             }
             if (value==60){
+                updateAssemblingProgressBar(progressBar,value);
                 System.out.println(String.format("System Begin: Cable Installation...Current timestamp: %d\n",System.currentTimeMillis()));
                 Thread.sleep(1500);
                 System.out.println(String.format("System Begin: Pack Sealing...,operating state:1, " +
                         "current timestamp: %d, current state of line: succesfully operating!\n",System.currentTimeMillis()));
             }
             if(value==80){
+                updateAssemblingProgressBar(progressBar,value);
                 System.out.println(String.format("System Update: Inspection Operation, current timestamp: %d\n",System.currentTimeMillis()));
                 Thread.sleep(1500);
                 System.out.println(String.format("System Update: Testing Operation...,operating state:1, " +
@@ -74,6 +81,9 @@ public class AssemblingSensor {
         }
         f_Timestamp_assembling = System.currentTimeMillis();
         this.value = 100;
+        updateAssemblingProgressBar(progressBar,value);
+        Thread.sleep(1500);
+        progressBar.dispose();
         setLocation(city.getCITY(random.nextInt(5)));
         System.out.println(String.format("All Test are OK, Assemblation Percentage is:"+value+"%"));
         System.out.println(String.format("""
@@ -168,5 +178,16 @@ public class AssemblingSensor {
 
     public void setF_timestap_transforming(long f_timestap_transforming) {
         this.f_timestap_transforming = f_timestap_transforming;
+    }
+
+    public ProgressBar generateAssemblingProgressBar(){
+        ProgressBar progressBar =new ProgressBar(0,100);
+        progressBar.setVisible(true);
+        progressBar.setTitle("Assembling Line");
+        return progressBar;
+    }
+    public static void updateAssemblingProgressBar(ProgressBar progressBar, int value){
+        progressBar.paint(progressBar.getGraphics());
+        progressBar.jb.setValue(value);
     }
 }

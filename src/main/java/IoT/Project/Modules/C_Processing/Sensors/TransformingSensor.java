@@ -1,6 +1,8 @@
 package IoT.Project.Modules.C_Processing.Sensors;
 
 import IoT.Project.Modules.A_Extraction.Models.Cities;
+import IoT.Project.Modules.D_QrCodeGeneration.QrCodeMethod.LoadingBar.ProgressBar;
+
 import java.util.Random;
 import java.util.UUID;
 
@@ -33,12 +35,14 @@ public class TransformingSensor {
 
 
     public void update_transform() throws InterruptedException {
+        ProgressBar progressBar=generateTransformingingProgressBar();
         i_Timestamp = System.currentTimeMillis();
         System.out.printf("Starting periodic Update Task with on {%s}, setting initial timestamp at:%d,begin trasformation...\n", deviceId,i_Timestamp);
         System.out.println("Loading Raw Material on Trasnport Line...\n");
         Thread.sleep(3000);
         while (value < 100) {
             value += VALUE_BOND;
+            updateTransformingingProgressBar(progressBar,value);
             System.out.printf("Trasforming percentage increased to:  %d, the current timestamp is %d, continue...\n",value,System.currentTimeMillis());
             Thread.sleep(1500);
             if(value==20){
@@ -47,6 +51,7 @@ public class TransformingSensor {
                 Thread.sleep(1500);
             }
             if(value==40){
+                updateTransformingingProgressBar(progressBar,value);
                 System.out.println(String.format("System Update: Compound is ready, current timestamp: %d\n",System.currentTimeMillis()));
                 Thread.sleep(1500);
                 System.out.println(String.format("System Begin: Creation Anode and Catode...,operating state:1, " +
@@ -57,12 +62,14 @@ public class TransformingSensor {
 
             }
             if(value==60){
+                updateTransformingingProgressBar(progressBar,value);
                 System.out.println(String.format("System Update: Ending Coating Operation, Current Timestamp: %d\n",System.currentTimeMillis()));
                 Thread.sleep(1500);
                 System.out.println(String.format("System Begin: Stacking,Drying and Welding Operation...,operating state:1, " +
                         "current timestamp: %d, current state of line: successfully operating!\n",System.currentTimeMillis()));
             }
             if(value==80){
+                updateTransformingingProgressBar(progressBar,value);
                 System.out.println(String.format("System Update: Ending Welding Operation, current timestamp: %d\n",System.currentTimeMillis()));
                 Thread.sleep(1500);
                 System.out.println(String.format("System Begin: Electrolyte Injection and Sealing Operation...,operating state:1, " +
@@ -72,6 +79,9 @@ public class TransformingSensor {
         }
         f_Timestamp = System.currentTimeMillis();
         this.value = 100;
+        updateTransformingingProgressBar(progressBar,value);
+        Thread.sleep(1500);
+        progressBar.dispose();
         setLocation(city.getCITY(random.nextInt(5)));
         System.out.println(String.format("Percentage reached: %d%!!\n",value));
         System.out.println(String.format("""
@@ -148,6 +158,17 @@ public class TransformingSensor {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public ProgressBar generateTransformingingProgressBar(){
+        ProgressBar progressBar =new ProgressBar(0,100);
+        progressBar.setVisible(true);
+        progressBar.setTitle("Transforming Chain");
+        return progressBar;
+    }
+    public static void updateTransformingingProgressBar(ProgressBar progressBar, int value){
+        progressBar.paint(progressBar.getGraphics());
+        progressBar.jb.setValue(value);
     }
 
 
