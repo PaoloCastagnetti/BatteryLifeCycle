@@ -17,13 +17,13 @@ import java.io.IOException;
  */
 
 public class CoapPutTransform {
-    private static final String COAP_ENDPOINT_TRANSFORM = "coap://127.0.0.1:5684/Transform";
+    private static final String COAP_ENDPOINT = "coap://127.0.0.1:5683/ModCTransform";
 
     static Gson gson=new Gson();
 
 
     public static void coapPutTransformCall(TransformingSensor transformingSensor){
-        CoapClient coapClient = new CoapClient(COAP_ENDPOINT_TRANSFORM);
+        CoapClient coapClient = new CoapClient(COAP_ENDPOINT);
         //PUT
         System.out.println("Trying PUT on Transform stage..\n");
         Request request = new Request(CoAP.Code.PUT);
@@ -35,9 +35,22 @@ public class CoapPutTransform {
         try {
             CoapResponse coapResp = coapClient.advanced(request);
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(coapResp));
-            System.out.println(String.format("State of PUT on TransformStage: completed successfully,current timestamp is: %d\n",System.currentTimeMillis()));
+            System.out.printf("State of PUT on TransformStage: completed successfully,current timestamp is: %d\n%n",System.currentTimeMillis());
         } catch (ConnectorException | IOException e) {
             System.out.println("Trasformg information weren't correct, something's wrong!!\n");
+            e.printStackTrace();
+        }
+
+        //GET
+        Request getRequest = new Request(CoAP.Code.GET);
+        getRequest.setConfirmable(true);
+        System.out.println("GET on the resource.\n");
+        System.out.printf("Request Pretty Print: \n%s%n\n", Utils.prettyPrint(getRequest));
+        try{
+            CoapResponse resp = coapClient.advanced(getRequest);
+            System.out.println("Response DCPM: \n");
+            System.out.printf("Response Pretty Print: \n%s%n\n", Utils.prettyPrint(resp));
+        }catch(ConnectorException | IOException e){
             e.printStackTrace();
         }
     }

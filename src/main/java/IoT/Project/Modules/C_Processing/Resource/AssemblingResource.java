@@ -7,6 +7,7 @@ import org.eclipse.californium.core.CoapHandler;
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.coap.CoAP;
+import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 
 /**
@@ -16,7 +17,8 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
  */
 
 public class AssemblingResource extends CoapResource {
-    private static final String OBJECT_TITLE = "AssemblingSensor";
+    private static final String OBJECT_TITLE = "ModCAssemble";
+    private static final long UPDATE_TIME_MS = 10000;
 
     private AssemblingSensor assemblingSensor;
     private Gson gson;
@@ -36,19 +38,13 @@ public class AssemblingResource extends CoapResource {
     @Override
     public void handleGET(CoapExchange exchange) {
         exchange.accept();
-
-        CoapClient client = new CoapClient("localhost:5683/sensor/assemble");
-        client.get(new CoapHandler() {
-            @Override
-            public void onLoad(CoapResponse response) {
-                exchange.respond(response.getCode(), response.getPayload());
-            }
-
-            @Override
-            public void onError() {
-                exchange.respond(CoAP.ResponseCode.BAD_GATEWAY);
-            }
-        });
+        exchange.setMaxAge(UPDATE_TIME_MS/1000);
+        try{
+            String responseBody = this.gson.toJson(this.assemblingSensor);
+            exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_JSON);
+        }catch (Exception e){
+            exchange.respond(CoAP.ResponseCode.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override

@@ -16,11 +16,10 @@ import java.io.IOException;
  */
 
 public class CoapPutAssembleStage {
-    private static final String COAP_ENDPOINT_TRANSFORM = "coap://127.0.0.1:5684/Assemble";
-
-    static Gson gson;
+    private static final String COAP_ENDPOINT_TRANSFORM = "coap://127.0.0.1:5683/ModCAssemble";
 
     public static void CoapPutAssemble(AssemblingSensor assemblingSensor){
+        Gson gson = new Gson();
         CoapClient coapClient = new CoapClient(COAP_ENDPOINT_TRANSFORM);
         //PUT
         System.out.println("Trying PUT on Assemble stage...\n");
@@ -33,9 +32,22 @@ public class CoapPutAssembleStage {
         try {
             CoapResponse coapResp = coapClient.advanced(request);
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(coapResp));
-            System.out.println(String.format("State of PUT on AssembleStage: completed successfully,current timestamp is: %d\n",System.currentTimeMillis()));
+            System.out.printf("State of PUT on AssembleStage: completed successfully,current timestamp is: %d\n%n",System.currentTimeMillis());
         } catch (ConnectorException | IOException e) {
             System.out.println("Assembling information are wrong, check!\n");
+            e.printStackTrace();
+        }
+
+        //GET
+        Request getRequest = new Request(CoAP.Code.GET);
+        getRequest.setConfirmable(true);
+        System.out.println("GET on the resource.\n");
+        System.out.printf("Request Pretty Print: \n%s%n\n", Utils.prettyPrint(getRequest));
+        try{
+            CoapResponse resp = coapClient.advanced(getRequest);
+            System.out.println("Response DCPM: \n");
+            System.out.printf("Response Pretty Print: \n%s%n\n", Utils.prettyPrint(resp));
+        }catch(ConnectorException | IOException e){
             e.printStackTrace();
         }
     }

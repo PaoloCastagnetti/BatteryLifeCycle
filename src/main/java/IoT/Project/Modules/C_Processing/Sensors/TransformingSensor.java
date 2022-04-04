@@ -18,7 +18,7 @@ public class TransformingSensor {
     private int value;
     private long i_Timestamp;
     private long f_Timestamp;
-    private String unit = "%";
+    private final String UNIT = "%";
     private String deviceId;
     private String location;
     private String code;
@@ -46,34 +46,34 @@ public class TransformingSensor {
             System.out.printf("Trasforming percentage increased to:  %d, the current timestamp is %d, continue...\n",value,System.currentTimeMillis());
             Thread.sleep(1500);
             if(value==20){
-                System.out.println(String.format("System Begin: Crushing Raw Material and Creation of the Compound...,operating state:1, current timestamp: %d, " +
-                        "current state of line: succesfully operating!\n",System.currentTimeMillis()));
+                System.out.printf("System Begin: Crushing Raw Material and Creation of the Compound...,operating state:1, current timestamp: %d, " +
+                        "current state of line: succesfully operating!\n%n",System.currentTimeMillis());
                 Thread.sleep(1500);
             }
             if(value==40){
                 updateTransformingingProgressBar(progressBar,value);
-                System.out.println(String.format("System Update: Compound is ready, current timestamp: %d\n",System.currentTimeMillis()));
+                System.out.printf("System Update: Compound is ready, current timestamp: %d\n%n",System.currentTimeMillis());
                 Thread.sleep(1500);
-                System.out.println(String.format("System Begin: Creation Anode and Catode...,operating state:1, " +
-                        "current timestamp: %d, current state of line: successfully operating!\n",System.currentTimeMillis()));
+                System.out.printf("System Begin: Creation Anode and Catode...,operating state:1, " +
+                        "current timestamp: %d, current state of line: successfully operating!\n%n",System.currentTimeMillis());
                 Thread.sleep(1500);
-                System.out.println(String.format("System Begin:Creation of Coating...,operating state:1, " +
-                        "current timestamp: %d, current state of line: successfully operating!\n",System.currentTimeMillis()));
+                System.out.printf("System Begin:Creation of Coating...,operating state:1, " +
+                        "current timestamp: %d, current state of line: successfully operating!\n%n",System.currentTimeMillis());
 
             }
             if(value==60){
                 updateTransformingingProgressBar(progressBar,value);
-                System.out.println(String.format("System Update: Ending Coating Operation, Current Timestamp: %d\n",System.currentTimeMillis()));
+                System.out.printf("System Update: Ending Coating Operation, Current Timestamp: %d\n%n",System.currentTimeMillis());
                 Thread.sleep(1500);
-                System.out.println(String.format("System Begin: Stacking,Drying and Welding Operation...,operating state:1, " +
-                        "current timestamp: %d, current state of line: successfully operating!\n",System.currentTimeMillis()));
+                System.out.printf("System Begin: Stacking,Drying and Welding Operation...,operating state:1, " +
+                        "current timestamp: %d, current state of line: successfully operating!\n%n",System.currentTimeMillis());
             }
             if(value==80){
                 updateTransformingingProgressBar(progressBar,value);
-                System.out.println(String.format("System Update: Ending Welding Operation, current timestamp: %d\n",System.currentTimeMillis()));
+                System.out.printf("System Update: Ending Welding Operation, current timestamp: %d\n%n",System.currentTimeMillis());
                 Thread.sleep(1500);
-                System.out.println(String.format("System Begin: Electrolyte Injection and Sealing Operation...,operating state:1, " +
-                        "current timestamp: %d, current state of line: successfully operating!\n",System.currentTimeMillis()));
+                System.out.printf("System Begin: Electrolyte Injection and Sealing Operation...,operating state:1, " +
+                        "current timestamp: %d, current state of line: successfully operating!\n%n",System.currentTimeMillis());
             }
 
         }
@@ -83,12 +83,12 @@ public class TransformingSensor {
         Thread.sleep(1500);
         progressBar.dispose();
         setLocation(city.getCITY(random.nextInt(5)));
-        System.out.println(String.format("Percentage reached: %d%!!\n",value));
-        System.out.println(String.format("""
+        System.out.printf("Percentage reached: %d !!\n%n",value);
+        System.out.printf("""
                 "The device number: %s is full Transformed!
                 Setting final Timestamp to: %s
                 Current location is %s
-                """,deviceId,f_Timestamp,location));
+                %n""",deviceId,f_Timestamp,location);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class TransformingSensor {
                 "value=" + value +
                 ", i_Timestamp=" + i_Timestamp +
                 ", f_Timestamp=" + f_Timestamp +
-                ", unit='" + unit + '\'' +
+                ", unit='" + UNIT + '\'' +
                 ", deviceId='" + deviceId + '\'' +
                 ", location='" + location + '\'' +
                 ", code='" + code + '\'' +
@@ -128,12 +128,8 @@ public class TransformingSensor {
         this.f_Timestamp = f_Timestamp;
     }
 
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public String getUNIT() {
+        return UNIT;
     }
 
     public String getDeviceId() {

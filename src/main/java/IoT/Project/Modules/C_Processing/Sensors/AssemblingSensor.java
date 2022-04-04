@@ -50,32 +50,32 @@ public class AssemblingSensor {
             Thread.sleep(1500);
             if(value==20){
                 updateAssemblingProgressBar(progressBar,value);
-                System.out.println(String.format("System Begin:Casting Operation,operating state:1, current timestamp: %d, " +
-                        "current state of line: succesfully operating!\n",System.currentTimeMillis()));
+                System.out.printf("System Begin:Casting Operation,operating state:1, current timestamp: %d, " +
+                        "current state of line: succesfully operating!\n%n",System.currentTimeMillis());
                 Thread.sleep(1500);
-                System.out.println(String.format("System Begin: Installing Thermal Management System,operating state:1, current timestamp: %d, " +
-                        "current state of line: succesfully operating!\n",System.currentTimeMillis()));
+                System.out.printf("System Begin: Installing Thermal Management System,operating state:1, current timestamp: %d, " +
+                        "current state of line: succesfully operating!\n%n",System.currentTimeMillis());
             }
             if(value==40){
                 updateAssemblingProgressBar(progressBar,value);
-                System.out.println(String.format("System Begin: Fastening System, current timestamp: %d\n",System.currentTimeMillis()));
+                System.out.printf("System Begin: Fastening System, current timestamp: %d\n%n",System.currentTimeMillis());
                 Thread.sleep(1500);
-                System.out.println(String.format("System Update: Fastening Installation Done...,operating state:1, " +
-                        "current timestamp: %d, current state of line: succesfully operating!\n",System.currentTimeMillis()));
+                System.out.printf("System Update: Fastening Installation Done...,operating state:1, " +
+                        "current timestamp: %d, current state of line: succesfully operating!\n%n",System.currentTimeMillis());
             }
             if (value==60){
                 updateAssemblingProgressBar(progressBar,value);
-                System.out.println(String.format("System Begin: Cable Installation...Current timestamp: %d\n",System.currentTimeMillis()));
+                System.out.printf("System Begin: Cable Installation...Current timestamp: %d\n%n",System.currentTimeMillis());
                 Thread.sleep(1500);
-                System.out.println(String.format("System Begin: Pack Sealing...,operating state:1, " +
-                        "current timestamp: %d, current state of line: succesfully operating!\n",System.currentTimeMillis()));
+                System.out.printf("System Begin: Pack Sealing...,operating state:1, " +
+                        "current timestamp: %d, current state of line: succesfully operating!\n%n",System.currentTimeMillis());
             }
             if(value==80){
                 updateAssemblingProgressBar(progressBar,value);
-                System.out.println(String.format("System Update: Inspection Operation, current timestamp: %d\n",System.currentTimeMillis()));
+                System.out.printf("System Update: Inspection Operation, current timestamp: %d\n%n",System.currentTimeMillis());
                 Thread.sleep(1500);
-                System.out.println(String.format("System Update: Testing Operation...,operating state:1, " +
-                        "current timestamp: %d, current state of line: succesfully operating!\n",System.currentTimeMillis()));
+                System.out.printf("System Update: Testing Operation...,operating state:1, " +
+                        "current timestamp: %d, current state of line: succesfully operating!\n%n",System.currentTimeMillis());
             }
 
         }
@@ -85,12 +85,12 @@ public class AssemblingSensor {
         Thread.sleep(1500);
         progressBar.dispose();
         setLocation(city.getCITY(random.nextInt(5)));
-        System.out.println(String.format("All Test are OK, Assemblation Percentage is:"+value+"%"));
-        System.out.println(String.format("""
+        System.out.println("All Test are OK, Assemblation Percentage is:"+value+"%");
+        System.out.printf("""
                 "The device number: %s is full Assembled!
                 Setting final Timestamp to: %s
                 Current location is %s
-                """,deviceId,f_Timestamp_assembling,location));
+                %n""",deviceId,f_Timestamp_assembling,location);
     }
 
     @Override

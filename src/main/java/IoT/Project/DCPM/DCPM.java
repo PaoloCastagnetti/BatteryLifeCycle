@@ -1,6 +1,8 @@
 package IoT.Project.DCPM;
 
 import IoT.Project.DCPM.Resources.*;
+import IoT.Project.Modules.C_Processing.Resource.AssemblingResource;
+import IoT.Project.Modules.C_Processing.Resource.TransformingResource;
 import org.eclipse.californium.core.CoapServer;
 
 /**
@@ -15,6 +17,9 @@ public class DCPM extends CoapServer {
         TransportResource TR = new TransportResource("Transport");
         ProcessingResource PR = new ProcessingResource("Processing");
         QrCodeResource QRR = new QrCodeResource("QrCode");
+
+        this.add(new TransformingResource("ModCTransform"));
+        this.add(new AssemblingResource("ModCAssemble"));
 
         this.add(ET);
         this.add(TR);
@@ -38,5 +43,4 @@ public class DCPM extends CoapServer {
             }
         });
     }
-
 }

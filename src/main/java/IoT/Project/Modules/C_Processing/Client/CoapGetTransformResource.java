@@ -17,14 +17,13 @@ import java.io.IOException;
  */
 
 public class CoapGetTransformResource {
-    private static final String COAP_ENDPOINT_GET = "coap://127.0.0.1:5683/Transform";
-
-    static Gson gson;
+    private static final String COAP_ENDPOINT = "coap://127.0.0.1:5683/ModCTransform";
 
     public static TransformingSensor getTransformComponent(){
+        Gson gson=new Gson();
         //Initialize coapClient
-        CoapClient coapClient = new CoapClient(COAP_ENDPOINT_GET);
-        TransformingSensor sensor=new TransformingSensor();
+        CoapClient coapClient = new CoapClient(COAP_ENDPOINT);
+        TransformingSensor transformingSensor = new TransformingSensor();
 
         //Request Class is a generic CoAP message: in this case we want a GET.
         //"Message ID", "Token" and other header's fields can be set
@@ -34,22 +33,19 @@ public class CoapGetTransformResource {
         //Set Request as Confirmable
         req.setConfirmable(true);
 
-        //Synchronously send the GET message (blocking call)
-        CoapResponse coapResp = null;
-
         System.out.printf("Request Pretty Print: \n%s%n", Utils.prettyPrint(req));
         try{
             CoapResponse resp = coapClient.advanced(req);
             byte[] payload = resp.getPayload();
             String final_payload = new String(payload);
-            sensor= gson.fromJson(final_payload, TransformingSensor.class);
+            transformingSensor = gson.fromJson(final_payload, TransformingSensor.class);
             System.out.println("Transform's information acquired succesfully:\n"+String.format("The current timestamp is:%d\n",System.currentTimeMillis()));
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(resp));
             System.out.println("Ending Get on Transform Resource...\n");
-        }catch(ConnectorException | IOException e){
+        }catch(Exception e){
             System.out.println("The information of transform stage are wrong!\n");
             e.printStackTrace();
         }
-        return sensor;
+        return transformingSensor;
     }
 }
