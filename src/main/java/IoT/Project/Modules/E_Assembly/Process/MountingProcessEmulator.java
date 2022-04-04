@@ -105,6 +105,8 @@ public class MountingProcessEmulator {
 
             mqttClient.disconnect();
             mqttClient.close();
+
+            System.out.println("Disconnected !");
         } catch (Exception e) {
             e.printStackTrace();
         }

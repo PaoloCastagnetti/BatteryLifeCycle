@@ -83,7 +83,7 @@ public class QrCodeGeneration {
 
             progressBar.dispose();
             System.out.println("QrCode Is Ready!!\n");
-            System.out.println(String.format("Current timestap is: %d\n",System.currentTimeMillis()));
+            System.out.printf("Current timestap is: %d\n%n",System.currentTimeMillis());
 
             CoapPutQrCode.putQrCode(qrCodeDescriptor);
 
