@@ -38,13 +38,15 @@ public class CoapGetProcessing {
             CoapResponse resp = coapClient.advanced(req);
             byte[] payload = resp.getPayload();
             final_payload = new String(payload);
-            System.out.println(String.format("Current Payload is:%s, current timestamp is: %d\n",final_payload,System.currentTimeMillis()));
+            System.out.println(String.format("Current Payload is:%s, " +
+                    "current timestamp is: %d\n",final_payload,System.currentTimeMillis()));
 
         }catch(ConnectorException | IOException e){
             System.out.println("Processing information are wrong!\n");
             e.printStackTrace();
         }
-        System.out.println("Got everything needed on Processing's information!\n"+String.format("Current timestamp is: %d\n",System.currentTimeMillis()));
+        System.out.println("Got everything needed on Processing's information!\n"+
+                String.format("Current timestamp is: %d\n",System.currentTimeMillis()));
         return final_payload;
     }
 }
