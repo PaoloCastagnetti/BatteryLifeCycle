@@ -8,7 +8,7 @@ public class SimulationStageC {
         try {
             System.out.println("STARTING SIMULATION STAGE C!");
             TransformingProcess.main(args);
-            Thread.sleep(70000);
+            Thread.sleep(30000);
             AssemblingCoapProcess.main(args);
         }catch (Exception e){
             e.printStackTrace();

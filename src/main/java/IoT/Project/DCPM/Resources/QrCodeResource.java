@@ -27,6 +27,7 @@ public class QrCodeResource extends CoapResource{
         setObservable(true);
         setObserveType(CoAP.Type.CON);
         getAttributes().setObservable();
+        getAttributes().setMaximumSizeEstimate(23876);
 
         Timer timer = new Timer();
         timer.schedule(new QrCodeResource.UpdateTask(),0,UPDATE_TIME_MS);

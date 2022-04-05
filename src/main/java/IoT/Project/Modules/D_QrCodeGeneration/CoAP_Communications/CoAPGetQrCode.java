@@ -1,5 +1,7 @@
 package IoT.Project.Modules.D_QrCodeGeneration.CoAP_Communications;
 
+import IoT.Project.DCPM.Models.QrCodeDescriptor;
+import com.google.gson.Gson;
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.Utils;
@@ -12,8 +14,10 @@ import java.io.IOException;
 public class CoAPGetQrCode {
     private static final String COAP_ENDPOINT = "coap://127.0.0.1:5683/QrCode";
 
-    public static String getQrCode(){
-        String final_payload = null;
+    public static QrCodeDescriptor getQrCode(){
+        String final_payload;
+        QrCodeDescriptor qrCodeDescriptor = new QrCodeDescriptor();
+        Gson gson = new Gson();
         //Initialize coapClient
         CoapClient coapClient = new CoapClient(COAP_ENDPOINT);
 
@@ -30,13 +34,14 @@ public class CoAPGetQrCode {
             CoapResponse resp = coapClient.advanced(getRequest);
             byte[] payload = resp.getPayload();
             final_payload = new String(payload);
-            System.out.println(String.format("Current Payload is:%s, current timestamp is: %d\n",final_payload,System.currentTimeMillis()));
+            qrCodeDescriptor = gson.fromJson(final_payload, QrCodeDescriptor.class);
+            System.out.printf("Current Payload is:%s, current timestamp is: %d\n%n",final_payload,System.currentTimeMillis());
 
         }catch(ConnectorException | IOException e){
             System.out.println("Extraction information are wrong!\n");
             e.printStackTrace();
         }
         System.out.println("Got everything needed on QrCode!"+String.format("Current timestamp is: %d\n",System.currentTimeMillis()));
-        return final_payload;
+        return qrCodeDescriptor;
     }
 }

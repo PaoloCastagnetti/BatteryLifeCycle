@@ -2,10 +2,8 @@ package IoT.Project.Modules.C_Processing.Process;
 
 import IoT.Project.Modules.C_Processing.Client.CoapGetTransformResource;
 import IoT.Project.Modules.C_Processing.Client.CoapPutAssembleStage;
-import IoT.Project.Modules.C_Processing.Resource.AssemblingResource;
 import IoT.Project.Modules.C_Processing.Sensors.AssemblingSensor;
 import IoT.Project.Modules.C_Processing.Sensors.TransformingSensor;
-import org.eclipse.californium.core.CoapServer;
 
 /**
  * @author Francesco Lasalvia, 271719@studenti.unimore.it

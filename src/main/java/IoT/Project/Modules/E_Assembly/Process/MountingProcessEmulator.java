@@ -47,7 +47,7 @@ public class MountingProcessEmulator {
         });
 
         try {
-            Thread.sleep(60000);
+            Thread.sleep(30000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

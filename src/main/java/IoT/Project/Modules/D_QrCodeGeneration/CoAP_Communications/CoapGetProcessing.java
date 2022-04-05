@@ -27,18 +27,16 @@ public class CoapGetProcessing {
         System.out.println("Asking information to processing...\n");
         Request req = new Request(CoAP.Code.GET);
 
+
         //Set Request as Confirmable
         req.setConfirmable(true);
-
-        //Synchronously send the GET message (blocking call)
-        CoapResponse coapResp = null;
 
         System.out.printf("Request Pretty Print: \n%s%n", Utils.prettyPrint(req));
         try{
             CoapResponse resp = coapClient.advanced(req);
             byte[] payload = resp.getPayload();
             final_payload = new String(payload);
-            System.out.println(String.format("Current Payload is:%s, current timestamp is: %d\n",final_payload,System.currentTimeMillis()));
+            System.out.printf("Current Payload is: %s, current timestamp is: %d \n",final_payload,System.currentTimeMillis());
 
         }catch(ConnectorException | IOException e){
             System.out.println("Processing information are wrong!\n");
@@ -46,5 +44,25 @@ public class CoapGetProcessing {
         }
         System.out.println("Got everything needed on Processing's information!\n"+String.format("Current timestamp is: %d\n",System.currentTimeMillis()));
         return final_payload;
+    }
+
+    public static void main(String[] args) {
+        String final_payload = null;
+        CoapClient coapClient = new CoapClient(COAP_ENDPOINT_GET);
+        Request req = new Request(CoAP.Code.GET);
+        req.setConfirmable(true);
+
+        System.out.printf("Request Pretty Print: \n%s%n", Utils.prettyPrint(req));
+        try{
+            CoapResponse resp = coapClient.advanced(req);
+            byte[] payload = resp.getPayload();
+            final_payload = new String(payload);
+
+        }catch(ConnectorException | IOException e){
+            System.out.println("Processing information are wrong!\n");
+            e.printStackTrace();
+        }
+
+        System.out.println(final_payload);
     }
 }

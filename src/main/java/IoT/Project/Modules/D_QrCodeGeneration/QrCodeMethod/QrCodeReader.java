@@ -24,16 +24,17 @@ public class QrCodeReader {
     private static String path="C:\\Users\\Paolo\\IdeaProjects\\BatteryLifeCycle\\src\\main\\java\\IoT\\Project\\Modules\\D_QrCodeGeneration\\QrCodeImage";
 
     public static void main(String[] args) throws ChecksumException, NotFoundException, IOException, WriterException, FormatException {
-        Gson gson =new Gson();
 
-        String QR = CoAPGetQrCode.getQrCode();
-        QrCodeDescriptor qrCodeDescriptor = gson.fromJson(QR, QrCodeDescriptor.class);
+        Gson gson =new Gson();
+        QrCodeDescriptor qrCodeDescriptor = CoAPGetQrCode.getQrCode();
+
 
         String codeBattery=qrCodeDescriptor.getID();
-        File file=new File(String.format("%s/QR_Code_%s.png",path,codeBattery));
+        //String codeBattery="Mantova.1649002551723";
+        File qr_file=new File(String.format("%s/QR_Code_%s.png",path,codeBattery));
 
         System.out.println("IL contenuto del QrCode e' il seguente: \n");
-        System.out.println(readQrCode(file));
+        System.out.println(readQrCode(qr_file));
         System.out.println("\n");
         System.out.println("Done");
     }

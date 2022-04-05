@@ -16,10 +16,10 @@ import java.io.IOException;
  */
 
 public class CoapPutAssembleStage {
-    private static final String COAP_ENDPOINT_TRANSFORM = "coap://127.0.0.1:5683/ModCAssemble";
+    private static final String COAP_ENDPOINT_TRANSFORM = "coap://127.0.0.1:5683/Processing";
+    static Gson gson = new Gson();
 
     public static void CoapPutAssemble(AssemblingSensor assemblingSensor){
-        Gson gson = new Gson();
         CoapClient coapClient = new CoapClient(COAP_ENDPOINT_TRANSFORM);
         //PUT
         System.out.println("Trying PUT on Assemble stage...\n");

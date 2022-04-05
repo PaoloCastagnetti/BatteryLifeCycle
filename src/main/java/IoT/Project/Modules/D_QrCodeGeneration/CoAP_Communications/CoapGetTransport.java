@@ -30,15 +30,12 @@ public class CoapGetTransport {
         //Set Request as Confirmable
         req.setConfirmable(true);
 
-        //Synchronously send the GET message (blocking call)
-        CoapResponse coapResp = null;
-
         System.out.printf("Request Pretty Print: \n%s%n", Utils.prettyPrint(req));
         try{
             CoapResponse resp = coapClient.advanced(req);
             byte[] payload = resp.getPayload();
             final_payload = new String(payload);
-            System.out.println(String.format("Current Payload is:%s, current timestamp is: %d\n",final_payload,System.currentTimeMillis()));
+            System.out.printf("Current Payload is:%s, current timestamp is: %d\n%n",final_payload,System.currentTimeMillis());
 
         }catch(ConnectorException | IOException e){
             System.out.println("Transport information are wrong!\n");

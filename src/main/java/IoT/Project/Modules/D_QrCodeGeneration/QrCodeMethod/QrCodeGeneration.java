@@ -33,7 +33,6 @@ public class QrCodeGeneration {
     public static int getValue() {
         return value;
     }
-
     public static void setValue(int value) {
         QrCodeGeneration.value = value;
     }
@@ -47,24 +46,29 @@ public class QrCodeGeneration {
 
         QrCodeDescriptor qrCodeDescriptor=new QrCodeDescriptor();
         Gson gson = new Gson();
+
         //text sono le info che vuoi mettere nel QRcode
-        String A_Extraction= CoapGetExtraction.getExtractionGson();
+        String A_Extraction = CoapGetExtraction.getExtractionGson();
         ExtractionDescriptor extractionDescriptor = gson.fromJson(A_Extraction, ExtractionDescriptor.class);
         updateProgressBar(progressBar,value+=10);
         Thread.sleep(1000);
+
         String B_Transport= CoapGetTransport.getTransportGson();
         updateProgressBar(progressBar,value+=10);
         Thread.sleep(1500);
+
         String C_Processing= CoapGetProcessing.getProcessingGson();
         updateProgressBar(progressBar,value+=10);
         Thread.sleep(1500);
+
         String final_payload=String.format("Extraction:\n%s\nTransport\n%s\nProcessing:\n%s\n",A_Extraction,B_Transport,C_Processing);
         updateProgressBar(progressBar,value+=10);
         Thread.sleep(1500);
+
         try{
             //generate QrCode
             QRCodeWriter writer=new QRCodeWriter();
-            BitMatrix bitMatrix=writer.encode(final_payload, BarcodeFormat.QR_CODE,300,300);
+            BitMatrix bitMatrix=writer.encode(final_payload, BarcodeFormat.QR_CODE,180,180);
             updateProgressBar(progressBar,value+=20);
             Thread.sleep(1500);
 
@@ -75,9 +79,12 @@ public class QrCodeGeneration {
             Thread.sleep(1500);
 
             qrCodeDescriptor.setID(extractionDescriptor.getLoad_code());
-
             qrCodeDescriptor.setTimestamp(System.currentTimeMillis());
             qrCodeDescriptor.setQrCode(bitMatrix);
+
+            //System.out.println("ID: "+qrCodeDescriptor.getID());
+            //System.out.println("Timestamp: "+ qrCodeDescriptor.getTimestamp());
+            //System.out.println("bitMatrix: " + qrCodeDescriptor.getQrCode());
             updateProgressBar(progressBar,value+=20);
             Thread.sleep(1500);
 
