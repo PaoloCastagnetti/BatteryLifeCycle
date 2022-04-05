@@ -4,6 +4,7 @@ import IoT.Project.DCPM.DCPM;
 import IoT.Project.Modules.A_Extraction.SimulationStageA;
 import IoT.Project.Modules.B_Transport.SimulationStageB;
 import IoT.Project.Modules.C_Processing.SimulationStageC;
+import IoT.Project.Modules.D_QrCodeGeneration.QrCodeMethod.QrCodeReader;
 import IoT.Project.Modules.D_QrCodeGeneration.SimulationStageD;
 import IoT.Project.Modules.E_Assembly.SimulationStageE;
 
@@ -21,6 +22,8 @@ public class GeneralSimulation {
             SimulationStageD.main(args);
             Thread.sleep(30000);
             SimulationStageE.main(args);
+            Thread.sleep(10000);
+            QrCodeReader.main(args);
         }catch (Exception e){
             e.printStackTrace();
         }
