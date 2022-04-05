@@ -28,7 +28,8 @@ public class CoapPutQrCode {
         try {
             CoapResponse coapResp = coapClient.advanced(request);
             System.out.printf("Response Pretty Print: \n%s%n", Utils.prettyPrint(coapResp));
-            System.out.println("Delivered QrCode's informations succesfully!\n"+String.format("Current timestamp is: %d\n",System.currentTimeMillis()));
+            System.out.println("Delivered QrCode's informations succesfully!\n"+
+                    String.format("Current timestamp is: %d\n",System.currentTimeMillis()));
         } catch (ConnectorException | IOException e) {
             System.out.println("QrCode's informations are wrong..\n");
             e.printStackTrace();
