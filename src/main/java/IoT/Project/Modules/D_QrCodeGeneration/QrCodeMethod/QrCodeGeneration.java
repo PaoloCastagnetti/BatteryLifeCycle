@@ -68,7 +68,7 @@ public class QrCodeGeneration {
         try{
             //generate QrCode
             QRCodeWriter writer=new QRCodeWriter();
-            BitMatrix bitMatrix=writer.encode(final_payload, BarcodeFormat.QR_CODE,180,180);
+            BitMatrix bitMatrix=writer.encode(final_payload, BarcodeFormat.QR_CODE,150,150);
             updateProgressBar(progressBar,value+=20);
             Thread.sleep(1500);
 

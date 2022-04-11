@@ -30,7 +30,6 @@ public class QrCodeReader {
 
 
         String codeBattery=qrCodeDescriptor.getID();
-        //String codeBattery="Mantova.1649002551723";
         File qr_file=new File(String.format("%s/QR_Code_%s.png",path,codeBattery));
 
         System.out.println("IL contenuto del QrCode e' il seguente: \n");
@@ -39,9 +38,14 @@ public class QrCodeReader {
         System.out.println("Done");
     }
 
-    private static String readQrCode(File qrcodefile) throws IOException, NotFoundException, ChecksumException, FormatException {
-        QRCodeReader qrCodeReader=new QRCodeReader();
-        Result decode=qrCodeReader.decode(new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(ImageIO.read(qrcodefile)))));
+    private static String readQrCode(File qrcodefile) {
+        Result decode=null;
+        try{
+            QRCodeReader qrCodeReader=new QRCodeReader();
+            decode=qrCodeReader.decode(new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(ImageIO.read(qrcodefile)))));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return decode.getText();
     }
 }

@@ -18,9 +18,9 @@ public class GeneralSimulation {
             SimulationStageB.main(args);
             Thread.sleep(30000);
             SimulationStageC.main(args);
-            Thread.sleep(30000);
+            Thread.sleep(20000);
             SimulationStageD.main(args);
-            Thread.sleep(30000);
+            Thread.sleep(20000);
             SimulationStageE.main(args);
             Thread.sleep(10000);
             QrCodeReader.main(args);
