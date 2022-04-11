@@ -30,7 +30,13 @@ public class DCPM extends CoapServer {
 
         DCPM coapServer = new DCPM();
         System.out.println("Starting DCPM...\n");
-        coapServer.start();
+
+        try{
+            coapServer.start();
+            Thread.sleep(2000);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         coapServer.getRoot().getChildren().stream().forEach(resource -> {
             System.out.printf("Resource %s -> URI: %s (Observable: %b)%n",resource.getName(), resource.getURI(), resource.isObservable());

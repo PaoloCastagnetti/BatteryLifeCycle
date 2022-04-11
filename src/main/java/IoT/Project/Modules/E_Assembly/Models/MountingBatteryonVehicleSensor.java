@@ -20,10 +20,9 @@ public class MountingBatteryonVehicleSensor {
     private final java.lang.String UNIT = "%";
 
     //Attributes
-
+    private int value;
     private BitMatrix file;
     private String sensorID;
-    private int value;
     private long timestamp;
     private String car;
 

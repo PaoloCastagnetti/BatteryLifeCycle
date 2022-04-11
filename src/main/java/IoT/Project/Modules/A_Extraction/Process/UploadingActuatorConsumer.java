@@ -21,8 +21,10 @@ public class UploadingActuatorConsumer {
 
     static void StartLoading() throws InterruptedException {
         System.out.println("Starting to load minerals into the truck.");
+        Thread.sleep(3000);
         while(true){
             UAD.measureLoadingMaterial();
+            UAD.simulateQuantityOfMaterial();
             String loading = gson.toJson(UAD);
             System.out.println("Loading: "+ loading);
             if(UAD.getValue()==100){
@@ -32,7 +34,7 @@ public class UploadingActuatorConsumer {
                 sendResource(UAD);
                 break;
             }
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         }
     }
 
@@ -72,7 +74,7 @@ public class UploadingActuatorConsumer {
             client.subscribe(sensorTelemetryTopic, (topic, message) -> {
                 byte[] payload = message.getPayload();
                 String msg = new String(payload);
-                System.out.println("Message Received ("+topic+") Message Received: " + msg);
+                System.out.println("Message Received on topic ("+topic+")\nContent: " + msg);
                 MineralQuantitySensorDescriptor MQS = gson.fromJson(msg, MineralQuantitySensorDescriptor.class);
                 if(MQS.getValue()==100){
                     System.out.println("Extraction has reach its maximum volume.\n");

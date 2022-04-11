@@ -21,6 +21,8 @@ public class UploadingActuatorDescriptor {
 
     private static int QUANTITY_START_VALUE = 0;
     private static final int QUANTITY_VALUE_BOUND = 10;
+    private static int QUANTITY_START_MINERAL = 0;
+    private static final int QUANTITY_MINERAL_BOUND = 2500;
 
     //Utils
     private transient Random random;
@@ -94,7 +96,6 @@ public class UploadingActuatorDescriptor {
         this.setLocation(this.city.getCITY(rnd));
         String code = String.format("%s.%d",this.getLocation(),this.getL_timestamp());
         this.setLoad_code(code);
-        this.setMineral_quantity(this.random.nextInt(10000, 40000));
     }
 
     //This method simulates the quantity of the extracted materials loaded on the trucks
@@ -106,5 +107,12 @@ public class UploadingActuatorDescriptor {
             this.value-=tmp;
         }
         this.l_timestamp = System.currentTimeMillis();
+    }
+
+    public void simulateQuantityOfMaterial(){
+        QUANTITY_START_MINERAL+=this.random.nextInt(750,QUANTITY_MINERAL_BOUND);
+        this.mineral_quantity=QUANTITY_START_MINERAL;
+        if (this.mineral_quantity>40000)
+            this.mineral_quantity=40000;
     }
 }

@@ -51,7 +51,7 @@ public class MineralQuantityProcessEmulator {
                     System.out.println("The extraction has reached its maximum volume!");
                     break;
                 }
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             }
 
             //Disconnect from the broker and close the connection
@@ -78,7 +78,7 @@ public class MineralQuantityProcessEmulator {
                     MQTTConfigurationParameters.EXTRACTED_TOPIC);
 
             String payloadString = gson.toJson(MQS_TD);
-            System.out.println("Topic: " + topic + " Data: " + payloadString);
+            System.out.println("Topic: " + topic + "\nData: " + payloadString);
 
             if (mqttClient.isConnected() && payloadString != null && topic != null) {
                 MqttMessage msg = new MqttMessage(payloadString.getBytes());
@@ -89,6 +89,7 @@ public class MineralQuantityProcessEmulator {
                     msg.setQos(0);
                 msg.setRetained(false);
                 mqttClient.publish(topic,msg);
+                System.out.println("QoS defined: "+msg.getQos());
                 System.out.println("Data Correctly Published !");
             }
             else{

@@ -172,7 +172,7 @@ public class VehicleTrackingEmulator {
                 msg.setQos(0);
                 msg.setRetained(false);
                 mqttClient.publish(topic, msg);
-                System.out.println("Telemetry Data Correctly Published! Topic" + topic + "Payload: " + payload);
+                System.out.println("Telemetry Data Correctly Published! Topic: " + topic + "\nPayload: " + payload);
 
 
             }
