@@ -19,10 +19,10 @@ public class UploadingActuatorDescriptor {
     private String load_code;
     private int mineral_quantity;
 
-    private static int QUANTITY_START_VALUE = 0;
-    private static final int QUANTITY_VALUE_BOUND = 10;
+    private static final int QUANTITY_MAX_MATERIAL = 40000;
     private static int QUANTITY_START_MINERAL = 0;
-    private static final int QUANTITY_MINERAL_BOUND = 2500;
+    private static final int QUANTITY_MAX_BOUND = 2500;
+    private static final int QUANTITY_MIN_BOUND = 750;
 
     //Utils
     private transient Random random;
@@ -100,19 +100,12 @@ public class UploadingActuatorDescriptor {
 
     //This method simulates the quantity of the extracted materials loaded on the trucks
     public void measureLoadingMaterial(){
-        QUANTITY_START_VALUE += this.random.nextInt(1, QUANTITY_VALUE_BOUND);
-        this.value = QUANTITY_START_VALUE;
-        if (this.value>100){
-            int tmp = this.value - 100;
-            this.value-=tmp;
-        }
+        QUANTITY_START_MINERAL+=this.random.nextInt(QUANTITY_MIN_BOUND,QUANTITY_MAX_BOUND);
+        this.mineral_quantity=QUANTITY_START_MINERAL;
+        if (this.mineral_quantity>QUANTITY_MAX_MATERIAL)
+            this.mineral_quantity=QUANTITY_MAX_MATERIAL;
+        this.value = this.mineral_quantity*100/QUANTITY_MAX_MATERIAL;
         this.l_timestamp = System.currentTimeMillis();
     }
 
-    public void simulateQuantityOfMaterial(){
-        QUANTITY_START_MINERAL+=this.random.nextInt(750,QUANTITY_MINERAL_BOUND);
-        this.mineral_quantity=QUANTITY_START_MINERAL;
-        if (this.mineral_quantity>40000)
-            this.mineral_quantity=40000;
-    }
 }

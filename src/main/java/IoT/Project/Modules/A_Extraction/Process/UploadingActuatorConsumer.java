@@ -24,7 +24,6 @@ public class UploadingActuatorConsumer {
         Thread.sleep(3000);
         while(true){
             UAD.measureLoadingMaterial();
-            UAD.simulateQuantityOfMaterial();
             String loading = gson.toJson(UAD);
             System.out.println("Loading: "+ loading);
             if(UAD.getValue()==100){
