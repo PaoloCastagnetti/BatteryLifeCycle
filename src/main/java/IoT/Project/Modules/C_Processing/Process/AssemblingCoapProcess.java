@@ -13,25 +13,7 @@ import IoT.Project.Modules.C_Processing.Sensors.TransformingSensor;
 
 public class AssemblingCoapProcess {
 
-//    public AssemblingCoapProcess(){
-//        super();
-//      this.add(new AssemblingResource("Assemble"));
-//    }
-
     public static void main(String[] args) {
-
-//        AssemblingCoapProcess server =new AssemblingCoapProcess();
-//        server.start();
-//        System.out.println("Coap serer started!, Available resouces: ");
-//
-//        server.getRoot().getChildren().stream().forEach(resource -> {
-//            System.out.println(String.format("Resource %s, Uri %s , Observable: %b",resource.getName(), resource.getURI(), resource.isObservable()));
-//            if(!resource.getURI().equals("/.well-known")){
-//                resource.getChildren().stream().forEach(childResource -> {
-//                    System.out.println(String.format("Resource %s, Uri %s , Observable: %b", childResource.getName(), childResource.getURI(), childResource.isObservable()));
-//                });
-//            }
-//        });
 
 
         //devo fare la get sulla tranform, mi serve inizio,fine, luogo ,id
@@ -60,6 +42,7 @@ public class AssemblingCoapProcess {
         //ora devo fare una put al data collector dell'assembling sensor
         System.out.println("Sending all data to DCPM...");
         CoapPutAssembleStage.CoapPutAssemble(assemblingSensor);
+
     }
 
 

@@ -21,7 +21,6 @@ public class TransformingResource extends CoapResource {
 
     private void init(){
         getAttributes().setTitle(OBJECT_TITLE);
-        //getAttributes().setObservable();
         this.gson = new Gson();
         this.transformingSensor = new TransformingSensor();
     }
